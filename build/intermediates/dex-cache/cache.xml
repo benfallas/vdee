@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/javax.inject-1_3781051edc2960f3c7dcdbba822ce9314379061e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="74ca46e7da11e3d065eb64cdbe6568a7ed74c211">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.jakewharton-butterknife-8.0.1_426dac4f29747892e3587c2380f7585f73ecd245.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.3.1_32601ffd41647a14117de2c146638496cb2ce257.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.3.1_7039e6bf9ac262360fd5decb4df02c8663e0f0b9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.2.5/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="204f607419af8247cc1b2a61f50663c65f841c12">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.crashlytics.sdk.android-beta-1.2.5_ac9a722b012efa05cfdd25dd9cdb2941b9f2e9ca.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.3.1_1df1f18348bd934a07244366828349494c96a62a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.3.1_cd21254698ab7e67f63b19736f93077d7d99ff22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/okio-1.6.0_99ad1ec2a31f9181d500eeb842c2329a6479bcd6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-smoothstreaming/r2.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="31abcff1d93243e1d25afda575266ca6219fadd1">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.google.android.exoplayer-exoplayer-smoothstreaming-r2.4.0_c346f692cb60ad781bb17cef77c890a6fa1d915e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/support-annotations-25.3.1_0c3035e4aeb7f2a5b8ad25d04680511e13ebc458.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-core/r2.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="52f4541e66a53c22179655d7e9c6fccf12cba86a">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.google.android.exoplayer-exoplayer-core-r2.4.0_714be20f4023a26c683e4aa80d483b79b5c40db8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/io.reactivex/rxandroid/1.2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="927e8ef5711b115b65b2f35495d77352be2b3c09">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/io.reactivex-rxandroid-1.2.0_0ebc27a63a5ffc0c3eb4afdd9c5d54466302b727.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.0.1/345b89f45d02d8b09400b472fab7b7e38f4ede1f/butterknife-annotations-8.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="345b89f45d02d8b09400b472fab7b7e38f4ede1f">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/butterknife-annotations-8.0.1_33c486c71519d643bfcc7d1e2a03c77c8215baf7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.3.1_690c53b431af2be08e105d58a84aa9fa9b71c1fa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.17/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="461929440e66685425a298693507f6fb27b0a872">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.crashlytics.sdk.android-crashlytics-core-2.3.17_072a34427f40e028bcb44103d75e6d4214cdb621.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-hls/r2.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1a22d14a4ee12a1fc2e765eb280d94ea73efa630">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.google.android.exoplayer-exoplayer-hls-r2.4.0_d007ab825d4ad683fa7390f030947acb62ab2b12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/adapter-rxjava/2.0.2/a60c039ba54c73d1133b72178e1b04133c73d13d/adapter-rxjava-2.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a60c039ba54c73d1133b72178e1b04133c73d13d">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/adapter-rxjava-2.0.2_cd53f377d6d8d5ab24d3223671d4008595054e68.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.6/2586312cd2b8a511e4c6236736f5a039fc0f2273/rxjava-1.1.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2586312cd2b8a511e4c6236736f5a039fc0f2273">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/rxjava-1.1.6_3e12a6dbde9df1099dc57719d04c27e75b18bdf4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-dash/r2.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bc987989a5b6a23cc00d436f97cbf82e644c739d">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.google.android.exoplayer-exoplayer-dash-r2.4.0_cce443ed9a8d94c318e1e0591ae71108ee83c8b4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.13/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7045152f3bd1870740b9bcb1cddff495e189774e">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.crashlytics.sdk.android-answers-1.3.13_1711614cddf098567cbbd1804ad6cdf9494ac627.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.17/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="005d20a198159b87f65812fc5c51b2d84c5eba0a">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/io.fabric.sdk.android-fabric-1.3.17_b2443816c5602273ea65b21f82077ae56350d40f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.3.1_57336e48741592e0609e83a88d79846f4d976ee3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.6.8/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="646439081688c43e04ec4aa7ba6915ddfdcc337f">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.crashlytics.sdk.android-crashlytics-2.6.8_09c5398b7a8392dd3a59e69a6c8e99b0a8a291ad.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.3.1_4cf41a63a605589440ecbdeb87db7f97e3c69944.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/r2.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="cfc67519fb914bc50f2434bad36ed2001412777a">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.google.android.exoplayer-exoplayer-ui-r2.4.0_0bb238dc4898acdfd020232ce45b6559bbfe86b8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.3.1_eefd8f76bec651e04924629d3bf4930d7c4108ba.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/.gradle/caches/modules-2/files-2.1/com.google.dagger/dagger/2.7/f60e4926b5f05a62ff73e73b6eb3a856cdc74ddb/dagger-2.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f60e4926b5f05a62ff73e73b6eb3a856cdc74ddb">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/dagger-2.7_be8c985615302d1b663a7d3b0eee45816dbb0f43.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.2.0/f7873a2ebde246a45c2a8d6f3247108b4c88a879/okhttp-3.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/okhttp-3.2.0_45794b49f5b06d97566e8811c9d5c157de1cca6e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.2/43eeae0b9fb087bb3194ba59ab63a38a32fbf3e/retrofit-2.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="043eeae0b9fb087bb3194ba59ab63a38a32fbf3e">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/retrofit-2.0.2_6145e820515886542f2399d6957860a2910a8bac.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.3.1_04ce6eb3dfdf4c222d3164aa92af3db6ad1100dc.jar" />
+    </item>
+
+</items>
