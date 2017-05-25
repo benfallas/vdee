@@ -30,6 +30,6 @@ app/.idea/*
 
 app/fabric.properties
 
-./gradle/*
+.gradle/*
 
 
