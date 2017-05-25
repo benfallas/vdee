@@ -18,4 +18,9 @@ public interface RadioPlayerListener {
      * Radio Player should notify when buffering.
      */
     void onRadioPlayerBuffering();
+
+    /**
+     * Radio Player should notify when released.
+     */
+    void onReleaseRadio();
 }

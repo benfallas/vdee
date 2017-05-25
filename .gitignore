@@ -26,6 +26,10 @@ proguard/
 *.iml
 *.ipr
 *.iws
-app/.idea/
+app/.idea/*
 
 app/fabric.properties
+
+./gradle/*
+
+

@@ -1,6 +1,11 @@
 package vdee.vdee.mainScreen;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Button;
 
 import javax.inject.Inject;
@@ -24,6 +29,7 @@ class MainController
     private Boolean prepared, radioInitialized;
     private Analytics mAnalytics;
     private SimplePlayer mSimplePlayer;
+    private IntentReceiver mIntentReceiver;
 
     @Inject MainLayout mMainLayout;
 
@@ -37,6 +43,10 @@ class MainController
                 .mainControllerModule(new MainControllerModule(mMainActivity, this, mAnalytics))
                 .build()
                 .inject(this);
+
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+        mIntentReceiver = new IntentReceiver();
+        mMainActivity.registerReceiver(mIntentReceiver, intentFilter);
 
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(mMainActivity, mMainLayout);
         initLayout();
@@ -52,14 +62,36 @@ class MainController
     public void onPlayButtonClicked(Button button) {
 
         if (mSimplePlayer.isInitialized()) {
-            mAnalytics.onStopButtonClicked();
-            mMainLayout.loading(false);
             mSimplePlayer.releasePlayer();
-            button.setBackground(mMainActivity.getResources().getDrawable(R.drawable.play_button));
         } else {
-            mAnalytics.onPlayButtonClicked();
+            mMainLayout.play();
             mSimplePlayer.initPlayer();
-            mMainLayout.loading(true);
+        }
+    }
+
+    private class IntentReceiver extends BroadcastReceiver {
+
+        private final String headsetReceiver = "HEADSET RECEIVER";
+        private final String headsetPlugged = "Headset is plugged";
+        private final String headsetUnplugged = "Headset is unplugged";
+        private final String headsetErr = "Something went wrong";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
+                int state = intent.getIntExtra("state", -1);
+                switch (state) {
+                    case 0:
+                        mSimplePlayer.releasePlayer();
+                        Log.d(headsetReceiver, headsetUnplugged);
+                        break;
+                    case 1:
+                        Log.d(headsetReceiver, headsetPlugged);
+                        break;
+                    default:
+                        Log.d(headsetReceiver, headsetErr);
+                }
+            }
         }
     }
 

@@ -87,6 +87,8 @@ public class SimplePlayer
             mSimpleExoPlayer.release();
             mSimpleExoPlayer = null;
             mSimplePlayerInstance = null;
+
+            mRadioPlayerListener.onReleaseRadio();
         }
     }
 

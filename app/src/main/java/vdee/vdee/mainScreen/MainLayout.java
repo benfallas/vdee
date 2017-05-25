@@ -30,8 +30,7 @@ public class MainLayout
     @BindView(R.id.play_stop_button) Button mPlayButton;
     @BindView(R.id.progressBar) ProgressBar mLoadingDialog;
     @BindView(R.id.id_error_message) TextView mNetworkError;
-    @BindView(R.id.tool_bar)
-    Toolbar mToolbar;
+    @BindView(R.id.tool_bar) Toolbar mToolbar;
     @BindView(R.id.id__toolbar_title) TextView mToolbarTitle;
     @BindView(R.id.video_view) SimpleExoPlayerView simpleExoPlayerView;
 
@@ -55,6 +54,18 @@ public class MainLayout
 
     void isPlaying() {
         mPlayButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.stop_button));
+    }
+
+    public void play() {
+        mAnalytics.onPlayButtonClicked();
+        loading(true);
+        mPlayButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.stop_button));
+    }
+
+    public void stop() {
+        mAnalytics.onStopButtonClicked();
+        loading(false);
+        mPlayButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.play_button));
     }
 
     /**
@@ -99,6 +110,11 @@ public class MainLayout
     @Override
     public void onRadioPlayerBuffering() {
         loading(true);
+    }
+
+    @Override
+    public void onReleaseRadio() {
+        stop();
     }
 
     /**
