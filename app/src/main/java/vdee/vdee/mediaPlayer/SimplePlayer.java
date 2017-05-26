@@ -57,6 +57,10 @@ public class SimplePlayer
         return mSimplePlayerInstance;
     }
 
+    public static SimplePlayer getSimplePlayer() {
+        return mSimplePlayerInstance;
+    }
+
     public boolean isInitialized() { return mIsInitialized; }
 
     @Override

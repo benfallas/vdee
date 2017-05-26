@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.annotation.NonNull;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Button;
 
@@ -16,13 +18,15 @@ import dagger.Provides;
 import vdee.vdee.R;
 import vdee.vdee.analytics.Analytics;
 import vdee.vdee.mediaPlayer.SimplePlayer;
+import vdee.vdee.phoneCallReceiver.CallReceiver;
 import vdee.vdee.util.PerController;
 
 /**
  * Main Controller holds the logic for most activity happening on Main Screen.
  */
 class MainController
-        implements MainLayout.MainLayoutListener {
+        implements MainLayout.MainLayoutListener,
+        CallReceiver.CallReceiverListener {
 
     private MainActivity mMainActivity;
     private String radio_url;
@@ -30,6 +34,8 @@ class MainController
     private Analytics mAnalytics;
     private SimplePlayer mSimplePlayer;
     private IntentReceiver mIntentReceiver;
+    private PhoneStateListener mPhoneStateListener;
+    private TelephonyManager mTelephonyManager;
 
     @Inject MainLayout mMainLayout;
 
@@ -46,7 +52,12 @@ class MainController
 
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         mIntentReceiver = new IntentReceiver();
+
         mMainActivity.registerReceiver(mIntentReceiver, intentFilter);
+        mTelephonyManager = (TelephonyManager) mMainActivity.getSystemService(mMainActivity.getApplicationContext().TELEPHONY_SERVICE);
+
+        mPhoneStateListener = new CallReceiver(this);
+        mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
 
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(mMainActivity, mMainLayout);
         initLayout();
@@ -67,6 +78,16 @@ class MainController
             mMainLayout.play();
             mSimplePlayer.initPlayer();
         }
+    }
+
+    @Override
+    public void onIncomingCall() {
+        mSimplePlayer.releasePlayer();
+    }
+
+    @Override
+    public void onCallEnded() {
+        mSimplePlayer.initPlayer();
     }
 
     private class IntentReceiver extends BroadcastReceiver {
