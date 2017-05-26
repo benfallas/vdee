@@ -5,9 +5,12 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 /**
- * Created by benitosanchez on 5/26/17.
+ * Manager call receiver.
+ *
+ * On incoming call stop radio.
+ *
+ * on call ended play radio.
  */
-
 public class CallReceiver extends PhoneStateListener {
 
     private final String CALL_RECEIVER_LOG = "CallReceiver";
@@ -17,6 +20,8 @@ public class CallReceiver extends PhoneStateListener {
 
     private CallReceiverListener mCallReceiverListener;
 
+    private boolean isIncomingCall;
+
     public CallReceiver(CallReceiverListener callReceiverListener) {
         mCallReceiverListener = callReceiverListener;
     }
@@ -25,19 +30,26 @@ public class CallReceiver extends PhoneStateListener {
     public void onCallStateChanged(int state, String incomingNumber) {
         switch (state) {
             case TelephonyManager.CALL_STATE_IDLE:
-                Log.d(CALL_RECEIVER_LOG, INCOMING_CALL_ENDED);
-                mCallReceiverListener.onCallEnded();
+                if (isIncomingCall) {
+                    Log.d(CALL_RECEIVER_LOG, INCOMING_CALL_ENDED);
+                    mCallReceiverListener.onCallEnded();
+                    isIncomingCall = false;
+                }
                 break;
             case TelephonyManager.CALL_STATE_OFFHOOK:
                 Log.d(CALL_RECEIVER_LOG, INCOMING_ANSWERED);
                 break;
             case TelephonyManager.CALL_STATE_RINGING:
+                isIncomingCall = true;
                 Log.d(CALL_RECEIVER_LOG, INCOMING_RECEIVED);
                 mCallReceiverListener.onIncomingCall();
                 break;
         }
     }
 
+    /**
+     * CallReceiverListener notifies MainController class.
+     */
     public interface CallReceiverListener {
         void onIncomingCall();
         void onCallEnded();

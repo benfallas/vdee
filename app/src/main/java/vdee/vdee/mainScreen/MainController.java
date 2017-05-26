@@ -18,6 +18,7 @@ import dagger.Provides;
 import vdee.vdee.R;
 import vdee.vdee.analytics.Analytics;
 import vdee.vdee.mediaPlayer.SimplePlayer;
+import vdee.vdee.permissions.PermissionsManager;
 import vdee.vdee.phoneCallReceiver.CallReceiver;
 import vdee.vdee.util.PerController;
 
@@ -36,10 +37,12 @@ class MainController
     private TelephonyManager mTelephonyManager;
 
     @Inject MainLayout mMainLayout;
+    private PermissionsManager mPermissionsManager;
 
     MainController(@NonNull MainActivity mainActivity) {
         mMainActivity = mainActivity;
         mAnalytics = Analytics.getAnalytics();
+        mPermissionsManager = PermissionsManager.getPermissionsManager();
 
         DaggerMainController_MainControllerComponent.builder()
                 .mainControllerModule(new MainControllerModule(mMainActivity, this, mAnalytics))
@@ -50,10 +53,12 @@ class MainController
         mIntentReceiver = new IntentReceiver();
 
         mMainActivity.registerReceiver(mIntentReceiver, intentFilter);
-        mTelephonyManager = (TelephonyManager) mMainActivity.getSystemService(mMainActivity.getApplicationContext().TELEPHONY_SERVICE);
 
-        mPhoneStateListener = new CallReceiver(this);
-        mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+        if (mPermissionsManager.PHONE_STATE_PERMISSION_GRANTED) {
+            mTelephonyManager = (TelephonyManager) mMainActivity.getSystemService(mMainActivity.getApplicationContext().TELEPHONY_SERVICE);
+            mPhoneStateListener = new CallReceiver(this);
+            mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+        }
 
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(mMainActivity, mMainLayout);
         initLayout();
@@ -86,7 +91,7 @@ class MainController
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, description + vdeeShareLink);
         sendIntent.setType("text/plain");
-        mMainActivity.startActivity(Intent.createChooser(sendIntent, "share"));
+        mMainActivity.startActivity(Intent.createChooser(sendIntent, title));
     }
 
     @Override

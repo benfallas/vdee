@@ -65,4 +65,7 @@ dependencies {
     compile 'com.google.android.exoplayer:exoplayer-hls:r2.4.0'
     compile 'com.google.android.exoplayer:exoplayer-smoothstreaming:r2.4.0'
     compile 'com.google.android.exoplayer:exoplayer-ui:r2.4.0'
+
+    // Ask
+    compile 'com.vistrav:ask:2.4'
 }
