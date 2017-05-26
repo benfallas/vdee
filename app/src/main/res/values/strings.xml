@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">VDEE</string>
-    <string name="app_title">Evangelio Eterno</string>
+    <string name="app_title">El Evangelio Eterno</string>
     <string name="play">PLAY</string>
     <string name="vdee">http://www.vdee.org:8000/salinas</string>
     <string name="network_error">Compruebe su conexión a Internet y vuelva a intentarlo</string>
     <string name="radio_info_title">Programación Díaria\n(Hora Pacífico)</string>
     <string name="radio_info_content">Música Para Orar:\n3am - 7am \nPredicaciones de 30 Minutos:\n 7:00 am, 9:00 am,\n 12:00 pm, 3:00 pm, 6:00 pm, 9:00 pm</string>
     <string name="musica_de_adoracion">Cantos de Adoración</string>
+
+    <string name="vdee_link">https://play.google.com/store/apps/details?id=vdee.vdee</string>
+    <string name="vdee_share_content_description">"Escuche predicaciones por el Pastor Efraim Valverde Sr. y cantos de adoracion atravez de VDEE\n"</string>
+    <string name="vdee_share_title">Share VDEE</string>
 </resources>

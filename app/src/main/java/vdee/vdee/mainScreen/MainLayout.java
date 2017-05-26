@@ -1,11 +1,14 @@
 package vdee.vdee.mainScreen;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
@@ -30,9 +33,10 @@ public class MainLayout
     @BindView(R.id.play_stop_button) Button mPlayButton;
     @BindView(R.id.progressBar) ProgressBar mLoadingDialog;
     @BindView(R.id.id_error_message) TextView mNetworkError;
-    @BindView(R.id.tool_bar) Toolbar mToolbar;
+    @BindView(R.id.main_toolbar) Toolbar mToolbar;
     @BindView(R.id.id__toolbar_title) TextView mToolbarTitle;
     @BindView(R.id.video_view) SimpleExoPlayerView simpleExoPlayerView;
+    @BindView(R.id.share_button) ImageView ShareButton;
 
     MainLayout(
             @NonNull MainActivity mainActivity,
@@ -75,6 +79,11 @@ public class MainLayout
     void onPlayButtonClicked() {
         mMainLayoutListener.onPlayButtonClicked(mPlayButton);
         mNetworkError.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.share_button)
+    void onShareButtonClicked() {
+        mMainLayoutListener.onShareButtonClicked();
     }
 
     /**
@@ -122,5 +131,6 @@ public class MainLayout
      */
     interface MainLayoutListener {
         void onPlayButtonClicked(Button button);
+        void onShareButtonClicked();
     }
 }

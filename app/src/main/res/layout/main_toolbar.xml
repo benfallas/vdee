@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_toolbar"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/ColorPrimary"
-    android:elevation="4dp">
+    >
 
-    <TextView
-        android:id="@+id/id__toolbar_title"
-        android:textColor="@android:color/background_dark"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="24sp"
-        android:textStyle="normal|bold" />
+        android:background="@color/ColorPrimary"
+        android:elevation="4dp">
 
-</android.support.v7.widget.Toolbar>
+        <TextView
+            android:id="@+id/id__toolbar_title"
+            android:textColor="@android:color/background_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:textStyle="normal|bold" />
+
+        <ImageView
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="35dp"
+            android:src="@drawable/ic_share_black_24dp" />
+    </android.support.v7.widget.Toolbar>
+
+
+</LinearLayout>

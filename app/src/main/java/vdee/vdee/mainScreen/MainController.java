@@ -29,8 +29,6 @@ class MainController
         CallReceiver.CallReceiverListener {
 
     private MainActivity mMainActivity;
-    private String radio_url;
-    private Boolean prepared, radioInitialized;
     private Analytics mAnalytics;
     private SimplePlayer mSimplePlayer;
     private IntentReceiver mIntentReceiver;
@@ -41,8 +39,6 @@ class MainController
 
     MainController(@NonNull MainActivity mainActivity) {
         mMainActivity = mainActivity;
-        prepared = false;
-        radioInitialized = false;
         mAnalytics = Analytics.getAnalytics();
 
         DaggerMainController_MainControllerComponent.builder()
@@ -78,6 +74,19 @@ class MainController
             mMainLayout.play();
             mSimplePlayer.initPlayer();
         }
+    }
+
+    @Override
+    public void onShareButtonClicked() {
+        String vdeeShareLink = mMainActivity.getString(R.string.vdee_link);
+        String description = mMainActivity.getString(R.string.vdee_share_content_description);
+        String title = mMainActivity.getString(R.string.vdee_share_title);
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, description + vdeeShareLink);
+        sendIntent.setType("text/plain");
+        mMainActivity.startActivity(Intent.createChooser(sendIntent, "share"));
     }
 
     @Override
