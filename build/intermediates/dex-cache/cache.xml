@@ -21,6 +21,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/transition/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.3.1_384b2950802844ba634819dafbe82c1bf3879831.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.3.1/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -90,6 +99,15 @@
         revision="25.0.0"
         sha1="31abcff1d93243e1d25afda575266ca6219fadd1">
         <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.google.android.exoplayer-exoplayer-smoothstreaming-r2.4.0_c346f692cb60ad781bb17cef77c890a6fa1d915e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.3.1_41c40b65c6d30a890ce34a02e0a1daaa80cf7664.jar" />
     </item>
     <item
         is-multidex="false"
@@ -207,6 +225,15 @@
         revision="25.0.0"
         sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
         <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.3.1_57336e48741592e0609e83a88d79846f4d976ee3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/exploded-aar/com.android.support/design/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="/Users/benitosanchez/Documents/vdeeProj/vdee/app/build/intermediates/pre-dexed/debug/com.android.support-design-25.3.1_5a18e3ded77253d637e571d1fcb561085a28d387.jar" />
     </item>
     <item
         is-multidex="false"

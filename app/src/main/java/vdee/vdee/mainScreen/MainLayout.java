@@ -2,10 +2,15 @@ package vdee.vdee.mainScreen;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +42,8 @@ public class MainLayout
     @BindView(R.id.id__toolbar_title) TextView mToolbarTitle;
     @BindView(R.id.video_view) SimpleExoPlayerView simpleExoPlayerView;
     @BindView(R.id.share_button) ImageView ShareButton;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view) NavigationView mNavigationView;
 
     MainLayout(
             @NonNull MainActivity mainActivity,
@@ -54,6 +61,21 @@ public class MainLayout
         mMainActivity.setSupportActionBar(mToolbar);
         mAnalytics.homePageView();
         mNetworkError.setVisibility(View.GONE);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                mMainActivity,
+                mDrawerLayout,
+                mToolbar,
+                R.string.open,
+                R.string.close
+        );
+
+        mDrawerLayout.addDrawerListener(toggle);
+        mMainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mMainActivity.getSupportActionBar().setHomeButtonEnabled(true);
+        toggle.syncState();
+        mNavigationView.setNavigationItemSelectedListener(new NavigationMenu(mMainActivity));
+
     }
 
     void isPlaying() {

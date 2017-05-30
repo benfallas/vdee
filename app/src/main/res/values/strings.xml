@@ -11,4 +11,7 @@
     <string name="vdee_link">https://play.google.com/store/apps/details?id=vdee.vdee</string>
     <string name="vdee_share_content_description">"Escuche predicaciones por el Pastor Efraim Valverde Sr. y cantos de adoracion atravez de VDEE\n"</string>
     <string name="vdee_share_title">Share VDEE</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="maranatha">Maranatha</string>
 </resources>
