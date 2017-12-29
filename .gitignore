@@ -26,10 +26,15 @@ proguard/
 *.iml
 *.ipr
 *.iws
-app/.idea/*
+.idea/*
 
 app/fabric.properties
 
 .gradle/*
 
+# Android Studio project files
+build/*
+*~
+*.swp
+.DS_Store
 
