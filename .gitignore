@@ -27,8 +27,11 @@ proguard/
 *.ipr
 *.iws
 .idea/*
-
+*.json
 app/fabric.properties
+app/local.properties
+app/app.iml
+build/intermediates/dex-cache/cache.xml
 
 .gradle/*
 

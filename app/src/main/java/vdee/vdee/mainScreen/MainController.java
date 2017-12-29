@@ -10,6 +10,17 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.TimeUtils;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+
+import java.util.HashMap;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,12 +29,19 @@ import javax.inject.Inject;
 import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
+import vdee.vdee.BuildConfig;
 import vdee.vdee.R;
+import vdee.vdee.VDEEApp;
 import vdee.vdee.analytics.Analytics;
+import vdee.vdee.component.DaggerExperimentComponent;
+import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.mediaPlayer.SimplePlayer;
+import vdee.vdee.module.ExpModule;
 import vdee.vdee.permissions.PermissionsManager;
 import vdee.vdee.phoneCallReceiver.CallReceiver;
 import vdee.vdee.util.PerController;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Main Controller holds the logic for most activity happening on Main Screen.
@@ -32,12 +50,19 @@ class MainController
         implements MainLayout.MainLayoutListener,
         CallReceiver.CallReceiverListener {
 
+    private int cacheExpiration;
+    private String experiment;
+    private final String EXPERIMENT_NAME = "experiment_music_bug";
+    private final String EXPERIMENT = "Experiment";
+
     private MainActivity mMainActivity;
     private Analytics mAnalytics;
     private SimplePlayer mSimplePlayer;
     private IntentReceiver mIntentReceiver;
     private PhoneStateListener mPhoneStateListener;
     private TelephonyManager mTelephonyManager;
+
+    @Inject FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     @Inject MainLayout mMainLayout;
     private PermissionsManager mPermissionsManager;
@@ -53,6 +78,7 @@ class MainController
 
         DaggerMainController_MainControllerComponent.builder()
                 .mainControllerModule(new MainControllerModule(mMainActivity, this, mAnalytics))
+                .experimentComponent(((VDEEApp) mainActivity.getApplicationContext()).getExpComponent())
                 .build()
                 .inject(this);
 
@@ -69,6 +95,23 @@ class MainController
 
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(mMainActivity, mMainLayout);
         initLayout();
+        onAttach();
+    }
+
+    private void onAttach() {
+        if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+            cacheExpiration = 0;
+        }
+        mFirebaseRemoteConfig.fetch(cacheExpiration)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        experiment = mFirebaseRemoteConfig.getString(EXPERIMENT_NAME);
+                    }
+
+                });
+
+        FirebaseAnalytics.getInstance(mMainActivity).setUserProperty(EXPERIMENT, experiment);
     }
 
     private void initLayout() {
@@ -113,6 +156,7 @@ class MainController
     @Override
     public void onCallEnded() {
         mSimplePlayer.initPlayer();
+
     }
 
     private class IntentReceiver extends BroadcastReceiver {
@@ -143,7 +187,7 @@ class MainController
 
     @PerController
     @Component(
-            modules = MainControllerModule.class)
+           dependencies = ExperimentComponent.class, modules = MainControllerModule.class)
     interface MainControllerComponent {
         void inject(MainController mainController);
     }
