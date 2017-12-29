@@ -8,7 +8,10 @@ import android.support.annotation.NonNull;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.util.TimeUtils;
 import android.widget.Button;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -38,6 +41,10 @@ class MainController
 
     @Inject MainLayout mMainLayout;
     private PermissionsManager mPermissionsManager;
+
+    private long startNow;
+    private long endNow;
+    private long minutes;
 
     MainController(@NonNull MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -75,9 +82,13 @@ class MainController
 
         if (mSimplePlayer.isInitialized()) {
             mSimplePlayer.releasePlayer();
+            endNow = android.os.SystemClock.uptimeMillis();
+            minutes = TimeUnit.MILLISECONDS.toMinutes(endNow - startNow);
+            mMainLayout.logTime(minutes);
         } else {
             mMainLayout.play();
             mSimplePlayer.initPlayer();
+            startNow = android.os.SystemClock.uptimeMillis();
         }
     }
 

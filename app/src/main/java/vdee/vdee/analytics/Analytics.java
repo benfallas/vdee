@@ -1,6 +1,9 @@
 package vdee.vdee.analytics;
 
+import android.util.Log;
+
 import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.LevelEndEvent;
 
 /**
  * Analytic functions.
@@ -9,6 +12,7 @@ public class Analytics {
 
     private static CustomEvents mCustomEvents;
     private static Analytics mAnalytics;
+    private String time = "The Total Time Users Listen To Radio";
 
     public Analytics() { mCustomEvents = new CustomEvents(); }
 
@@ -37,5 +41,12 @@ public class Analytics {
 
     public void onRadioNetworkSuccess() {
         Answers.getInstance().logCustom(mCustomEvents.radioNetworkSuccess());
+    }
+
+    public void onStopButtonTimer(double minutes){
+        Answers.getInstance()
+                .logLevelEnd(new LevelEndEvent()
+                .putLevelName(time)
+                .putScore(minutes));
     }
 }

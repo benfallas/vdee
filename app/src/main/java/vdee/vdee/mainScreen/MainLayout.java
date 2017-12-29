@@ -94,6 +94,10 @@ public class MainLayout
         mPlayButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.play_button));
     }
 
+    public void logTime(long minutes){
+        mAnalytics.onStopButtonTimer(minutes);
+    }
+
     /**
      * Listens to when play button is clicked.
      */

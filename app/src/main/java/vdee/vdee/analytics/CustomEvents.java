@@ -1,5 +1,7 @@
 package vdee.vdee.analytics;
 
+import android.util.Log;
+
 import com.crashlytics.android.answers.CustomEvent;
 
 public class CustomEvents {
@@ -36,5 +38,4 @@ public class CustomEvents {
         return new CustomEvent(mPlayRadio)
                 .putCustomAttribute(mPlaySuccessErr, mNetworkSuccess);
     }
-
 }
