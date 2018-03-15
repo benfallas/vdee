@@ -18,7 +18,7 @@ import static android.content.ContentValues.TAG;
 
 @Module
 public class ExpModule {
-    private final int CACHE_EXPIRATION = 0;
+    private long cacheExpiration;
     FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     /**
@@ -31,7 +31,13 @@ public class ExpModule {
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(config);
 
-        mFirebaseRemoteConfig.fetch(CACHE_EXPIRATION).addOnCompleteListener(new OnCompleteListener<Void>() {
+         cacheExpiration = 12 * 3600; // 12 hours in seconds.
+        // If in developer mode cacheExpiration is set to 0 so each fetch will retrieve values from
+        // the server.
+        if (mFirebaseRemoteConfig.getInfo( ).getConfigSettings( ).isDeveloperModeEnabled( )) {
+            cacheExpiration = 0;
+        }
+        mFirebaseRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

@@ -4,23 +4,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.util.TimeUtils;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
-
-import java.util.HashMap;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,19 +24,14 @@ import javax.inject.Inject;
 import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
-import vdee.vdee.BuildConfig;
 import vdee.vdee.R;
 import vdee.vdee.VDEEApp;
 import vdee.vdee.analytics.Analytics;
-import vdee.vdee.component.DaggerExperimentComponent;
 import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.mediaPlayer.SimplePlayer;
-import vdee.vdee.module.ExpModule;
 import vdee.vdee.permissions.PermissionsManager;
 import vdee.vdee.phoneCallReceiver.CallReceiver;
 import vdee.vdee.util.PerController;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Main Controller holds the logic for most activity happening on Main Screen.
@@ -51,9 +41,9 @@ class MainController
         CallReceiver.CallReceiverListener {
 
     private int cacheExpiration;
-    private String experiment;
-    private final String EXPERIMENT_NAME = "experiment_music_bug";
-    private final String EXPERIMENT = "Experiment";
+    private static String experiment;
+    private Boolean FBExpName;
+    private Boolean isPaused;
 
     private MainActivity mMainActivity;
     private Analytics mAnalytics;
@@ -106,12 +96,12 @@ class MainController
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        experiment = mFirebaseRemoteConfig.getString(EXPERIMENT_NAME);
+                        experiment = mMainActivity.getString(R.string.music_bug);
+                        FBExpName = mFirebaseRemoteConfig.getBoolean(experiment);
                     }
-
                 });
 
-        FirebaseAnalytics.getInstance(mMainActivity).setUserProperty(EXPERIMENT, experiment);
+        FirebaseAnalytics.getInstance(mMainActivity).setUserProperty(String.valueOf(FBExpName), experiment);
     }
 
     private void initLayout() {
@@ -125,12 +115,14 @@ class MainController
 
         if (mSimplePlayer.isInitialized()) {
             mSimplePlayer.releasePlayer();
+            isPaused = true;
             endNow = android.os.SystemClock.uptimeMillis();
             minutes = TimeUnit.MILLISECONDS.toMinutes(endNow - startNow);
             mMainLayout.logTime(minutes);
         } else {
             mMainLayout.play();
             mSimplePlayer.initPlayer();
+            isPaused = false;
             startNow = android.os.SystemClock.uptimeMillis();
         }
     }
@@ -155,8 +147,10 @@ class MainController
 
     @Override
     public void onCallEnded() {
-        mSimplePlayer.initPlayer();
-
+        if(FBExpName && isPaused) {
+            mSimplePlayer.releasePlayer();
+        } else
+            mSimplePlayer.initPlayer();
     }
 
     private class IntentReceiver extends BroadcastReceiver {
