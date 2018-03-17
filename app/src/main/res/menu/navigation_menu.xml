@@ -7,5 +7,10 @@
             android:icon="@drawable/ic_book_black_24dp"
             android:title="@string/maranatha" />
     </group>
-
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/bible"
+            android:icon="@drawable/ic__bible_book_icon"
+            android:title="@string/biblia" />
+    </group>
 </menu>
