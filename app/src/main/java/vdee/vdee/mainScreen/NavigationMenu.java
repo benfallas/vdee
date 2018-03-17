@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vdee.vdee.R;
+import vdee.vdee.bibleScreen.BibleActivity;
 import vdee.vdee.maranatha.MaranathaActivity;
 
 /**
@@ -29,9 +30,14 @@ public class NavigationMenu
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.maranatha:
-                Intent intent = new Intent(mMainActivity, MaranathaActivity.class);
+                intent = new Intent(mMainActivity, MaranathaActivity.class);
+                mMainActivity.startActivity(intent);
+                break;
+            case R.id.bible:
+                intent = new Intent(mMainActivity, BibleActivity.class);
                 mMainActivity.startActivity(intent);
                 break;
         }
