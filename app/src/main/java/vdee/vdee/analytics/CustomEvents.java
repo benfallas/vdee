@@ -13,6 +13,9 @@ public class CustomEvents {
     private String mNetworkErr = "Network Error";
     private String mNetworkSuccess = "Network Success";
     private String mStopButtonClicked = "Stop Button Clicked";
+    private String mPhoneButtonClicked = "Phone Button Clicked";
+    private String mEmailButtonClicked = "Email Button Clicked";
+    private String mContactPageView = "Viewed Contact Us Page";
 
     CustomEvent homePageView() {
         return new CustomEvent(mHomePageView)
@@ -37,5 +40,20 @@ public class CustomEvents {
     CustomEvent radioNetworkSuccess() {
         return new CustomEvent(mPlayRadio)
                 .putCustomAttribute(mPlaySuccessErr, mNetworkSuccess);
+    }
+
+    CustomEvent phoneButtonClicked() {
+        return new CustomEvent(mPhoneButtonClicked)
+                .putCustomAttribute(mPhoneButtonClicked, mContactPageView);
+    }
+
+    CustomEvent emailButtonClicked() {
+        return new CustomEvent(mEmailButtonClicked)
+                .putCustomAttribute(mEmailButtonClicked, mContactPageView);
+    }
+
+    CustomEvent contactPageView() {
+        return new CustomEvent(mContactPageView)
+                .putCustomAttribute(mContactPageView, mContactPageView);
     }
 }

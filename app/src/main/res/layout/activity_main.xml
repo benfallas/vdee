@@ -33,7 +33,7 @@
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="20sp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/vedee_logo"
+                app:srcCompat="@drawable/vdee_logo"
                 android:contentDescription="@string/app_name"
                 android:id="@+id/imageView"
                 android:background="@android:color/background_light" />

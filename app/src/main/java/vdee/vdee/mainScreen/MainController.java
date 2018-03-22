@@ -124,6 +124,16 @@ class MainController
     @Override
     public void onPlayButtonClicked(Button button) {
 
+        if (mSimplePlayer == null) {
+            Log.d("*******************", "onPlayButtonClicked: simple player is null");
+        } else {
+            if (SimplePlayer.getSimplePlayer() == null) {
+
+                Log.d("*******************", "onPlayButtonClicked: simple player get instance is null");
+            }
+            Log.d("*******************", "onPlayButtonClicked: simple player is not null");
+        }
+
         if (mSimplePlayer.isInitialized()) {
             mSimplePlayer.releasePlayer();
             isPaused = true;

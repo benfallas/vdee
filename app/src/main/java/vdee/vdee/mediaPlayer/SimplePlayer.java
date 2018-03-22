@@ -87,12 +87,14 @@ public class SimplePlayer
 
     @Override
     public void releasePlayer() {
+        if(mSimplePlayerInstance == null)
+            Log.d("test player", "releasePlayer is null");
         if (mSimpleExoPlayer != null) {
             mIsInitialized = false;
             mSimpleExoPlayer.removeListener(this);
             mSimpleExoPlayer.release();
             mSimpleExoPlayer = null;
-            mSimplePlayerInstance = null;
+            //mSimplePlayerInstance = null;
 
             mRadioPlayerListener.onReleaseRadio();
         }

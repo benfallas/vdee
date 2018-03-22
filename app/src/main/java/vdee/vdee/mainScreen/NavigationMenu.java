@@ -11,7 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import vdee.vdee.R;
 import vdee.vdee.bibleScreen.BibleActivity;
-import vdee.vdee.maranatha.MaranathaActivity;
+import vdee.vdee.contact.ContactActivity;
 
 /**
  * Manages Navigation Menu
@@ -32,13 +32,13 @@ public class NavigationMenu
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
-            case R.id.maranatha:
-                intent = new Intent(mMainActivity, MaranathaActivity.class);
-                mMainActivity.startActivity(intent);
-                break;
             case R.id.bible:
                 intent = new Intent(mMainActivity, BibleActivity.class);
                 mMainActivity.startActivity(intent);
+                break;
+            case R.id.contactItem:
+                Intent contactIntent = new Intent(mMainActivity, ContactActivity.class);
+                mMainActivity.startActivity(contactIntent);
                 break;
         }
 

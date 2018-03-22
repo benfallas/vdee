@@ -49,4 +49,18 @@ public class Analytics {
                 .putLevelName(time)
                 .putScore(minutes));
     }
+
+    public void onPhoneButtonClicked() {
+        Answers.getInstance()
+                .logCustom(mCustomEvents.phoneButtonClicked());
+    }
+
+    public void onEmailButtonClicked() {
+        Answers.getInstance()
+                .logCustom(mCustomEvents.emailButtonClicked());
+    }
+
+    public void contactPageView() {
+        Answers.getInstance().logCustom(mCustomEvents.contactPageView());
+    }
 }

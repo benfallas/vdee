@@ -51,9 +51,9 @@ public class ExpModule {
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(config);
 
-         cacheExpiration = 12 * 3600; // 12 hours in seconds.
+        cacheExpiration = 12 * 3600; // 12 hours in seconds.
         // If in developer mode cacheExpiration is set to 0 so each fetch will retrieve values from
-        // the server.
+        // the server immediately.
         if (mFirebaseRemoteConfig.getInfo( ).getConfigSettings( ).isDeveloperModeEnabled( )) {
             cacheExpiration = 0;
         }
