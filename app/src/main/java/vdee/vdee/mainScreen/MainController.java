@@ -28,6 +28,7 @@ import vdee.vdee.R;
 import vdee.vdee.VDEEApp;
 import vdee.vdee.analytics.Analytics;
 import vdee.vdee.component.ExperimentComponent;
+import vdee.vdee.mediaPlayer.RadioStationUrls;
 import vdee.vdee.mediaPlayer.SimplePlayer;
 import vdee.vdee.permissions.PermissionsManager;
 import vdee.vdee.phoneCallReceiver.CallReceiver;
@@ -51,6 +52,7 @@ class MainController
     private IntentReceiver mIntentReceiver;
     private PhoneStateListener mPhoneStateListener;
     private TelephonyManager mTelephonyManager;
+    private RadioStationUrls mRadioStationUrls;
 
     @Inject FirebaseRemoteConfig mFirebaseRemoteConfig;
 
@@ -84,8 +86,10 @@ class MainController
         }
 
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(mMainActivity, mMainLayout);
+        mRadioStationUrls = RadioStationUrls.initRadioStationUrl();
         initLayout();
         onAttach();
+        mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
     }
 
     private void onAttach() {
@@ -138,6 +142,19 @@ class MainController
         sendIntent.putExtra(Intent.EXTRA_TEXT, description + vdeeShareLink);
         sendIntent.setType("text/plain");
         mMainActivity.startActivity(Intent.createChooser(sendIntent, title));
+    }
+
+    @Override
+    public void onPreviousButtonClicked() {
+        mRadioStationUrls.previousTrack();
+        mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
+
+    }
+
+    @Override
+    public void onNextButtonClicked() {
+        mRadioStationUrls.nextTrack();
+        mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
     }
 
     @Override

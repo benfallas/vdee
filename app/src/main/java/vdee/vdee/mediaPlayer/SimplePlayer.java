@@ -80,7 +80,7 @@ public class SimplePlayer
         mRadioStationUrls = RadioStationUrls.initRadioStationUrl();
         mSimpleExoPlayer.addListener(this);
 
-        Uri uri = Uri.parse(mRadioStationUrls.getCurrentTrack());
+        Uri uri = Uri.parse(mRadioStationUrls.getCurrentTrack().getRadioUrl());
         MediaSource mediasource = buildMediaSource(uri);
         mSimpleExoPlayer.prepare(mediasource, true, false);
     }

@@ -44,6 +44,7 @@ public class MainLayout
     @BindView(R.id.share_button) ImageView ShareButton;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view) NavigationView mNavigationView;
+    @BindView(R.id.radio_station_title) TextView mRadioStationTitle;
 
     MainLayout(
             @NonNull MainActivity mainActivity,
@@ -107,9 +108,27 @@ public class MainLayout
         mNetworkError.setVisibility(View.GONE);
     }
 
+    @OnClick(R.id.previous_button)
+    void onPreviousButtonClicked() {
+        mMainLayoutListener.onPreviousButtonClicked();
+    }
+
+    @OnClick(R.id.next_button)
+    void onNextButtonClicked() {
+        mMainLayoutListener.onNextButtonClicked();
+    }
+
     @OnClick(R.id.share_button)
     void onShareButtonClicked() {
         mMainLayoutListener.onShareButtonClicked();
+    }
+
+
+    /**
+     * Update the radio station title 
+     */
+    public void updateRadioStationTitle(String title) {
+        mRadioStationTitle.setText(title);
     }
 
     /**
@@ -158,5 +177,7 @@ public class MainLayout
     interface MainLayoutListener {
         void onPlayButtonClicked(Button button);
         void onShareButtonClicked();
+        void onPreviousButtonClicked();
+        void onNextButtonClicked();
     }
 }

@@ -12,7 +12,7 @@ import vdee.vdee.R;
 import vdee.vdee.views.layout.toolbar.ToolbarSupport;
 
 /**
- * Toolbar for a back arrow toolbar.
+ * Toolbar for a previous_button arrow toolbar.
  */
 public class BackArrowToolbar implements ToolbarSupport {
 
