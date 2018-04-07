@@ -45,6 +45,9 @@ public class MainLayout
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view) NavigationView mNavigationView;
     @BindView(R.id.radio_station_title) TextView mRadioStationTitle;
+    @BindView(R.id.next_button) Button mNextButton;
+    @BindView(R.id.previous_button) Button mPreviousButton;
+
 
     MainLayout(
             @NonNull MainActivity mainActivity,
@@ -140,9 +143,15 @@ public class MainLayout
     public void loading(boolean load) {
         if (load) {
             mPlayButton.setVisibility(View.GONE);
+            mNextButton.setVisibility(View.GONE);
+            mPreviousButton.setVisibility(View.GONE);
+            mRadioStationTitle.setVisibility(View.GONE);
             mLoadingDialog.setVisibility(View.VISIBLE);
         } else {
             mPlayButton.setVisibility(View.VISIBLE);
+            mNextButton.setVisibility(View.VISIBLE);
+            mPreviousButton.setVisibility(View.VISIBLE);
+            mRadioStationTitle.setVisibility(View.VISIBLE);
             mLoadingDialog.setVisibility(View.GONE);
         }
     }
