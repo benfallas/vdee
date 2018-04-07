@@ -147,13 +147,17 @@ class MainController
     @Override
     public void onPreviousButtonClicked() {
         mRadioStationUrls.previousTrack();
-        mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
-
+        updatePlayer();
     }
 
     @Override
     public void onNextButtonClicked() {
         mRadioStationUrls.nextTrack();
+        updatePlayer();
+    }
+
+    @Override
+    public void onRadioPlayerReady() {
         mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
     }
 
@@ -168,6 +172,14 @@ class MainController
             mSimplePlayer.releasePlayer();
         } else
             mSimplePlayer.initPlayer();
+    }
+
+    private void updatePlayer() {
+        if(mSimplePlayer.isInitialized()){
+            mSimplePlayer.initPlayer();
+        }else{
+            mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
+        }
     }
 
     private class IntentReceiver extends BroadcastReceiver {

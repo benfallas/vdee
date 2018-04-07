@@ -161,6 +161,7 @@ public class MainLayout
         loading(false);
         mPlayButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.stop_button));
         mAnalytics.onRadioNetworkSuccess();
+        mMainLayoutListener.onRadioPlayerReady();
     }
 
     @Override
@@ -188,5 +189,6 @@ public class MainLayout
         void onShareButtonClicked();
         void onPreviousButtonClicked();
         void onNextButtonClicked();
+        void onRadioPlayerReady();
     }
 }

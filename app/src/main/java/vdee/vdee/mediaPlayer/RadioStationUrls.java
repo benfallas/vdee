@@ -17,6 +17,10 @@ public class RadioStationUrls {
         urlStations.add(radioStation);
         RadioStation radioStation2 = new RadioStation("http://107.215.165.202:8000/resplandecer", "Radio Resplandecer");
         urlStations.add(radioStation2);
+        RadioStation radioStation3 = new RadioStation("http://unoredradio.com:9736/", "Radio Zion 540AM");
+        urlStations.add(radioStation3);
+        RadioStation radioStation4 = new RadioStation("http://162.219.28.116:9638/;", "Radio Internacional Bilingue");
+        urlStations.add(radioStation4);
     }
 
     public static RadioStationUrls initRadioStationUrl(){
