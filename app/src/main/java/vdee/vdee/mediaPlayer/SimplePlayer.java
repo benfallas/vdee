@@ -37,6 +37,7 @@ public class SimplePlayer
     private static SimpleExoPlayer mSimpleExoPlayer;
     private static SimplePlayer mSimplePlayerInstance;
     private static RadioPlayerListener mRadioPlayerListener;
+    private static RadioStationUrls mRadioStationUrls;
 
     private boolean playedOnce;
     private boolean mIsInitialized;
@@ -76,9 +77,10 @@ public class SimplePlayer
 
             mSimpleExoPlayer.setPlayWhenReady(true);
         }
+        mRadioStationUrls = RadioStationUrls.initRadioStationUrl();
         mSimpleExoPlayer.addListener(this);
 
-        Uri uri = Uri.parse(mActivity.getString(R.string.vdee));
+        Uri uri = Uri.parse(mRadioStationUrls.getCurrentTrack());
         MediaSource mediasource = buildMediaSource(uri);
         mSimpleExoPlayer.prepare(mediasource, true, false);
     }
