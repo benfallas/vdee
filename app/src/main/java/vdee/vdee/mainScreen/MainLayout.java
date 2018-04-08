@@ -146,14 +146,20 @@ public class MainLayout
      *  {@false} other wise.
      */
     public void loading(boolean load) {
-        boolean isMultilpleRadioSupportEnabled = MainController.getIsMultipleRadioSupportEnabled();
         if (load) {
             mPlayButton.setVisibility(View.GONE);
             mNextButton.setVisibility(View.GONE);
             mPreviousButton.setVisibility(View.GONE);
             mRadioStationTitle.setVisibility(View.GONE);
             mLoadingDialog.setVisibility(View.VISIBLE);
-        } else if (isMultilpleRadioSupportEnabled) {
+        } else {
+            showStoppedState();
+        }
+    }
+
+    public void showStoppedState() {
+        boolean isMultilpleRadioSupportEnabled = MainController.getIsMultipleRadioSupportEnabled();
+        if (isMultilpleRadioSupportEnabled) {
             mPlayButton.setVisibility(View.VISIBLE);
             mNextButton.setVisibility(View.VISIBLE);
             mPreviousButton.setVisibility(View.VISIBLE);

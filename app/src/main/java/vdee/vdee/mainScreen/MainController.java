@@ -90,7 +90,6 @@ class MainController
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(mMainActivity, mMainLayout);
         mRadioStationUrls = RadioStationUrls.initRadioStationUrl();
         onAttach();
-        initLayout();
         mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
     }
 
@@ -103,20 +102,23 @@ class MainController
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         experiment = mMainActivity.getString(R.string.music_bug);
-                        mMultipleRadiosupport = mMainActivity.getString(R.string.vdee_multilple_radio_support);
+                        mMultipleRadiosupport = mMainActivity.getString(R.string.vdee_multiple_radio_support);
 
                         FBExpName = mFirebaseRemoteConfig.getBoolean(experiment);
                         mMultipleRadioSupport = mFirebaseRemoteConfig.getBoolean(mMultipleRadiosupport);
+                        initLayout();
                     }
                 });
 
         FirebaseAnalytics.getInstance(mMainActivity).setUserProperty(String.valueOf(FBExpName), experiment);
+        FirebaseAnalytics.getInstance(mMainActivity).setUserProperty(String.valueOf(mMultipleRadioSupport), mMultipleRadiosupport);
     }
 
     private void initLayout() {
         if (mSimplePlayer.isInitialized()) {
             mMainLayout.isPlaying(mMultipleRadioSupport);
         }
+        mMainLayout.showStoppedState();
     }
 
     @Override
