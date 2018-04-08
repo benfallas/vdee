@@ -43,7 +43,9 @@ class MainController
 
     private int cacheExpiration;
     private static String experiment;
+    private static String mMultipleRadiosupport;
     private Boolean FBExpName;
+    private static Boolean mMultipleRadioSupport;
     private Boolean isPaused;
 
     private MainActivity mMainActivity;
@@ -87,8 +89,8 @@ class MainController
 
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(mMainActivity, mMainLayout);
         mRadioStationUrls = RadioStationUrls.initRadioStationUrl();
-        initLayout();
         onAttach();
+        initLayout();
         mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
     }
 
@@ -101,7 +103,10 @@ class MainController
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         experiment = mMainActivity.getString(R.string.music_bug);
+                        mMultipleRadiosupport = mMainActivity.getString(R.string.vdee_multilple_radio_support);
+
                         FBExpName = mFirebaseRemoteConfig.getBoolean(experiment);
+                        mMultipleRadioSupport = mFirebaseRemoteConfig.getBoolean(mMultipleRadiosupport);
                     }
                 });
 
@@ -110,7 +115,7 @@ class MainController
 
     private void initLayout() {
         if (mSimplePlayer.isInitialized()) {
-            mMainLayout.isPlaying();
+            mMainLayout.isPlaying(mMultipleRadioSupport);
         }
     }
 
@@ -172,6 +177,10 @@ class MainController
             mSimplePlayer.releasePlayer();
         } else
             mSimplePlayer.initPlayer();
+    }
+
+    public static boolean getIsMultipleRadioSupportEnabled() {
+        return mMultipleRadioSupport;
     }
 
     private void updatePlayer() {

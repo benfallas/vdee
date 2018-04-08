@@ -82,8 +82,13 @@ public class MainLayout
 
     }
 
-    void isPlaying() {
+    void isPlaying(boolean isMultipleRadioSupportEnabled) {
         mPlayButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.stop_button));
+        if (isMultipleRadioSupportEnabled) {
+            mRadioStationTitle.setVisibility(View.VISIBLE);
+            mPreviousButton.setVisibility(View.VISIBLE);
+            mNextButton.setVisibility(View.VISIBLE);
+        }
     }
 
     public void play() {
@@ -141,17 +146,21 @@ public class MainLayout
      *  {@false} other wise.
      */
     public void loading(boolean load) {
+        boolean isMultilpleRadioSupportEnabled = MainController.getIsMultipleRadioSupportEnabled();
         if (load) {
             mPlayButton.setVisibility(View.GONE);
             mNextButton.setVisibility(View.GONE);
             mPreviousButton.setVisibility(View.GONE);
             mRadioStationTitle.setVisibility(View.GONE);
             mLoadingDialog.setVisibility(View.VISIBLE);
-        } else {
+        } else if (isMultilpleRadioSupportEnabled) {
             mPlayButton.setVisibility(View.VISIBLE);
             mNextButton.setVisibility(View.VISIBLE);
             mPreviousButton.setVisibility(View.VISIBLE);
             mRadioStationTitle.setVisibility(View.VISIBLE);
+            mLoadingDialog.setVisibility(View.GONE);
+        } else {
+            mPlayButton.setVisibility(View.VISIBLE);
             mLoadingDialog.setVisibility(View.GONE);
         }
     }
