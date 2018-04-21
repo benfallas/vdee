@@ -7,9 +7,13 @@ import javax.inject.Inject;
 import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import vdee.vdee.VDEEApp;
 import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.util.PerController;
+import vdee.vdee.vdeeApi.VdeeApi;
 
 /**
  *Bible Controller holds the logic for most activity happening on Main Screen.
@@ -17,6 +21,8 @@ import vdee.vdee.util.PerController;
 public class BibleController {
 
     @Inject BibleLayout mBibleLayout;
+    @Inject
+    Retrofit mRetrofit;
 
     public BibleController(BibleActivity bibleActivity) {
 
@@ -25,6 +31,11 @@ public class BibleController {
                 .experimentComponent(((VDEEApp) bibleActivity.getApplicationContext()).getExpComponent())
                 .build()
                 .inject(this);
+
+        mRetrofit.create(VdeeApi.class).getBible()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mBibleLayout);
     }
 
     @PerController
