@@ -30,6 +30,14 @@ public class BackArrowToolbar implements ToolbarSupport {
         mActivity.setSupportActionBar(mToolbar);
     }
 
+    public BackArrowToolbar(AppCompatActivity appCompatActivity, String title) {
+        mActivity = appCompatActivity;
+        ButterKnife.bind(this, mActivity);
+        mToolbarTitle.setText(title);
+        mToolbar.setTitle("");
+        mActivity.setSupportActionBar(mToolbar);
+    }
+
     @OnClick(R.id.toolbar_back_arrow)
     void onBackArrowClicked() {
         mActivity.onBackPressed();

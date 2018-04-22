@@ -1,5 +1,7 @@
 package vdee.vdee.bibleScreen;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Subscriber;
 import vdee.vdee.R;
+import vdee.vdee.bibleScreen.chaptersView.ChaptersActivity;
 import vdee.vdee.data.module.booksResponse.Book;
 import vdee.vdee.data.module.booksResponse.Books;
 import vdee.vdee.data.module.booksResponse.BooksResponse;
@@ -21,6 +24,8 @@ import vdee.vdee.views.layout.toolbar.backArrowToolbar.BackArrowToolbar;
  *Bible Layout holds the logic for most activity happening on Main Screen.
  */
 public class BibleLayout extends Subscriber<BooksResponse> implements BooksAdapter.ViewHolderListener {
+
+    public static String BOOK_TITLE = "BOOK_TITLE";
 
     private BibleActivity mBibleActivity;
     private ToolbarSupport mToolbar;
@@ -59,7 +64,9 @@ public class BibleLayout extends Subscriber<BooksResponse> implements BooksAdapt
     }
 
     @Override
-    public void onBibleBookClicked(int position) {
-        Toast.makeText(mBibleActivity.getApplicationContext(), "TESt", Toast.LENGTH_SHORT).show();
+    public void onBibleBookClicked(String bookTitle) {
+        Intent intent = new Intent(mBibleActivity, ChaptersActivity.class);
+        intent.putExtra(BOOK_TITLE, bookTitle);
+        mBibleActivity.startActivity(intent);
     }
 }
