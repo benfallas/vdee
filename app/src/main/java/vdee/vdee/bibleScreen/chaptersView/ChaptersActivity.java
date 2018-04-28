@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import static vdee.vdee.bibleScreen.BibleLayout.BOOK_TITLE;
 
 /**
- * Activity for Chapter numbers.
+ * Activity for ChapterPayload numbers.
  */
 public class ChaptersActivity extends AppCompatActivity {
 

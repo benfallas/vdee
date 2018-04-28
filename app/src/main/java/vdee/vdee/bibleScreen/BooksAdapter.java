@@ -68,11 +68,11 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
 
         @OnClick(R.id.book_button)
         public void onBibleBookClicked() {
-            mListener.onBibleBookClicked(bookButton.getText().toString());
+            mListener.onBibleBookClicked(getAdapterPosition());
         }
     }
 
     public interface ViewHolderListener {
-        void onBibleBookClicked(String bookTitle);
+        void onBibleBookClicked(int position);
     }
 }

@@ -26,10 +26,13 @@ import vdee.vdee.views.layout.toolbar.backArrowToolbar.BackArrowToolbar;
 public class BibleLayout extends Subscriber<BooksResponse> implements BooksAdapter.ViewHolderListener {
 
     public static String BOOK_TITLE = "BOOK_TITLE";
+    public static String BOOK_ID = "BOOK_ID";
 
     private BibleActivity mBibleActivity;
     private ToolbarSupport mToolbar;
     private BooksAdapter mAdapater;
+
+    private ArrayList<Book> originalBooks;
 
     @BindView(R.id.recycler_view_books) RecyclerView mRecyclerViewBooks;
 
@@ -51,6 +54,7 @@ public class BibleLayout extends Subscriber<BooksResponse> implements BooksAdapt
 
     @Override
     public void onNext(BooksResponse response) {
+        originalBooks = response.getResponse().getBooks();
         displayBooks(response.getResponse().getBooks());
     }
 
@@ -64,9 +68,12 @@ public class BibleLayout extends Subscriber<BooksResponse> implements BooksAdapt
     }
 
     @Override
-    public void onBibleBookClicked(String bookTitle) {
+    public void onBibleBookClicked(int bookPosition) {
+        String bookTitle = originalBooks.get(bookPosition).getName();
+        String bookId = originalBooks.get(bookPosition).getId();
         Intent intent = new Intent(mBibleActivity, ChaptersActivity.class);
         intent.putExtra(BOOK_TITLE, bookTitle);
+        intent.putExtra(BOOK_ID, bookId);
         mBibleActivity.startActivity(intent);
     }
 }
