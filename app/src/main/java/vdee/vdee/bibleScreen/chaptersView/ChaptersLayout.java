@@ -1,5 +1,6 @@
 package vdee.vdee.bibleScreen.chaptersView;
 
+import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.GridView;
@@ -12,6 +13,7 @@ import rx.Subscriber;
 import vdee.vdee.R;
 import vdee.vdee.data.module.chaptersResponse.ChapterPayload;
 import vdee.vdee.data.module.chaptersResponse.ChaptersResponse;
+import vdee.vdee.verses.VersesActivity;
 import vdee.vdee.views.layout.toolbar.ToolbarSupport;
 import vdee.vdee.views.layout.toolbar.backArrowToolbar.BackArrowToolbar;
 
@@ -20,7 +22,7 @@ import static vdee.vdee.bibleScreen.BibleLayout.BOOK_TITLE;
 /**
  * Contains layout for chapters.
  */
-public class ChaptersLayout extends Subscriber<ChaptersResponse> {
+public class ChaptersLayout extends Subscriber<ChaptersResponse> implements ChaptersAdapter.ChapterButtonListener {
 
     private ChaptersActivity mChaptersActivity;
     private ToolbarSupport mToolbar;
@@ -41,22 +43,21 @@ public class ChaptersLayout extends Subscriber<ChaptersResponse> {
     public void onCompleted() { }
 
     @Override
-    public void onError(Throwable e) {
-        Log.d("chaptersResponse", e.getMessage());
-    }
+    public void onError(Throwable e) { }
 
     @Override
     public void onNext(ChaptersResponse chaptersResponse) {
-        Log.d("chaptersResponse", "onNExt");
-        Log.d("chaptersResponse", chaptersResponse.getResponse().toString());
-        Log.d("chaptersResponse", chaptersResponse.getResponse().getChapterPayloads().toString());
         payloads = chaptersResponse.getResponse().getChapterPayloads();
         displayGrid();
     }
 
     private void displayGrid() {
-        Log.d("chaptersResponse", "DisplayGrid");
-        mGridView.setAdapter(new ChaptersAdapter(mChaptersActivity, payloads));
+        mGridView.setAdapter(new ChaptersAdapter(mChaptersActivity, payloads, this));
+    }
 
+    @Override
+    public void onChapterButtonClicked() {
+        Intent intent = new Intent(mChaptersActivity, VersesActivity.class);
+        mChaptersActivity.startActivity(intent);
     }
 }

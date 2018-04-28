@@ -32,6 +32,7 @@
         <activity android:name=".bibleScreen.BibleActivity"></activity>
         <activity android:name=".bibleScreen.chaptersView.ChaptersActivity"></activity>
         <activity android:name=".contact.ContactActivity"/>
+        <activity android:name=".verses.VersesActivity"/>
     </application>
 
 </manifest>

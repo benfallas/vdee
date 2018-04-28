@@ -18,7 +18,11 @@ public class ChaptersAdapter extends BaseAdapter {
     private ArrayList<ChapterPayload> mPayloads;
     private Context mContext;
 
-    public ChaptersAdapter(Context context, ArrayList<ChapterPayload> payloads) {
+    private ChapterButtonListener mChapterButtonListener;
+
+    public ChaptersAdapter(Context context, ArrayList<ChapterPayload> payloads,
+                           ChapterButtonListener chapterButtonListener) {
+        mChapterButtonListener = chapterButtonListener;
         mContext = context;
         mPayloads = payloads;
     }
@@ -49,8 +53,20 @@ public class ChaptersAdapter extends BaseAdapter {
         } else {
             textView = (TextView) convertView;
         }
-        Log.d("ChaptersAdapter", mPayloads.get(position).getChapter());
         textView.setText(mPayloads.get(position).getChapter());
+
+        textView.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mChapterButtonListener.onChapterButtonClicked();
+                    }
+                }
+        );
         return textView;
+    }
+
+    interface ChapterButtonListener {
+        void onChapterButtonClicked();
     }
 }
