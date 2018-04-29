@@ -20,6 +20,6 @@ public class VersesParent {
 
     @Override
     public String toString() {
-        return mPathnameIds.toString();
+        return "Verse Parent: " + getPathNameId();
     }
 }

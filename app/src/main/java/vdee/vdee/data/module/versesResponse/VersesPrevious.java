@@ -21,6 +21,6 @@ public class VersesPrevious {
 
     @Override
     public String toString() {
-        return mPathnameIds.toString();
+        return "Verses Previous: " + getPathNameId();
     }
 }

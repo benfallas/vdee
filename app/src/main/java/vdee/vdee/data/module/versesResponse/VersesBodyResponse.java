@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import vdee.vdee.data.module.chaptersResponse.ChapterPayload;
 import vdee.vdee.data.module.chaptersResponse.Meta;
 
 /**
@@ -17,7 +16,7 @@ public class VersesBodyResponse {
     private ArrayList<VersesPayload> chapterPayloads = null;
     @SerializedName("meta") @Expose private Meta meta;
 
-    public ArrayList<VersesPayload> getChapterPayloads() {
+    public ArrayList<VersesPayload> getVersesPayload() {
         return chapterPayloads;
     }
 
@@ -35,7 +34,7 @@ public class VersesBodyResponse {
 
     @Override
     public String toString() {
-        return "VersesBodyResponse: " + " ChapterPaylaods: " + getChapterPayloads() +
+        return "VersesBodyResponse: " + " VersesPayloads: " + getVersesPayload() +
                 " Meta: " + getMeta();
     }
 }

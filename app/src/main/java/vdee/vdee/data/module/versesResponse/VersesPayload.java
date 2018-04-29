@@ -43,6 +43,30 @@ public class VersesPayload {
         return parent;
     }
 
+    public String getReference() {
+        return mReference;
+    }
+
+    public void setReference(String reference) {
+        mReference = reference;
+    }
+
+    public String getText() {
+        return mText;
+    }
+
+    public void setText(String text) {
+        mText = text;
+    }
+
+    public String getLastVerse() {
+        return lastVerse;
+    }
+
+    public void setLastVerse(String lastVerse) {
+        this.lastVerse = lastVerse;
+    }
+
     public void setParent(VersesParent parent) {
         this.parent = parent;
     }

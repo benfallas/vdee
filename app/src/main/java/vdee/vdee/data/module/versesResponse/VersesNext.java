@@ -20,6 +20,6 @@ public class VersesNext {
 
     @Override
     public String toString() {
-       return mPathnameIds.toString();
+       return "Verses NEXT: " + getPathNameId();
     }
 }
