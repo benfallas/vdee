@@ -1,6 +1,7 @@
 package vdee.vdee.verses;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.VersesView
         VersesPayload versesPayload = mVerses.get(position);
         String verseText = versesPayload.getText();
         TextView verseTextView = holder.mVerseView;
-        verseTextView.setText(verseText);
+        verseTextView.setText(Html.fromHtml(verseText));
     }
 
     @Override
