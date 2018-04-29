@@ -42,7 +42,7 @@ public class ChaptersAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         TextView textView;
 
         if (convertView == null) {
@@ -59,7 +59,7 @@ public class ChaptersAdapter extends BaseAdapter {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mChapterButtonListener.onChapterButtonClicked();
+                        mChapterButtonListener.onChapterButtonClicked(position);
                     }
                 }
         );
@@ -67,6 +67,6 @@ public class ChaptersAdapter extends BaseAdapter {
     }
 
     interface ChapterButtonListener {
-        void onChapterButtonClicked();
+        void onChapterButtonClicked(int position);
     }
 }

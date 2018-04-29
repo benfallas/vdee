@@ -7,6 +7,8 @@ import android.widget.GridView;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Subscriber;
@@ -23,6 +25,8 @@ import static vdee.vdee.bibleScreen.BibleLayout.BOOK_TITLE;
  * Contains layout for chapters.
  */
 public class ChaptersLayout extends Subscriber<ChaptersResponse> implements ChaptersAdapter.ChapterButtonListener {
+
+    public static String CHAPTER_ID = "CHAPTER_ID";
 
     private ChaptersActivity mChaptersActivity;
     private ToolbarSupport mToolbar;
@@ -56,8 +60,10 @@ public class ChaptersLayout extends Subscriber<ChaptersResponse> implements Chap
     }
 
     @Override
-    public void onChapterButtonClicked() {
+    public void onChapterButtonClicked(int position) {
+        String chapterId = payloads.get(position).getId();
         Intent intent = new Intent(mChaptersActivity, VersesActivity.class);
+        intent.putExtra(CHAPTER_ID, chapterId);
         mChaptersActivity.startActivity(intent);
     }
 }

@@ -29,7 +29,7 @@ public class Response {
 
     @Override
     public String toString() {
-        return "Response: " + " ChapterPaylaods: " + getChapterPayloads() +
+        return "VersesBodyResponse: " + " ChapterPaylaods: " + getChapterPayloads() +
                 " Meta: " + getMeta();
     }
 }
