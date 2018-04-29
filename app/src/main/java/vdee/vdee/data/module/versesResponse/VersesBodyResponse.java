@@ -1,21 +1,27 @@
-package vdee.vdee.data.module.chaptersResponse;
+package vdee.vdee.data.module.versesResponse;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Response {
+import java.util.ArrayList;
 
-    @SerializedName("chapters") @Expose private ArrayList<ChapterPayload> chapterPayloads = null;
+import vdee.vdee.data.module.chaptersResponse.ChapterPayload;
+import vdee.vdee.data.module.chaptersResponse.Meta;
+
+/**
+ * VersesBodyResponse body for Verses.
+ */
+public class VersesBodyResponse {
+
+    @SerializedName("verses") @Expose
+    private ArrayList<VersesPayload> chapterPayloads = null;
     @SerializedName("meta") @Expose private Meta meta;
 
-    public ArrayList<ChapterPayload> getChapterPayloads() {
+    public ArrayList<VersesPayload> getChapterPayloads() {
         return chapterPayloads;
     }
 
-    public void setChapterPayloads(ArrayList<ChapterPayload> chapterPayloads) {
+    public void setChapterPayloads(ArrayList<VersesPayload> chapterPayloads) {
         this.chapterPayloads = chapterPayloads;
     }
 

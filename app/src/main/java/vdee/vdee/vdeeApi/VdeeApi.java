@@ -7,6 +7,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import vdee.vdee.data.module.booksResponse.BooksResponse;
 import vdee.vdee.data.module.chaptersResponse.ChaptersResponse;
+import vdee.vdee.data.module.versesResponse.VersesResponse;
 
 public interface VdeeApi{
 
@@ -17,4 +18,7 @@ public interface VdeeApi{
 
     @GET("books/{book_id}/chapters.js")
     rx.Observable<ChaptersResponse> getChaptersByBookId(@Path("book_id") String bookId);
+
+    @GET("chapters/{chapter_id}/verses.js")
+    rx.Observable<VersesResponse> getVerses(@Path("chapter_id") String chapterId);
 }
