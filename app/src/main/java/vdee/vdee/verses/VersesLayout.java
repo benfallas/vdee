@@ -3,6 +3,9 @@ package vdee.vdee.verses;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -15,6 +18,8 @@ import vdee.vdee.data.module.versesResponse.VersesResponse;
 import vdee.vdee.views.layout.toolbar.ToolbarSupport;
 import vdee.vdee.views.layout.toolbar.backArrowToolbar.BackArrowToolbar;
 
+import static android.view.View.GONE;
+
 public class VersesLayout extends Subscriber<VersesResponse> {
 
     private ToolbarSupport mToolbar;
@@ -24,6 +29,8 @@ public class VersesLayout extends Subscriber<VersesResponse> {
     VersesActivity mVersesActivity;
 
     @BindView(R.id.recycler_view_verses) RecyclerView mVersesView;
+    @BindView(R.id.loading_spineer) ProgressBar mLoadingSpinner;
+    @BindView(R.id.cloud_image) ImageView mNetworkErrorImage;
 
     public VersesLayout(VersesActivity versesActivity) {
         mVersesActivity = versesActivity;
@@ -37,11 +44,16 @@ public class VersesLayout extends Subscriber<VersesResponse> {
 
     @Override
     public void onError(Throwable e) {
-        Log.d("VERSES RESPONSE", e.getMessage());
+        mLoadingSpinner.setVisibility(GONE);
+        mNetworkErrorImage.setVisibility(View.VISIBLE);
+        mVersesView.setVisibility(GONE);
     }
 
     @Override
     public void onNext(VersesResponse versesResponse) {
+        mLoadingSpinner.setVisibility(GONE);
+        mNetworkErrorImage.setVisibility(GONE);
+        mVersesView.setVisibility(View.VISIBLE);
         mOriginalVerses = versesResponse.getResponse().getVersesPayload();
         displayVerses(mOriginalVerses);
     }

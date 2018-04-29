@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,6 +22,8 @@ import vdee.vdee.data.module.booksResponse.Books;
 import vdee.vdee.data.module.booksResponse.BooksResponse;
 import vdee.vdee.views.layout.toolbar.ToolbarSupport;
 import vdee.vdee.views.layout.toolbar.backArrowToolbar.BackArrowToolbar;
+
+import static android.view.View.GONE;
 
 /**
  *Bible Layout holds the logic for most activity happening on Main Screen.
@@ -35,6 +40,8 @@ public class BibleLayout extends Subscriber<BooksResponse> implements BooksAdapt
     private ArrayList<Book> originalBooks;
 
     @BindView(R.id.recycler_view_books) RecyclerView mRecyclerViewBooks;
+    @BindView(R.id.loading_spineer) ProgressBar mLoadingSpinner;
+    @BindView(R.id.cloud_image) ImageView mNetworkErrorImage;
 
     private ArrayList<Book> books;
 
@@ -50,10 +57,17 @@ public class BibleLayout extends Subscriber<BooksResponse> implements BooksAdapt
     public void onCompleted() { }
 
     @Override
-    public void onError(Throwable e) { }
+    public void onError(Throwable e) {
+        mLoadingSpinner.setVisibility(GONE);
+        mNetworkErrorImage.setVisibility(View.VISIBLE);
+        mRecyclerViewBooks.setVisibility(GONE);
+    }
 
     @Override
     public void onNext(BooksResponse response) {
+        mLoadingSpinner.setVisibility(GONE);
+        mNetworkErrorImage.setVisibility(GONE);
+        mRecyclerViewBooks.setVisibility(View.VISIBLE);
         originalBooks = response.getResponse().getBooks();
         displayBooks(response.getResponse().getBooks());
     }
