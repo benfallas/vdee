@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,15 +44,15 @@ public class ChaptersAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        TextView textView;
+        Button textView;
 
         if (convertView == null) {
-            textView = new TextView(mContext);
-            textView.setLayoutParams(new ViewGroup.LayoutParams(85,85));
+            textView = new Button(mContext);
+            textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             textView.setPadding(8,8,8,8);
-            textView.setTextColor(Color.parseColor("#bdbdbd"));
+            textView.setTextColor(Color.parseColor("#000000"));
         } else {
-            textView = (TextView) convertView;
+            textView = (Button) convertView;
         }
         textView.setText(mPayloads.get(position).getChapter());
 

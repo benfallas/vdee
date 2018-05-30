@@ -22,9 +22,13 @@
             android:id="@+id/chapters_grid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="4"
+            android:paddingTop="10dp"
+            android:numColumns="auto_fit"
+            android:gravity="center"
+            android:columnWidth="100dp"
             android:stretchMode="spacingWidthUniform"
-            android:verticalSpacing="5dp"
+            android:verticalSpacing="12dp"
+            android:horizontalSpacing="5dp"
             android:layout_below="@+id/appBarLayout"/>
 
         <include layout="@layout/network_layout"/>
