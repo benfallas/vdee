@@ -32,7 +32,7 @@ app/fabric.properties
 app/local.properties
 app/app.iml
 build/intermediates/dex-cache/cache.xml
-
+.idea/*
 .gradle/*
 
 # Android Studio project files
