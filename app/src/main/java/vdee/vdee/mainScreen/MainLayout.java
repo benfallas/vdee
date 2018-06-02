@@ -2,18 +2,14 @@ package vdee.vdee.mainScreen;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
@@ -22,6 +18,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vdee.vdee.R;
 import vdee.vdee.analytics.Analytics;
+import vdee.vdee.bibleScreen.BibleActivity;
+import vdee.vdee.contact.ContactActivity;
 import vdee.vdee.mediaPlayer.RadioPlayerListener;
 
 /**
@@ -29,7 +27,8 @@ import vdee.vdee.mediaPlayer.RadioPlayerListener;
  * Controls the view only. Logic for this layout can be found in {@link MainController}
  */
 public class MainLayout
-        implements RadioPlayerListener {
+        implements RadioPlayerListener,
+            BottomNavigationView.OnNavigationItemSelectedListener {
 
     private MainActivity mMainActivity;
     private MainLayoutListener mMainLayoutListener;
@@ -42,8 +41,7 @@ public class MainLayout
     @BindView(R.id.id__toolbar_title) TextView mToolbarTitle;
     @BindView(R.id.video_view) SimpleExoPlayerView simpleExoPlayerView;
     @BindView(R.id.share_button) ImageView ShareButton;
-    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
-    @BindView(R.id.nav_view) NavigationView mNavigationView;
+    @BindView(R.id.navigation) BottomNavigationView mNavigationView;
     @BindView(R.id.radio_station_title) TextView mRadioStationTitle;
     @BindView(R.id.next_button) Button mNextButton;
     @BindView(R.id.previous_button) Button mPreviousButton;
@@ -66,20 +64,7 @@ public class MainLayout
         mAnalytics.homePageView();
         mNetworkError.setVisibility(View.GONE);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                mMainActivity,
-                mDrawerLayout,
-                mToolbar,
-                R.string.open,
-                R.string.close
-        );
-
-        mDrawerLayout.addDrawerListener(toggle);
-        mMainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mMainActivity.getSupportActionBar().setHomeButtonEnabled(true);
-        toggle.syncState();
-        mNavigationView.setNavigationItemSelectedListener(new NavigationMenu(mMainActivity));
-
+        mNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
     void isPlaying(boolean isMultipleRadioSupportEnabled) {
@@ -194,6 +179,25 @@ public class MainLayout
     @Override
     public void onReleaseRadio() {
         stop();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.bible:
+                intent = new Intent(mMainActivity, BibleActivity.class);
+                mMainActivity.startActivity(intent);
+                break;
+            case R.id.contactItem:
+                Intent contactIntent = new Intent(mMainActivity, ContactActivity.class);
+                mMainActivity.startActivity(contactIntent);
+                break;
+            default:
+                return false;
+        }
+
+        return true;
     }
 
     /**

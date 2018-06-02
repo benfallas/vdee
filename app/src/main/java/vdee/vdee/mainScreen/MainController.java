@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.util.concurrent.TimeUnit;
@@ -125,13 +123,7 @@ class MainController
     public void onPlayButtonClicked(Button button) {
 
         if (mSimplePlayer == null) {
-            Log.d("*******************", "onPlayButtonClicked: simple player is null");
-        } else {
-            if (SimplePlayer.getSimplePlayer() == null) {
-
-                Log.d("*******************", "onPlayButtonClicked: simple player get instance is null");
-            }
-            Log.d("*******************", "onPlayButtonClicked: simple player is not null");
+            mSimplePlayer = SimplePlayer.initializeSimplePlayer(mMainActivity, mMainLayout);
         }
 
         if (mSimplePlayer.isInitialized()) {
