@@ -1,4 +1,4 @@
-package vdee.vdee.verses;
+package vdee.vdee.mainScreen.fragments.bibleFragments.verses;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;

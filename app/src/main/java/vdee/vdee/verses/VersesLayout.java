@@ -2,7 +2,6 @@ package vdee.vdee.verses;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,6 +14,7 @@ import rx.Subscriber;
 import vdee.vdee.R;
 import vdee.vdee.data.module.versesResponse.VersesPayload;
 import vdee.vdee.data.module.versesResponse.VersesResponse;
+import vdee.vdee.mainScreen.fragments.bibleFragments.verses.VersesAdapter;
 import vdee.vdee.views.layout.toolbar.ToolbarSupport;
 import vdee.vdee.views.layout.toolbar.backArrowToolbar.BackArrowToolbar;
 
@@ -59,8 +59,6 @@ public class VersesLayout extends Subscriber<VersesResponse> {
     }
 
     private void displayVerses(ArrayList<VersesPayload> verses) {
-        mVerseAdapter = new VersesAdapter(mVersesActivity, verses);
-        mVersesView.setLayoutManager(new LinearLayoutManager(mVersesActivity.getApplicationContext()));
-        mVersesView.setAdapter(mVerseAdapter);
+
     }
 }
