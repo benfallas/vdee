@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
         mPermissionsManager = PermissionsManager.getPermissionsManager();
         Ask.on(this)
                 .forPermissions(Manifest.permission.READ_PHONE_STATE)
-                .withRationales("Need to grant access to Phone State in order to stop radio on incoming call")
+                .withRationales("Se Necesita permiso para el estado del celular.", "NOTA: Puede seguir sin permiso. Solo no parara la radio si entra una llamada.")
                 .go();
     }
 
