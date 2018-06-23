@@ -61,7 +61,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
 
     private void onAttach() {
         mAnalytics = Analytics.getAnalytics();
-        getActivity();
         mPlayStopButton = getActivity().findViewById(R.id.play_stop_button);
         mLoadingDialog = getActivity().findViewById(R.id.progressBar);
         mNetworkError = getActivity().findViewById(R.id.id_error_message);

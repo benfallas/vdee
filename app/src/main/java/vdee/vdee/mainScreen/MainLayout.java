@@ -2,6 +2,7 @@ package vdee.vdee.mainScreen;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.view.Menu;
 import android.view.MenuItem;
 import vdee.vdee.R;
 import vdee.vdee.analytics.Analytics;
@@ -19,6 +20,7 @@ public class MainLayout
     private Analytics mAnalytics;
 
     private BottomNavigationView bottomNavigationView;
+    private Menu mMenu;
 
     MainLayout(
             @NonNull MainActivity mainActivity,
@@ -36,7 +38,21 @@ public class MainLayout
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        updateMenuItems(item);
         return mMainLayoutListener.onNavigationItemSelected(item.getItemId());
+    }
+
+    private void updateMenuItems(MenuItem item) {
+        Menu menu = bottomNavigationView.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            if (menu.getItem(i).getItemId() == item.getItemId()) {
+                menu.getItem(i).setChecked(true);
+                menu.getItem(i).setEnabled(false);
+            } else {
+                menu.getItem(i).setCheckable(true);
+                menu.getItem(i).setEnabled(true);
+            }
+        }
     }
 
     /**

@@ -119,7 +119,9 @@ class MainController
     public boolean onNavigationItemSelected(int itemId) {
         switch (itemId) {
             case R.id.homeItem:
-                mFragment = new HomeFragment();
+                if (mFragment == null) {
+                    mFragment = new HomeFragment();
+                }
                 break;
             default:
                 return false;
