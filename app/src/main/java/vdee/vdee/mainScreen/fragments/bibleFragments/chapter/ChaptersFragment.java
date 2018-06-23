@@ -10,13 +10,22 @@ import android.widget.GridView;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import dagger.Component;
+import retrofit2.Retrofit;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import vdee.vdee.R;
+import vdee.vdee.VDEEApp;
+import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.data.module.chaptersResponse.ChapterPayload;
 import vdee.vdee.data.module.chaptersResponse.ChaptersResponse;
+import vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment;
+import vdee.vdee.util.PerFragment;
+import vdee.vdee.vdeeApi.VdeeApi;
 
-/**
- * Created by ben on 6/23/18.
- */
+import static vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment.BOOK_ID;
 
 public class ChaptersFragment extends Fragment
         implements ChaptersResponseListener.Listener, ChaptersAdapter.ChapterButtonListener {
@@ -25,6 +34,9 @@ public class ChaptersFragment extends Fragment
 
     private ArrayList<ChapterPayload> payloads;
     private GridView mGridView;
+    private ChaptersResponseListener mListener;
+
+    @Inject Retrofit retrofit;
 
     public ChaptersFragment() { }
 
@@ -41,6 +53,20 @@ public class ChaptersFragment extends Fragment
 
     private void onAttach() {
         mGridView = getActivity().findViewById(R.id.chapters_grid);
+        mListener = new ChaptersResponseListener(this);
+
+        DaggerChaptersFragment_ChaptersComponent.builder()
+                .experimentComponent((((VDEEApp) getActivity().getApplicationContext())).getExpComponent())
+                .build()
+                .inject(this);
+
+        String bookId = getArguments().getString(BOOK_ID);
+
+
+        retrofit.create(VdeeApi.class).getChaptersByBookId(bookId)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mListener);
     }
 
     @Override
@@ -65,5 +91,11 @@ public class ChaptersFragment extends Fragment
         Bundle bundle = new Bundle();
         bundle.putString(Chapter_ID, chapterId);
 
+    }
+
+    @PerFragment
+    @Component(dependencies = ExperimentComponent.class)
+    interface ChaptersComponent {
+        void inject(ChaptersFragment chaptersFragment);
     }
 }
