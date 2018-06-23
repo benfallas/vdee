@@ -31,6 +31,7 @@ import vdee.vdee.analytics.Analytics;
 import vdee.vdee.mainScreen.fragments.HomeFragment;
 import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment;
+import vdee.vdee.mainScreen.fragments.contactUs.ContactUs;
 import vdee.vdee.mediaPlayer.RadioStationUrls;
 import vdee.vdee.mediaPlayer.SimplePlayer;
 import vdee.vdee.permissions.PermissionsManager;
@@ -124,6 +125,9 @@ class MainController
                 break;
             case R.id.bible:
                 mFragment = new BibleFragment();
+                break;
+            case R.id.contactItem:
+                mFragment = new ContactUs();
                 break;
             default:
                 return false;
