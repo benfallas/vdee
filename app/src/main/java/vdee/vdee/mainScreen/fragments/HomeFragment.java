@@ -167,6 +167,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
 
     @Override
     public void onRadioPlayerReady() {
+        if (mNetworkError.getVisibility() == VISIBLE) {
+            mNetworkError.setVisibility(View.GONE);
+        }
         updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
         mPlayStopButton.setBackground(getActivity().getResources().getDrawable(R.drawable.stop_button));
         mAnalytics.onRadioNetworkSuccess();
