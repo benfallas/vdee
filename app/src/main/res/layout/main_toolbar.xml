@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.Toolbar
+    <android.widget.Toolbar
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,5 +30,5 @@
             android:layout_marginEnd="35dp"
             android:layout_marginRight="35dp"
             android:src="@drawable/ic_share_black_24dp" />
-    </android.support.v7.widget.Toolbar>
+    </android.widget.Toolbar>
 </LinearLayout>

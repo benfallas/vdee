@@ -92,6 +92,7 @@ class MainController
     }
 
     private void onAttach() {
+        mMultipleRadioSupport = false;
         if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
             cacheExpiration = 0;
         }
@@ -192,6 +193,17 @@ class MainController
             mSimplePlayer.initPlayer();
         }else{
             mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
+        }
+    }
+
+    /**
+     * releases receiver.
+     */
+    public void onPaused() {
+        try {
+            mMainActivity.unregisterReceiver(mIntentReceiver);
+        } catch (IllegalArgumentException e) {
+
         }
     }
 
