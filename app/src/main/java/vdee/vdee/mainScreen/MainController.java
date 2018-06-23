@@ -30,6 +30,7 @@ import vdee.vdee.VDEEApp;
 import vdee.vdee.analytics.Analytics;
 import vdee.vdee.mainScreen.fragments.HomeFragment;
 import vdee.vdee.component.ExperimentComponent;
+import vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment;
 import vdee.vdee.mediaPlayer.RadioStationUrls;
 import vdee.vdee.mediaPlayer.SimplePlayer;
 import vdee.vdee.permissions.PermissionsManager;
@@ -119,9 +120,10 @@ class MainController
     public boolean onNavigationItemSelected(int itemId) {
         switch (itemId) {
             case R.id.homeItem:
-                if (mFragment == null) {
-                    mFragment = new HomeFragment();
-                }
+                mFragment = new HomeFragment();
+                break;
+            case R.id.bible:
+                mFragment = new BibleFragment();
                 break;
             default:
                 return false;
