@@ -1,5 +1,8 @@
 package vdee.vdee.mainScreen;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +28,7 @@ import dagger.Provides;
 import vdee.vdee.R;
 import vdee.vdee.VDEEApp;
 import vdee.vdee.analytics.Analytics;
+import vdee.vdee.mainScreen.fragments.HomeFragment;
 import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.mediaPlayer.RadioStationUrls;
 import vdee.vdee.mediaPlayer.SimplePlayer;
@@ -52,7 +56,8 @@ class MainController
     private IntentReceiver mIntentReceiver;
     private PhoneStateListener mPhoneStateListener;
     private TelephonyManager mTelephonyManager;
-    private RadioStationUrls mRadioStationUrls;
+    private FragmentManager mFragmentManager;
+    private Fragment mFragment;
 
     @Inject FirebaseRemoteConfig mFirebaseRemoteConfig;
 
@@ -67,6 +72,7 @@ class MainController
         mMainActivity = mainActivity;
         mAnalytics = Analytics.getAnalytics();
         mPermissionsManager = PermissionsManager.getPermissionsManager();
+        mFragmentManager = mMainActivity.getFragmentManager();
 
         DaggerMainController_MainControllerComponent.builder()
                 .mainControllerModule(new MainControllerModule(mMainActivity, this, mAnalytics))
@@ -85,10 +91,7 @@ class MainController
             mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
         }
 
-        mSimplePlayer = SimplePlayer.initializeSimplePlayer(mMainActivity, mMainLayout);
-        mRadioStationUrls = RadioStationUrls.initRadioStationUrl();
         onAttach();
-        mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
     }
 
     private void onAttach() {
@@ -105,7 +108,6 @@ class MainController
 
                         FBExpName = mFirebaseRemoteConfig.getBoolean(experiment);
                         mMultipleRadioSupport = mFirebaseRemoteConfig.getBoolean(mMultipleRadiosupport);
-                        initLayout();
                     }
                 });
 
@@ -113,62 +115,19 @@ class MainController
         FirebaseAnalytics.getInstance(mMainActivity).setUserProperty(String.valueOf(mMultipleRadioSupport), mMultipleRadiosupport);
     }
 
-    private void initLayout() {
-        if (mSimplePlayer.isInitialized()) {
-            mMainLayout.isPlaying(mMultipleRadioSupport);
-        }
-        mMainLayout.showStoppedState();
-    }
-
     @Override
-    public void onPlayButtonClicked(Button button) {
-
-        if (mSimplePlayer == null) {
-            mSimplePlayer = SimplePlayer.initializeSimplePlayer(mMainActivity, mMainLayout);
+    public boolean onNavigationItemSelected(int itemId) {
+        switch (itemId) {
+            case R.id.homeItem:
+                mFragment = new HomeFragment();
+                break;
+            default:
+                return false;
         }
 
-        if (mSimplePlayer.isInitialized()) {
-            mSimplePlayer.releasePlayer();
-            isPaused = true;
-            endNow = android.os.SystemClock.uptimeMillis();
-            minutes = TimeUnit.MILLISECONDS.toMinutes(endNow - startNow);
-            mMainLayout.logTime(minutes);
-        } else {
-            mMainLayout.play();
-            mSimplePlayer.initPlayer();
-            isPaused = false;
-            startNow = android.os.SystemClock.uptimeMillis();
-        }
-    }
-
-    @Override
-    public void onShareButtonClicked() {
-        String vdeeShareLink = mMainActivity.getString(R.string.vdee_link);
-        String description = mMainActivity.getString(R.string.vdee_share_content_description);
-        String title = mMainActivity.getString(R.string.vdee_share_title);
-
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, description + vdeeShareLink);
-        sendIntent.setType("text/plain");
-        mMainActivity.startActivity(Intent.createChooser(sendIntent, title));
-    }
-
-    @Override
-    public void onPreviousButtonClicked() {
-        mRadioStationUrls.previousTrack();
-        updatePlayer();
-    }
-
-    @Override
-    public void onNextButtonClicked() {
-        mRadioStationUrls.nextTrack();
-        updatePlayer();
-    }
-
-    @Override
-    public void onRadioPlayerReady() {
-        mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
+        final FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.main_container, mFragment).commit();
+        return true;
     }
 
     @Override
@@ -182,18 +141,6 @@ class MainController
             mSimplePlayer.releasePlayer();
         } else
             mSimplePlayer.initPlayer();
-    }
-
-    public static boolean getIsMultipleRadioSupportEnabled() {
-        return mMultipleRadioSupport;
-    }
-
-    private void updatePlayer() {
-        if(mSimplePlayer.isInitialized()){
-            mSimplePlayer.initPlayer();
-        }else{
-            mMainLayout.updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
-        }
     }
 
     /**
