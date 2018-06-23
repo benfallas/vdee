@@ -25,7 +25,7 @@ import vdee.vdee.data.module.versesResponse.VersesResponse;
 import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
 
-import static vdee.vdee.bibleScreen.chaptersView.ChaptersLayout.CHAPTER_ID;
+import static vdee.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment.CHAPTER_ID;
 
 public class VersesFragment extends Fragment implements VersesResponseListener.Listener {
 

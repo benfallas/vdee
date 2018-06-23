@@ -32,7 +32,7 @@ import static vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment.BOOK_I
 public class ChaptersFragment extends Fragment
         implements ChaptersResponseListener.Listener, ChaptersAdapter.ChapterButtonListener {
 
-    public static String Chapter_ID = "CHAPTER_ID";
+    public static String CHAPTER_ID = "CHAPTER_ID";
 
     private ArrayList<ChapterPayload> payloads;
     private GridView mGridView;
@@ -92,7 +92,7 @@ public class ChaptersFragment extends Fragment
         Fragment fragment = new VersesFragment();
         String chapterId = payloads.get(position).getId();
         Bundle bundle = new Bundle();
-        bundle.putString(Chapter_ID, chapterId);
+        bundle.putString(CHAPTER_ID, chapterId);
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

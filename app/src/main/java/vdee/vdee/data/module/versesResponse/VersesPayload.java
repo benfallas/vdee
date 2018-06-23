@@ -1,12 +1,7 @@
 package vdee.vdee.data.module.versesResponse;
 
-import android.net.VpnService;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import vdee.vdee.data.module.chaptersResponse.Next;
-import vdee.vdee.verses.VersesLayout;
 
 public class VersesPayload {
 
