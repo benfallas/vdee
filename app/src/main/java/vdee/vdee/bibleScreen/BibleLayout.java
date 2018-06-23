@@ -1,14 +1,11 @@
 package vdee.vdee.bibleScreen;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,8 +15,8 @@ import rx.Subscriber;
 import vdee.vdee.R;
 import vdee.vdee.bibleScreen.chaptersView.ChaptersActivity;
 import vdee.vdee.data.module.booksResponse.Book;
-import vdee.vdee.data.module.booksResponse.Books;
 import vdee.vdee.data.module.booksResponse.BooksResponse;
+import vdee.vdee.mainScreen.fragments.bibleFragments.BooksAdapter;
 import vdee.vdee.views.layout.toolbar.ToolbarSupport;
 import vdee.vdee.views.layout.toolbar.backArrowToolbar.BackArrowToolbar;
 
@@ -47,7 +44,7 @@ public class BibleLayout extends Subscriber<BooksResponse> implements BooksAdapt
 
     public BibleLayout(BibleActivity bibleActivity) {
         mBibleActivity = bibleActivity;
-        
+
         bibleActivity.setContentView(R.layout.activity_bible);
         ButterKnife.bind(this, mBibleActivity);
         mToolbar = new BackArrowToolbar(mBibleActivity, R.string.biblia);

@@ -4,34 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout">
-
-        <include layout="@layout/toolbar_layout"/>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <FrameLayout
+    <GridView
+        android:id="@+id/chapters_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/appBarLayout">
-
-        <GridView
-            android:id="@+id/chapters_grid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="10dp"
-            android:numColumns="auto_fit"
-            android:gravity="center"
-            android:columnWidth="100dp"
-            android:stretchMode="spacingWidthUniform"
-            android:verticalSpacing="12dp"
-            android:horizontalSpacing="5dp"
-            android:layout_below="@+id/appBarLayout"/>
-
-        <include layout="@layout/network_layout"/>
-    </FrameLayout>
+        android:paddingTop="10dp"
+        android:numColumns="auto_fit"
+        android:gravity="center"
+        android:columnWidth="100dp"
+        android:stretchMode="spacingWidthUniform"
+        android:verticalSpacing="12dp"
+        android:horizontalSpacing="5dp"/>
 
 </RelativeLayout>

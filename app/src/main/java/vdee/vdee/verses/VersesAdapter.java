@@ -14,7 +14,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vdee.vdee.R;
-import vdee.vdee.bibleScreen.BooksAdapter;
 import vdee.vdee.data.module.versesResponse.VersesPayload;
 
 public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.VersesViewHolder> {

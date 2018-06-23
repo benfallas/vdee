@@ -1,7 +1,8 @@
 package vdee.vdee.mainScreen.fragments.bibleFragments;
 
 import android.app.Fragment;
-import android.content.Intent;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,21 +17,21 @@ import javax.inject.Inject;
 
 import dagger.Component;
 import retrofit2.Retrofit;
-import rx.Scheduler;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vdee.vdee.R;
 import vdee.vdee.VDEEApp;
-import vdee.vdee.bibleScreen.BooksAdapter;
 import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.data.module.booksResponse.Book;
-import vdee.vdee.data.module.booksResponse.Books;
 import vdee.vdee.data.module.booksResponse.BooksResponse;
+import vdee.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment;
 import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
 
 public class BibleFragment extends Fragment implements BooksAdapter.ViewHolderListener, BibleResponseListener.Listener {
+
+    public static String BOOK_TITLE = "BOOK_TITLE";
+    public static String BOOK_ID = "BOOK_ID";
 
     private RecyclerView mListOfBooks;
     private BooksAdapter mAdapter;
@@ -76,8 +77,17 @@ public class BibleFragment extends Fragment implements BooksAdapter.ViewHolderLi
 
     @Override
     public void onBibleBookClicked(int position) {
+        Fragment fragment = new ChaptersFragment();
         String bookTitle = originalBooks.get(position).getName();
         String bookId = originalBooks.get(position).getId();
+        Bundle bundle = new Bundle();
+        bundle.putString(BOOK_TITLE, bookTitle);
+        bundle.putString(BOOK_ID, bookId);
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package vdee.vdee.bibleScreen.chaptersView;
+package vdee.vdee.mainScreen.fragments.bibleFragments.chapter;
 
 import android.content.Context;
 
