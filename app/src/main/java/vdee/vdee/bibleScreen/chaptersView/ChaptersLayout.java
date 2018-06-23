@@ -67,5 +67,5 @@ public class ChaptersLayout extends Subscriber<ChaptersResponse> {
 
     private void displayGrid() {
     }
-
+    
 }

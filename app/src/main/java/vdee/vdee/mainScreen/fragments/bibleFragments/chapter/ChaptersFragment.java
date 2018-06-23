@@ -1,6 +1,8 @@
 package vdee.vdee.mainScreen.fragments.bibleFragments.chapter;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -21,7 +23,7 @@ import vdee.vdee.VDEEApp;
 import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.data.module.chaptersResponse.ChapterPayload;
 import vdee.vdee.data.module.chaptersResponse.ChaptersResponse;
-import vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment;
+import vdee.vdee.mainScreen.fragments.bibleFragments.verses.VersesFragment;
 import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
 
@@ -87,9 +89,15 @@ public class ChaptersFragment extends Fragment
 
     @Override
     public void onChapterButtonClicked(int position) {
+        Fragment fragment = new VersesFragment();
         String chapterId = payloads.get(position).getId();
         Bundle bundle = new Bundle();
         bundle.putString(Chapter_ID, chapterId);
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, fragment);
+        fragmentTransaction.commit();
 
     }
 
