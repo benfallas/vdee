@@ -5,7 +5,7 @@
         <item
             android:id="@+id/homeItem"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="@string/contact" />
+            android:title="@string/inicio" />
     </group>
     <group android:checkableBehavior="single">
         <item
