@@ -12,12 +12,23 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import dagger.Component;
+import retrofit2.Retrofit;
+import rx.Scheduler;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import vdee.vdee.R;
+import vdee.vdee.VDEEApp;
 import vdee.vdee.bibleScreen.BooksAdapter;
+import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.data.module.booksResponse.Book;
 import vdee.vdee.data.module.booksResponse.Books;
 import vdee.vdee.data.module.booksResponse.BooksResponse;
+import vdee.vdee.util.PerFragment;
+import vdee.vdee.vdeeApi.VdeeApi;
 
 public class BibleFragment extends Fragment implements BooksAdapter.ViewHolderListener, BibleResponseListener.Listener {
 
@@ -26,6 +37,8 @@ public class BibleFragment extends Fragment implements BooksAdapter.ViewHolderLi
     private BibleResponseListener mListener;
 
     private ArrayList<Book> originalBooks;
+
+    @Inject Retrofit retrofit;
 
     public BibleFragment() { }
 
@@ -43,6 +56,16 @@ public class BibleFragment extends Fragment implements BooksAdapter.ViewHolderLi
     private void onAttach() {
         mListOfBooks = getActivity().findViewById(R.id.recycler_view_books);
         mListener = new BibleResponseListener(this);
+
+        DaggerBibleFragment_BibleComponent.builder()
+                .experimentComponent((((VDEEApp) getActivity().getApplicationContext())).getExpComponent())
+                .build()
+                .inject(this);
+
+        retrofit.create(VdeeApi.class).getBible()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mListener);
     }
 
     private void displayBooks(ArrayList<Book> books) {
@@ -67,5 +90,11 @@ public class BibleFragment extends Fragment implements BooksAdapter.ViewHolderLi
     public void onNext(BooksResponse booksResponse) {
         originalBooks = booksResponse.getResponse().getBooks();
         displayBooks(originalBooks);
+    }
+
+    @PerFragment
+    @Component(dependencies = ExperimentComponent.class)
+    interface BibleComponent {
+        void inject(BibleFragment bibleFragment);
     }
 }
