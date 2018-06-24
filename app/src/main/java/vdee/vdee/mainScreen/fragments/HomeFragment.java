@@ -35,8 +35,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     private long startNow;
 
     private Button mPlayStopButton;
-    private ProgressBar mLoadingDialog;
-    private TextView mNetworkError;
     private Toolbar mToolbar;
     private TextView mToolbarTitle;
     private SimpleExoPlayerView simpleExoPlayerView;
@@ -63,8 +61,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     private void onAttach() {
         mAnalytics = Analytics.getAnalytics();
         mPlayStopButton = getActivity().findViewById(R.id.play_stop_button);
-        mLoadingDialog = getActivity().findViewById(R.id.progressBar);
-        mNetworkError = getActivity().findViewById(R.id.id_error_message);
         mToolbar = getActivity().findViewById(R.id.main_toolbar);
         mToolbarTitle = getActivity().findViewById(R.id.id__toolbar_title);
         simpleExoPlayerView = getActivity().findViewById(R.id.video_view);
@@ -171,9 +167,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     @Override
     public void onRadioPlayerReady() {
         hideDialog();
-        if (mNetworkError.getVisibility() == VISIBLE) {
-            mNetworkError.setVisibility(View.GONE);
-        }
         updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
         mPlayStopButton.setBackground(getActivity().getResources().getDrawable(R.drawable.stop_button));
         mAnalytics.onRadioNetworkSuccess();
@@ -181,18 +174,18 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
 
     @Override
     public void onRadioPlayerError() {
-        hideDialog();
-        mNetworkError.setVisibility(VISIBLE);
+        showNetworkError();
         mAnalytics.onRadioNetworkError();
     }
 
     @Override
     public void onRadioPlayerBuffering() {
-        // Buffering
+        showDialog();
     }
 
     @Override
     public void onReleaseRadio() {
+        hideDialog();
         stop();
     }
 

@@ -97,7 +97,10 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
     public void onCompleted() { }
 
     @Override
-    public void onError(Throwable e) { }
+    public void onError(Throwable e) {
+        hideDialog();
+        showNetworkError();
+    }
 
     @Override
     public void onNext(BooksResponse booksResponse) {

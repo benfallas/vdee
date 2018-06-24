@@ -79,7 +79,10 @@ public class VersesFragment extends ParentFragment implements VersesResponseList
     public void onCompleted() { }
 
     @Override
-    public void onError(Throwable e) { }
+    public void onError(Throwable e) {
+        hideDialog();
+        showNetworkError();
+    }
 
     @Override
     public void onNext(VersesResponse versesResponse) {

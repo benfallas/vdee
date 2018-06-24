@@ -78,7 +78,10 @@ public class ChaptersFragment extends ParentFragment
     public void onCompleted() { }
 
     @Override
-    public void onError() { }
+    public void onError() {
+        hideDialog();
+        showNetworkError();
+    }
 
     @Override
     public void onNext(ChaptersResponse chaptersResponse) {
