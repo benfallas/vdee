@@ -27,6 +27,7 @@ import vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment;
 import vdee.vdee.mediaPlayer.RadioPlayerListener;
 import vdee.vdee.mediaPlayer.RadioStationUrls;
 import vdee.vdee.mediaPlayer.SimplePlayer;
+import vdee.vdee.util.FragmentManagerUtils;
 import vdee.vdee.util.ParentFragment;
 import vdee.vdee.util.PerFragment;
 
@@ -50,6 +51,7 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     private TextView radioStationTitle;
     private Button nextButton;
     private Button previousButton;
+    FragmentManagerUtils fragmentManagerUtils;
 
     @Inject VdeeExperiments vdeeExperiments;
 
@@ -88,6 +90,7 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
 
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(getActivity(), this);
         mRadioStationUrls = RadioStationUrls.initRadioStationUrl();
+        fragmentManagerUtils = FragmentManagerUtils.getFragmentManagerUtils();
         updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
 
         initLayout();
@@ -181,8 +184,10 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     @Override
     public void onRadioPlayerReady() {
         hideDialog();
-        updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
-        mPlayStopButton.setBackground(getActivity().getResources().getDrawable(R.drawable.stop_button));
+        if (fragmentManagerUtils.isCurrentFragmentShown(FragmentManagerUtils.HOME_FRAGMENT_TAG)) {
+            updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
+            mPlayStopButton.setBackground(getActivity().getResources().getDrawable(R.drawable.stop_button));
+        }
         mAnalytics.onRadioNetworkSuccess();
     }
 

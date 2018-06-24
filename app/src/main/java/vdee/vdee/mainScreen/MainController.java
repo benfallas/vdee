@@ -38,7 +38,12 @@ import vdee.vdee.mediaPlayer.RadioStationUrls;
 import vdee.vdee.mediaPlayer.SimplePlayer;
 import vdee.vdee.permissions.PermissionsManager;
 import vdee.vdee.phoneCallReceiver.CallReceiver;
+import vdee.vdee.util.FragmentManagerUtils;
 import vdee.vdee.util.PerController;
+
+import static vdee.vdee.util.FragmentManagerUtils.BIBLE_FRAGMENT_TAG;
+import static vdee.vdee.util.FragmentManagerUtils.CONTACT_US_FRAGMENT_TAG;
+import static vdee.vdee.util.FragmentManagerUtils.HOME_FRAGMENT_TAG;
 
 /**
  * Main Controller holds the logic for most activity happening on Main Screen.
@@ -62,6 +67,7 @@ class MainController
     private ProgressDialog mProgressDialog;
     private TelephonyManager mTelephonyManager;
     private FragmentManager mFragmentManager;
+    private FragmentManagerUtils fragmentManagerUtils;
     private Fragment mFragment;
 
     @Inject FirebaseRemoteConfig mFirebaseRemoteConfig;
@@ -78,6 +84,7 @@ class MainController
         mAnalytics = Analytics.getAnalytics();
         mPermissionsManager = PermissionsManager.getPermissionsManager();
         mFragmentManager = mMainActivity.getFragmentManager();
+        fragmentManagerUtils = FragmentManagerUtils.getFragmentManagerUtils();
 
         DaggerMainController_MainControllerComponent.builder()
                 .mainControllerModule(new MainControllerModule(mMainActivity, this, mAnalytics))
@@ -109,22 +116,25 @@ class MainController
 
     @Override
     public boolean onNavigationItemSelected(int itemId) {
+        String id = "";
         switch (itemId) {
             case R.id.homeItem:
                 mFragment = new HomeFragment();
+                id = HOME_FRAGMENT_TAG;
                 break;
             case R.id.bible:
                 mFragment = new BibleFragment();
+                id = BIBLE_FRAGMENT_TAG;
                 break;
             case R.id.contactItem:
                 mFragment = new ContactUs();
+                id = CONTACT_US_FRAGMENT_TAG;
                 break;
             default:
                 return false;
         }
 
-        final FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, mFragment).commit();
+        fragmentManagerUtils.pushFragment(mFragment, id);
         return true;
     }
 
