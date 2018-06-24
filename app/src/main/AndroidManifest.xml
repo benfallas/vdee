@@ -27,12 +27,6 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="e98e2f89d256b2302927f46e1422d5312e6089df" />
-
-        <activity android:name=".maranatha.MaranathaActivity" />
-        <activity android:name=".bibleScreen.BibleActivity"></activity>
-        <activity android:name=".bibleScreen.chaptersView.ChaptersActivity"></activity>
-        <activity android:name=".contact.ContactActivity"/>
-        <activity android:name=".verses.VersesActivity"/>
     </application>
 
 </manifest>
