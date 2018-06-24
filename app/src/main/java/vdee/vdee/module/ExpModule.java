@@ -54,31 +54,6 @@ public class ExpModule {
                 .setDeveloperModeEnabled(BuildConfig.DEBUG)
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(config);
-
-        cacheExpiration = 12 * 3600; // 12 hours in seconds.
-        // If in developer mode cacheExpiration is set to 0 so each fetch will retrieve values from
-        // the server immediately.
-        if (mFirebaseRemoteConfig.getInfo( ).getConfigSettings( ).isDeveloperModeEnabled( )) {
-            cacheExpiration = 0;
-        }
-        mFirebaseRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Log.d(TAG, "Fetch Succeeded");
-                    mFirebaseRemoteConfig.activateFetched();
-
-                } else {
-                    Log.d(TAG, "Fetch Failed");
-                }
-            }
-        });
-    }
-
-    @Provides
-    @Singleton
-    VdeeExperiments providesVdeeExperiments(FirebaseRemoteConfig firebaseRemoteConfig) {
-        return new VdeeExperiments(firebaseRemoteConfig);
     }
 
     @Provides

@@ -19,5 +19,4 @@ import vdee.vdee.module.ExpModule;
 public interface ExperimentComponent {
     FirebaseRemoteConfig remoteConfig();
     Retrofit retrofit();
-    VdeeExperiments vdeeExperiments();
 }

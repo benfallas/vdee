@@ -3,10 +3,6 @@ package vdee.vdee.experiments;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
-/**
- * Created by ben on 6/23/18.
- */
-
 public class VdeeExperiments {
 
     public static final String MUSIC_ON_CALL_BUG = "music_bug";
@@ -15,9 +11,21 @@ public class VdeeExperiments {
     boolean music_on_call_bug;
     boolean mMultipleRadioSupport;
 
-    public VdeeExperiments(FirebaseRemoteConfig firebaseRemoteConfig) {
+    private static VdeeExperiments vdeeExperiments;
+
+    private VdeeExperiments() { }
+
+    public static VdeeExperiments getInstance() {
+        if (vdeeExperiments == null) {
+            vdeeExperiments = new VdeeExperiments();
+        }
+        return vdeeExperiments;
+    }
+
+    public void initializeVdeeExperiments(FirebaseRemoteConfig firebaseRemoteConfig) {
         music_on_call_bug = false;
         mMultipleRadioSupport = false;
+        vdeeExperiments = getInstance();
 
         music_on_call_bug = firebaseRemoteConfig.getBoolean(MUSIC_ON_CALL_BUG);
         mMultipleRadioSupport = firebaseRemoteConfig.getBoolean(VDEE_MULTIPLE_SUPPORT_RADIO);

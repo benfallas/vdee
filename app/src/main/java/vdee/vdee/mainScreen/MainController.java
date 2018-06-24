@@ -96,7 +96,7 @@ class MainController
         mIntentReceiver = new IntentReceiver();
         mProgressDialog = new ProgressDialog(mMainActivity);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgressDialog.setMessage("Cargando");
+        mProgressDialog.setMessage(mMainActivity.getString(R.string.cargando));
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setCanceledOnTouchOutside(false);
 

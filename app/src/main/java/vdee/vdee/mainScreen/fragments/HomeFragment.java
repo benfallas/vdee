@@ -53,8 +53,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     private Button previousButton;
     FragmentManagerUtils fragmentManagerUtils;
 
-    @Inject VdeeExperiments vdeeExperiments;
-
     public HomeFragment() { }
 
     @Override
@@ -98,7 +96,11 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
 
     private void initLayout() {
         if (mSimplePlayer.isInitialized()) {
-            isPlaying(true);
+            isPlaying(VdeeExperiments.getInstance().isExperimentEnabled(VdeeExperiments.VDEE_MULTIPLE_SUPPORT_RADIO));
+        }
+
+        if (VdeeExperiments.getInstance().isExperimentEnabled(VdeeExperiments.VDEE_MULTIPLE_SUPPORT_RADIO)) {
+            displayMultipleRadioStations();
         }
     }
 
@@ -106,9 +108,7 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     void isPlaying(boolean isMultipleRadioSupportEnabled) {
         mPlayStopButton.setBackground(getActivity().getResources().getDrawable(R.drawable.stop_button));
         if (isMultipleRadioSupportEnabled) {
-            radioStationTitle.setVisibility(VISIBLE);
-            previousButton.setVisibility(VISIBLE);
-            nextButton.setVisibility(VISIBLE);
+            displayMultipleRadioStations();
         }
     }
 
@@ -214,6 +214,12 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
         } else {
             updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
         }
+    }
+
+    private void displayMultipleRadioStations() {
+        radioStationTitle.setVisibility(VISIBLE);
+        previousButton.setVisibility(VISIBLE);
+        nextButton.setVisibility(VISIBLE);
     }
 
     @PerFragment
