@@ -8,15 +8,6 @@
     android:layout_gravity="center_vertical">
     tools:context="vdee.vdee.contact.ContactActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout">
-
-        <include layout="@layout/toolbar_layout"/>
-
-    </android.support.design.widget.AppBarLayout>
-
     <Button
         android:id="@+id/call_button"
         android:layout_width="200sp"
