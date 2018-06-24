@@ -15,12 +15,20 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
+import dagger.Component;
 import vdee.vdee.R;
+import vdee.vdee.VDEEApp;
 import vdee.vdee.analytics.Analytics;
+import vdee.vdee.component.ExperimentComponent;
+import vdee.vdee.experiments.VdeeExperiments;
+import vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment;
 import vdee.vdee.mediaPlayer.RadioPlayerListener;
 import vdee.vdee.mediaPlayer.RadioStationUrls;
 import vdee.vdee.mediaPlayer.SimplePlayer;
 import vdee.vdee.util.ParentFragment;
+import vdee.vdee.util.PerFragment;
 
 import static android.view.View.VISIBLE;
 
@@ -43,9 +51,9 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     private Button nextButton;
     private Button previousButton;
 
-    public HomeFragment() {
-        super();
-    }
+    @Inject VdeeExperiments vdeeExperiments;
+
+    public HomeFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -59,6 +67,11 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     }
 
     private void onAttach() {
+        DaggerHomeFragment_HomeComponent.builder()
+                .experimentComponent((((VDEEApp) getActivity().getApplicationContext())).getExpComponent())
+                .build()
+                .inject(this);
+
         mAnalytics = Analytics.getAnalytics();
         mPlayStopButton = getActivity().findViewById(R.id.play_stop_button);
         mToolbar = getActivity().findViewById(R.id.main_toolbar);
@@ -71,6 +84,7 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
 
         mPlayStopButton.setOnClickListener(this);
         previousButton.setOnClickListener(this);
+        nextButton.setOnClickListener(this);
 
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(getActivity(), this);
         mRadioStationUrls = RadioStationUrls.initRadioStationUrl();
@@ -81,7 +95,7 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
 
     private void initLayout() {
         if (mSimplePlayer.isInitialized()) {
-            isPlaying(false);
+            isPlaying(true);
         }
     }
 
@@ -195,5 +209,11 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
         } else {
             updateRadioStationTitle(mRadioStationUrls.getCurrentTrack().getRadioTitle());
         }
+    }
+
+    @PerFragment
+    @Component(dependencies = ExperimentComponent.class)
+    interface HomeComponent {
+        void inject(HomeFragment homeFragment);
     }
 }

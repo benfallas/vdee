@@ -105,24 +105,6 @@ class MainController
     }
 
     private void onAttach() {
-        mMultipleRadioSupport = false;
-        if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
-            cacheExpiration = 0;
-        }
-        mFirebaseRemoteConfig.fetch(cacheExpiration)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        experiment = mMainActivity.getString(R.string.music_bug);
-                        mMultipleRadiosupport = mMainActivity.getString(R.string.vdee_multiple_radio_support);
-
-                        FBExpName = mFirebaseRemoteConfig.getBoolean(experiment);
-                        mMultipleRadioSupport = mFirebaseRemoteConfig.getBoolean(mMultipleRadiosupport);
-                    }
-                });
-
-        FirebaseAnalytics.getInstance(mMainActivity).setUserProperty(String.valueOf(FBExpName), experiment);
-        FirebaseAnalytics.getInstance(mMainActivity).setUserProperty(String.valueOf(mMultipleRadioSupport), mMultipleRadiosupport);
     }
 
     @Override

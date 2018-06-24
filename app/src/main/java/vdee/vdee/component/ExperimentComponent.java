@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import retrofit2.Retrofit;
+import vdee.vdee.experiments.VdeeExperiments;
 import vdee.vdee.module.AppModule;
 import vdee.vdee.module.ExpModule;
 
@@ -18,4 +19,5 @@ import vdee.vdee.module.ExpModule;
 public interface ExperimentComponent {
     FirebaseRemoteConfig remoteConfig();
     Retrofit retrofit();
+    VdeeExperiments vdeeExperiments();
 }

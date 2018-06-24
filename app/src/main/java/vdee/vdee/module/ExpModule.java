@@ -9,6 +9,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigFetchException;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -31,6 +32,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import vdee.vdee.BuildConfig;
+import vdee.vdee.experiments.VdeeExperiments;
+import vdee.vdee.util.PerFragment;
 
 import static android.content.ContentValues.TAG;
 import static vdee.vdee.vdeeApi.VdeeApi.API_KEY;
@@ -40,6 +43,7 @@ public class ExpModule {
     private long cacheExpiration;
     private String mBaseUrl = "https://bibles.org/v2/";
     FirebaseRemoteConfig mFirebaseRemoteConfig;
+    VdeeExperiments vdeeExperiments;
 
     /**
      * ExpModule fetches current remote config values.
@@ -63,11 +67,18 @@ public class ExpModule {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "Fetch Succeeded");
                     mFirebaseRemoteConfig.activateFetched();
+
                 } else {
                     Log.d(TAG, "Fetch Failed");
                 }
             }
         });
+    }
+
+    @Provides
+    @Singleton
+    VdeeExperiments providesVdeeExperiments(FirebaseRemoteConfig firebaseRemoteConfig) {
+        return new VdeeExperiments(firebaseRemoteConfig);
     }
 
     @Provides
