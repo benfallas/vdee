@@ -3,6 +3,7 @@ package vdee.vdee.mainScreen;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,6 +59,7 @@ class MainController
     private SimplePlayer mSimplePlayer;
     private IntentReceiver mIntentReceiver;
     private PhoneStateListener mPhoneStateListener;
+    private ProgressDialog mProgressDialog;
     private TelephonyManager mTelephonyManager;
     private FragmentManager mFragmentManager;
     private Fragment mFragment;
@@ -84,6 +87,11 @@ class MainController
 
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         mIntentReceiver = new IntentReceiver();
+        mProgressDialog = new ProgressDialog(mMainActivity);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setMessage("Cargando");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCanceledOnTouchOutside(false);
 
         mMainActivity.registerReceiver(mIntentReceiver, intentFilter);
 

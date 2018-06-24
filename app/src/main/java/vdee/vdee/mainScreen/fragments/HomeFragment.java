@@ -1,9 +1,7 @@
 package vdee.vdee.mainScreen.fragments;
 
 
-import android.app.Fragment;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +20,11 @@ import vdee.vdee.analytics.Analytics;
 import vdee.vdee.mediaPlayer.RadioPlayerListener;
 import vdee.vdee.mediaPlayer.RadioStationUrls;
 import vdee.vdee.mediaPlayer.SimplePlayer;
+import vdee.vdee.util.ParentFragment;
 
 import static android.view.View.VISIBLE;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, RadioPlayerListener {
+public class HomeFragment extends ParentFragment implements View.OnClickListener, RadioPlayerListener {
 
     private Analytics mAnalytics;
     private RadioStationUrls mRadioStationUrls;
@@ -46,7 +45,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
     private Button nextButton;
     private Button previousButton;
 
-    public HomeFragment() { }
+    public HomeFragment() {
+        super();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -138,7 +139,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
             endNow = android.os.SystemClock.uptimeMillis();
             minute = TimeUnit.MILLISECONDS.toMinutes(endNow - startNow);
             logTime(minute);
+            hideDialog();
         } else {
+            showDialog();
             play();
             mSimplePlayer.initPlayer();
             isPaused = false;
@@ -167,6 +170,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
 
     @Override
     public void onRadioPlayerReady() {
+        hideDialog();
         if (mNetworkError.getVisibility() == VISIBLE) {
             mNetworkError.setVisibility(View.GONE);
         }
@@ -177,6 +181,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
 
     @Override
     public void onRadioPlayerError() {
+        hideDialog();
         mNetworkError.setVisibility(VISIBLE);
         mAnalytics.onRadioNetworkError();
     }

@@ -50,10 +50,6 @@ public class MainActivity extends Activity {
         mMainController = new MainController(this);
     }
 
-    public MainController getController() {
-        return mMainController;
-    }
-
     @Override
     protected void onPause() {
         super.onPause();

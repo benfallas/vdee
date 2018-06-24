@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import dagger.Component;
 import retrofit2.Retrofit;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 import vdee.vdee.R;
 import vdee.vdee.VDEEApp;
@@ -24,12 +25,13 @@ import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.data.module.chaptersResponse.ChapterPayload;
 import vdee.vdee.data.module.chaptersResponse.ChaptersResponse;
 import vdee.vdee.mainScreen.fragments.bibleFragments.verses.VersesFragment;
+import vdee.vdee.util.ParentFragment;
 import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
 
 import static vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment.BOOK_ID;
 
-public class ChaptersFragment extends Fragment
+public class ChaptersFragment extends ParentFragment
         implements ChaptersResponseListener.Listener, ChaptersAdapter.ChapterButtonListener {
 
     public static String CHAPTER_ID = "CHAPTER_ID";
@@ -69,6 +71,7 @@ public class ChaptersFragment extends Fragment
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mListener);
+        showDialog();
     }
 
     @Override
@@ -79,6 +82,7 @@ public class ChaptersFragment extends Fragment
 
     @Override
     public void onNext(ChaptersResponse chaptersResponse) {
+        hideDialog();
         payloads = chaptersResponse.getResponse().getChapterPayloads();
         displayGrid();
     }

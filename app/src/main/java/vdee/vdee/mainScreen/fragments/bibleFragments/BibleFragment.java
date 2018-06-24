@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import dagger.Component;
 import retrofit2.Retrofit;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 import vdee.vdee.R;
 import vdee.vdee.VDEEApp;
@@ -25,10 +26,11 @@ import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.data.module.booksResponse.Book;
 import vdee.vdee.data.module.booksResponse.BooksResponse;
 import vdee.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment;
+import vdee.vdee.util.ParentFragment;
 import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
 
-public class BibleFragment extends Fragment implements BooksAdapter.ViewHolderListener, BibleResponseListener.Listener {
+public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHolderListener, BibleResponseListener.Listener {
 
     public static String BOOK_TITLE = "BOOK_TITLE";
     public static String BOOK_ID = "BOOK_ID";
@@ -67,6 +69,7 @@ public class BibleFragment extends Fragment implements BooksAdapter.ViewHolderLi
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mListener);
+        showDialog();
     }
 
     private void displayBooks(ArrayList<Book> books) {
@@ -98,6 +101,7 @@ public class BibleFragment extends Fragment implements BooksAdapter.ViewHolderLi
 
     @Override
     public void onNext(BooksResponse booksResponse) {
+        hideDialog();
         originalBooks = booksResponse.getResponse().getBooks();
         displayBooks(originalBooks);
     }

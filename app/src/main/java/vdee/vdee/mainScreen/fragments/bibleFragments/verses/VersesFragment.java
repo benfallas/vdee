@@ -16,18 +16,20 @@ import javax.inject.Inject;
 import dagger.Component;
 import retrofit2.Retrofit;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 import vdee.vdee.R;
 import vdee.vdee.VDEEApp;
 import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.data.module.versesResponse.VersesPayload;
 import vdee.vdee.data.module.versesResponse.VersesResponse;
+import vdee.vdee.util.ParentFragment;
 import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
 
 import static vdee.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment.CHAPTER_ID;
 
-public class VersesFragment extends Fragment implements VersesResponseListener.Listener {
+public class VersesFragment extends ParentFragment implements VersesResponseListener.Listener {
 
     private RecyclerView mRecyclerView;
     private VersesAdapter mAdapter;
@@ -64,6 +66,7 @@ public class VersesFragment extends Fragment implements VersesResponseListener.L
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mListener);
+        showDialog();
     }
 
     private void displayVerses(ArrayList<VersesPayload> versesPayloads) {
@@ -80,6 +83,7 @@ public class VersesFragment extends Fragment implements VersesResponseListener.L
 
     @Override
     public void onNext(VersesResponse versesResponse) {
+        hideDialog();
         mOriginalVerses = versesResponse.getResponse().getVersesPayload();
         displayVerses(mOriginalVerses);
     }
