@@ -72,6 +72,7 @@ public class SplashActivity extends ParentActivity {
     private void launchMainScreen() {
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @PerFragment

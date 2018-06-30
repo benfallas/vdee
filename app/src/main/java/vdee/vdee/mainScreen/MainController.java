@@ -82,7 +82,6 @@ class MainController
         mMainActivity = mainActivity;
         mAnalytics = Analytics.getAnalytics();
         mPermissionsManager = PermissionsManager.getPermissionsManager();
-        mFragmentManager = mMainActivity.getFragmentManager();
         fragmentManagerUtils = FragmentManagerUtils.getFragmentManagerUtils();
 
         DaggerMainController_MainControllerComponent.builder()
