@@ -64,7 +64,6 @@ class MainController
     private SimplePlayer mSimplePlayer;
     private IntentReceiver mIntentReceiver;
     private PhoneStateListener mPhoneStateListener;
-    private ProgressDialog mProgressDialog;
     private TelephonyManager mTelephonyManager;
     private FragmentManager mFragmentManager;
     private FragmentManagerUtils fragmentManagerUtils;
@@ -94,11 +93,6 @@ class MainController
 
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         mIntentReceiver = new IntentReceiver();
-        mProgressDialog = new ProgressDialog(mMainActivity);
-        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgressDialog.setMessage(mMainActivity.getString(R.string.cargando));
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setCanceledOnTouchOutside(false);
 
         mMainActivity.registerReceiver(mIntentReceiver, intentFilter);
 
