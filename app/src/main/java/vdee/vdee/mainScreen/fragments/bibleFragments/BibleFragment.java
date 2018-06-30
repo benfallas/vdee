@@ -26,6 +26,7 @@ import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.data.module.booksResponse.Book;
 import vdee.vdee.data.module.booksResponse.BooksResponse;
 import vdee.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment;
+import vdee.vdee.util.FragmentManagerUtils;
 import vdee.vdee.util.ParentFragment;
 import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
@@ -87,10 +88,7 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
         bundle.putString(BOOK_TITLE, bookTitle);
         bundle.putString(BOOK_ID, bookId);
         fragment.setArguments(bundle);
-        FragmentManager fragmentManager = getActivity().getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_container, fragment);
-        fragmentTransaction.commit();
+        FragmentManagerUtils.pushFragment(fragment, FragmentManagerUtils.BIBLE_FRAGMENT_TAG);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class FragmentManagerUtils {
         return fragmentManagerUtils;
     }
 
-    public void pushFragment(Fragment fragment, String fragmentTag) {
+    public static void pushFragment(Fragment fragment, String fragmentTag) {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment, fragmentTag).commit();
     }

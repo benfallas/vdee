@@ -25,6 +25,7 @@ import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.data.module.chaptersResponse.ChapterPayload;
 import vdee.vdee.data.module.chaptersResponse.ChaptersResponse;
 import vdee.vdee.mainScreen.fragments.bibleFragments.verses.VersesFragment;
+import vdee.vdee.util.FragmentManagerUtils;
 import vdee.vdee.util.ParentFragment;
 import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
@@ -101,11 +102,7 @@ public class ChaptersFragment extends ParentFragment
         Bundle bundle = new Bundle();
         bundle.putString(CHAPTER_ID, chapterId);
         fragment.setArguments(bundle);
-        FragmentManager fragmentManager = getActivity().getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_container, fragment);
-        fragmentTransaction.commit();
-
+        FragmentManagerUtils.pushFragment(fragment, FragmentManagerUtils.CHAPTERS_FRAGMENT_TAG);
     }
 
     @PerFragment
