@@ -10,13 +10,14 @@ import com.vistrav.ask.Ask;
 import com.vistrav.ask.annotations.AskGranted;
 
 import io.fabric.sdk.android.Fabric;
+import vdee.vdee.parent.ParentActivity;
 import vdee.vdee.permissions.PermissionsManager;
 import vdee.vdee.util.FragmentManagerUtils;
 
 /**
  * Main Activity controls the Android lifecycle of main screen.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends ParentActivity {
 
     private MainController mMainController;
     private PermissionsManager mPermissionsManager;
@@ -26,7 +27,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        fragmentManagerUtils = FragmentManagerUtils.initializeFragmentManagerUtils(this);
+        fragmentManagerUtils = FragmentManagerUtils.getFragmentManagerUtils();
         mMainController = new MainController(this);
         mPermissionsManager = PermissionsManager.getPermissionsManager();
         Ask.on(this)

@@ -18,13 +18,14 @@ import vdee.vdee.VDEEApp;
 import vdee.vdee.component.ExperimentComponent;
 import vdee.vdee.experiments.VdeeExperiments;
 import vdee.vdee.mainScreen.MainActivity;
+import vdee.vdee.parent.ParentActivity;
 import vdee.vdee.util.PerFragment;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends ParentActivity {
 
     private static final String TAG = "SpashActivity";
 
