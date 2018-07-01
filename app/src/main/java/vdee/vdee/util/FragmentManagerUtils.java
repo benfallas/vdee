@@ -46,8 +46,11 @@ public class FragmentManagerUtils {
 
     public static void pushFragment(Fragment fragment, String fragmentTag) {
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_container, fragment, fragmentTag)
-                .addToBackStack(null).commit();
+        fragmentTransaction.replace(R.id.main_container, fragment, fragmentTag);
+        if (fragmentTag != HOME_FRAGMENT_TAG) {
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.commit();
     }
 
     public boolean isCurrentFragmentShown(String fragmentTag) {

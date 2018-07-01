@@ -31,9 +31,6 @@ public class ParentActivity extends Activity {
             super.onBackPressed();
         } else {
             fragmentManager.popBackStack();
-            if (fragmentManager.getBackStackEntryCount() == 0) {
-                super.onBackPressed();
-            }
         }
     }
 
