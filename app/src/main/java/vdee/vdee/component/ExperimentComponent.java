@@ -1,5 +1,7 @@
 package vdee.vdee.component;
 
+import android.content.SharedPreferences;
+
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import javax.inject.Singleton;
@@ -18,5 +20,6 @@ import vdee.vdee.module.ExpModule;
 */
 public interface ExperimentComponent {
     FirebaseRemoteConfig remoteConfig();
+    SharedPreferences sharedPreferences();
     Retrofit retrofit();
 }

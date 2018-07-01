@@ -1,6 +1,7 @@
 package vdee.vdee.splashScreen;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import vdee.vdee.experiments.VdeeExperiments;
 import vdee.vdee.mainScreen.MainActivity;
 import vdee.vdee.parent.ParentActivity;
 import vdee.vdee.util.PerFragment;
+import vdee.vdee.util.StorageUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -30,6 +32,9 @@ public class SplashActivity extends ParentActivity {
     private static final String TAG = "SpashActivity";
 
     @Inject FirebaseRemoteConfig mFirebaseRemoteConfig;
+    @Inject SharedPreferences mSharedPreferences;
+
+    private StorageUtils mStorageUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,8 @@ public class SplashActivity extends ParentActivity {
 
         setContentView(R.layout.activity_splash);
 
+        /** Initializes storage manager. **/
+        StorageUtils.initSharedUtils(mSharedPreferences);
     }
 
     @Override
