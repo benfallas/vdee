@@ -67,11 +67,15 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
                 .build()
                 .inject(this);
 
-        retrofit.create(VdeeApi.class).getBible()
+        if (StorageUtils.getStoredBooksResponse().getResponse().getBooks() != null) {
+            showBooks(StorageUtils.getStoredBooksResponse());
+        } else {
+            retrofit.create(VdeeApi.class).getBible()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mListener);
-        showDialog();
+            showDialog();
+        }
     }
 
     private void displayBooks(ArrayList<Book> books) {
