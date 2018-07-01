@@ -29,6 +29,7 @@ import vdee.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment;
 import vdee.vdee.util.FragmentManagerUtils;
 import vdee.vdee.util.ParentFragment;
 import vdee.vdee.util.PerFragment;
+import vdee.vdee.util.StorageUtils;
 import vdee.vdee.vdeeApi.VdeeApi;
 
 public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHolderListener, BibleResponseListener.Listener {
@@ -98,13 +99,22 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
     public void onError(Throwable e) {
         hideDialog();
         showNetworkError();
+        BooksResponse booksResponse = StorageUtils.getStoredBooksResponse();
+        showBooks(booksResponse);
     }
 
     @Override
     public void onNext(BooksResponse booksResponse) {
         hideDialog();
-        originalBooks = booksResponse.getResponse().getBooks();
-        displayBooks(originalBooks);
+        showBooks(booksResponse);
+        StorageUtils.storeBooksResponse(booksResponse);
+    }
+
+    private void showBooks(BooksResponse booksResponse) {
+        if (booksResponse.getResponse().getBooks() != null) {
+            originalBooks = booksResponse.getResponse().getBooks();
+            displayBooks(originalBooks);
+        }
     }
 
     @PerFragment

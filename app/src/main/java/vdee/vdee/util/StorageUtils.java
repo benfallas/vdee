@@ -2,6 +2,10 @@ package vdee.vdee.util;
 
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
+import vdee.vdee.data.module.booksResponse.BooksResponse;
+
 /**
  * Stores values for fetched experiments.
  *
@@ -11,6 +15,7 @@ import android.content.SharedPreferences;
 public class StorageUtils {
 
     public static final String MULTIPLE_RADIO_SUPPORT = "MUTIPLE_RADIO_SUPPORT";
+    public static final String BOOKS_RESPONSE = "books_response";
 
     private static SharedPreferences mSharedPreferences;
     private static StorageUtils mStorageUtils;
@@ -40,5 +45,20 @@ public class StorageUtils {
      */
     public static boolean isMutipleRadioXpSupported() {
         return mSharedPreferences.getBoolean(MULTIPLE_RADIO_SUPPORT, false);
+    }
+
+    public static void storeBooksResponse(BooksResponse booksResponse) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(booksResponse);
+        editor.putString(BOOKS_RESPONSE, json);
+        editor.commit();
+    }
+
+    public static BooksResponse getStoredBooksResponse() {
+        Gson gson = new Gson();
+        String json = mSharedPreferences.getString(BOOKS_RESPONSE, "");
+        BooksResponse booksResponse = gson.fromJson(json, BooksResponse.class);
+        return booksResponse;
     }
 }
