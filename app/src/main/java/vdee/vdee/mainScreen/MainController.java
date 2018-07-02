@@ -126,7 +126,6 @@ class MainController
             default:
                 return false;
         }
-
         fragmentManagerUtils.pushFragment(mFragment, id);
         return true;
     }

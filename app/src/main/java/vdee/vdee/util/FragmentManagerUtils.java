@@ -15,6 +15,7 @@ public class FragmentManagerUtils {
 
     public static final String HOME_FRAGMENT_TAG = "HOME_FRAGMENT";
     public static final String BIBLE_FRAGMENT_TAG = "BIBLE_FRAGMENT";
+    public static final String BOOKS_FRAGMENT_TAG = "BOOKS_FRAGMENT_TAG";
     public static final String CONTACT_US_FRAGMENT_TAG = "CONTACT_US_FRAGMENT";
     public static final String VERSES_FRAGMENT_TAG = "VERSES_FRAGMENT";
     public static final String CHAPTERS_FRAGMENT_TAG = "CHAPTERS_FRAGMENT";
@@ -47,8 +48,11 @@ public class FragmentManagerUtils {
     public static void pushFragment(Fragment fragment, String fragmentTag) {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment, fragmentTag);
-        if (fragmentTag != HOME_FRAGMENT_TAG) {
+        if (fragmentTag != HOME_FRAGMENT_TAG && fragmentTag != BIBLE_FRAGMENT_TAG
+                && fragmentTag != CONTACT_US_FRAGMENT_TAG) {
             fragmentTransaction.addToBackStack(null);
+        } else {
+            removeAll();
         }
         fragmentTransaction.commit();
     }
@@ -56,5 +60,11 @@ public class FragmentManagerUtils {
     public boolean isCurrentFragmentShown(String fragmentTag) {
         Fragment fragment = fragmentManager.findFragmentByTag(fragmentTag);
         return fragment != null && fragment.isVisible();
+    }
+
+    private static void removeAll() {
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+            fragmentManager.popBackStack();
+        }
     }
 }

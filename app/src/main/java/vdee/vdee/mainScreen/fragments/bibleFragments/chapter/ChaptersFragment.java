@@ -31,6 +31,8 @@ import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
 
 import static vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment.BOOK_ID;
+import static vdee.vdee.util.FragmentManagerUtils.BIBLE_FRAGMENT_TAG;
+import static vdee.vdee.util.FragmentManagerUtils.CHAPTERS_FRAGMENT_TAG;
 
 public class ChaptersFragment extends ParentFragment
         implements ChaptersResponseListener.Listener, ChaptersAdapter.ChapterButtonListener {
@@ -102,7 +104,7 @@ public class ChaptersFragment extends ParentFragment
         Bundle bundle = new Bundle();
         bundle.putString(CHAPTER_ID, chapterId);
         fragment.setArguments(bundle);
-        FragmentManagerUtils.pushFragment(fragment, FragmentManagerUtils.CHAPTERS_FRAGMENT_TAG);
+        FragmentManagerUtils.pushFragment(fragment, CHAPTERS_FRAGMENT_TAG);
     }
 
     @PerFragment

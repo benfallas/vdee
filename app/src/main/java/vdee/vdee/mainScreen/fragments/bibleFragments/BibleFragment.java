@@ -32,6 +32,8 @@ import vdee.vdee.util.PerFragment;
 import vdee.vdee.util.StorageUtils;
 import vdee.vdee.vdeeApi.VdeeApi;
 
+import static vdee.vdee.util.FragmentManagerUtils.BIBLE_FRAGMENT_TAG;
+
 public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHolderListener, BibleResponseListener.Listener {
 
     public static String BOOK_TITLE = "BOOK_TITLE";
@@ -93,7 +95,7 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
         bundle.putString(BOOK_TITLE, bookTitle);
         bundle.putString(BOOK_ID, bookId);
         fragment.setArguments(bundle);
-        FragmentManagerUtils.pushFragment(fragment, FragmentManagerUtils.BIBLE_FRAGMENT_TAG);
+        FragmentManagerUtils.pushFragment(fragment, FragmentManagerUtils.BOOKS_FRAGMENT_TAG);
     }
 
     @Override
