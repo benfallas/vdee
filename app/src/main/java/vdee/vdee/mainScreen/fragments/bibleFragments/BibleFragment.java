@@ -95,7 +95,7 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
         bundle.putString(BOOK_TITLE, bookTitle);
         bundle.putString(BOOK_ID, bookId);
         fragment.setArguments(bundle);
-        FragmentManagerUtils.pushFragment(fragment, FragmentManagerUtils.BOOKS_FRAGMENT_TAG);
+        FragmentManagerUtils.pushFragment(fragment, FragmentManagerUtils.CHAPTERS_FRAGMENT_TAG);
     }
 
     @Override
