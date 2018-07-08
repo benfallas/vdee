@@ -22,6 +22,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vdee.evalverde.vdee.R;
 import vdee.evalverde.vdee.VDEEApp;
+import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
 import vdee.evalverde.vdee.data.module.booksResponse.Book;
 import vdee.evalverde.vdee.data.module.booksResponse.BooksResponse;
@@ -37,6 +38,7 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
     public static String BOOK_TITLE = "BOOK_TITLE";
     public static String BOOK_ID = "BOOK_ID";
 
+    private Analytics mAnalytics;
     private RecyclerView mListOfBooks;
     private BooksAdapter mAdapter;
     private BibleResponseListener mListener;
@@ -61,10 +63,12 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
     }
 
     private void onAttach() {
+        mAnalytics = Analytics.getAnalytics();
         filteredBooks = new ArrayList<>();
         mListOfBooks = getActivity().findViewById(R.id.recycler_view_books);
         mListener = new BibleResponseListener(this);
 
+        mAnalytics.biblePageView();
         DaggerBibleFragment_BibleComponent.builder()
                 .experimentComponent((((VDEEApp) getActivity().getApplicationContext())).getExpComponent())
                 .build()

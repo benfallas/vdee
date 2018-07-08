@@ -1,6 +1,7 @@
 package vdee.evalverde.vdee.analytics;
 
 import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.crashlytics.android.answers.LevelEndEvent;
 
 /**
@@ -22,7 +23,11 @@ public class Analytics {
     }
 
     public void homePageView() {
-        Answers.getInstance().logCustom(mCustomEvents.homePageView());
+        Answers.getInstance().logContentView(
+                new ContentViewEvent()
+                        .putContentName("Home Page View")
+                        .putContentId("homePageView")
+        );
     }
 
     public void onPlayButtonClicked() {
@@ -59,6 +64,30 @@ public class Analytics {
     }
 
     public void contactPageView() {
-        Answers.getInstance().logCustom(mCustomEvents.contactPageView());
+        Answers.getInstance().logContentView(
+                new ContentViewEvent()
+                .putContentName("Contact Us Page")
+                .putContentId("contactUs"));
+    }
+
+    public void biblePageView() {
+        Answers.getInstance().logContentView(
+                new ContentViewEvent()
+                .putContentName("Bible Page")
+                .putContentId("bible"));
+    }
+
+    public void chaptersView() {
+        Answers.getInstance().logContentView(
+                new ContentViewEvent()
+                .putContentName("Chapters Page")
+                .putContentId("chapters"));
+    }
+
+    public void versesView() {
+        Answers.getInstance().logContentView(
+                new ContentViewEvent()
+                .putContentName("Verses Page")
+                .putContentId("verses"));
     }
 }

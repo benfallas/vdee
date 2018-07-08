@@ -19,6 +19,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vdee.evalverde.vdee.R;
 import vdee.evalverde.vdee.VDEEApp;
+import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
 import vdee.evalverde.vdee.data.module.chaptersResponse.ChapterPayload;
 import vdee.evalverde.vdee.data.module.chaptersResponse.ChaptersResponse;
@@ -38,6 +39,7 @@ public class ChaptersFragment extends ParentFragment
     public static String CHAPTER_ID = "CHAPTER_ID";
     public static String VERSES_TITLE = "VERSES_TITLE";
 
+    private Analytics mAnalytic;
     private ArrayList<ChapterPayload> payloads;
     private GridView mGridView;
     private ChaptersResponseListener mListener;
@@ -60,9 +62,10 @@ public class ChaptersFragment extends ParentFragment
     }
 
     private void onAttach() {
+        mAnalytic = Analytics.getAnalytics();
         mGridView = getActivity().findViewById(R.id.chapters_grid);
         mListener = new ChaptersResponseListener(this);
-
+        mAnalytic.chaptersView();
         DaggerChaptersFragment_ChaptersComponent.builder()
                 .experimentComponent((((VDEEApp) getActivity().getApplicationContext())).getExpComponent())
                 .build()

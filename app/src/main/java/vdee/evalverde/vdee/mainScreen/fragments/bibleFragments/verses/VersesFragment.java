@@ -20,6 +20,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vdee.evalverde.vdee.R;
 import vdee.evalverde.vdee.VDEEApp;
+import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
 import vdee.evalverde.vdee.data.module.versesResponse.VersesPayload;
 import vdee.evalverde.vdee.data.module.versesResponse.VersesResponse;
@@ -32,6 +33,7 @@ import static vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.chapter.Ch
 
 public class VersesFragment extends ParentFragment implements VersesResponseListener.Listener {
 
+    private Analytics mAnalytics;
     private RecyclerView mRecyclerView;
     private VersesAdapter mAdapter;
     private VersesResponseListener mListener;
@@ -56,9 +58,11 @@ public class VersesFragment extends ParentFragment implements VersesResponseList
     }
 
     private void onAttach() {
+        mAnalytics = Analytics.getAnalytics();
         mRecyclerView = getActivity().findViewById(R.id.recycler_view_verses);
         mListener = new VersesResponseListener(this);
 
+        mAnalytics.versesView();
         DaggerVersesFragment_VersesComponent.builder()
                 .experimentComponent((((VDEEApp) getActivity().getApplicationContext())).getExpComponent())
                 .build()

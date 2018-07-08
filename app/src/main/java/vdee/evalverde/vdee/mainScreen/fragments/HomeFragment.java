@@ -78,6 +78,8 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
         nextButton = getActivity().findViewById(R.id.next_button);
         previousButton = getActivity().findViewById(R.id.previous_button);
 
+        mAnalytics.homePageView();
+
         mPlayStopButton.setOnClickListener(this);
         previousButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);

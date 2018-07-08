@@ -1,8 +1,5 @@
 package vdee.evalverde.vdee.experiments;
 
-import android.util.Log;
-
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import vdee.evalverde.vdee.util.StorageUtils;
@@ -37,9 +34,6 @@ public class VdeeExperiments {
         mMultipleRadioSupport = firebaseRemoteConfig.getBoolean(VDEE_MULTIPLE_SUPPORT_RADIO);
         experimentsFetchedSuccessfully = true;
         StorageUtils.storeMultiplePlayersExperiment(mMultipleRadioSupport);
-        String id = FirebaseInstanceId.getInstance().getId();
-        Log.d("FiirebaseInstanceId", id);
-        Log.d("FiirebaseInstanceId", FirebaseInstanceId.getInstance().getToken());
     }
 
     public boolean isExperimentEnabled(String experimentName) {
