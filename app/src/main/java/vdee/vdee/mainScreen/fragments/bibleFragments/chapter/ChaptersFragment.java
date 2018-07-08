@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,7 @@ import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
 
 import static vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment.BOOK_ID;
+import static vdee.vdee.mainScreen.fragments.bibleFragments.BibleFragment.BOOK_TITLE;
 import static vdee.vdee.util.FragmentManagerUtils.BIBLE_FRAGMENT_TAG;
 import static vdee.vdee.util.FragmentManagerUtils.CHAPTERS_FRAGMENT_TAG;
 import static vdee.vdee.util.FragmentManagerUtils.VERSES_FRAGMENT_TAG;
@@ -43,6 +46,8 @@ public class ChaptersFragment extends ParentFragment
     private ArrayList<ChapterPayload> payloads;
     private GridView mGridView;
     private ChaptersResponseListener mListener;
+    private TextView mChaptersTitle;
+    private String bookTitle;
 
     @Inject Retrofit retrofit;
 
@@ -67,8 +72,10 @@ public class ChaptersFragment extends ParentFragment
                 .experimentComponent((((VDEEApp) getActivity().getApplicationContext())).getExpComponent())
                 .build()
                 .inject(this);
+        mChaptersTitle = getActivity().findViewById(R.id.chapters_title);
 
         String bookId = getArguments().getString(BOOK_ID);
+        bookTitle = getArguments().getString(BOOK_TITLE);
 
 
         retrofit.create(VdeeApi.class).getChaptersByBookId(bookId)
@@ -90,6 +97,7 @@ public class ChaptersFragment extends ParentFragment
     @Override
     public void onNext(ChaptersResponse chaptersResponse) {
         hideDialog();
+        mChaptersTitle.setText(bookTitle);
         payloads = chaptersResponse.getResponse().getChapterPayloads();
         displayGrid();
     }
