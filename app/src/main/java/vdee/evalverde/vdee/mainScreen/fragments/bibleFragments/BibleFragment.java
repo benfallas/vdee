@@ -71,7 +71,8 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
                 .inject(this);
         mSearchBar = getActivity().findViewById(R.id.bible_search);
 
-        if (StorageUtils.getStoredBooksResponse().getResponse().getBooks() != null) {
+        if (StorageUtils.getStoredBooksResponse() != null
+            && StorageUtils.getStoredBooksResponse().getResponse().getBooks() != null) {
             showBooks(StorageUtils.getStoredBooksResponse());
         } else {
             retrofit.create(VdeeApi.class).getBible()
