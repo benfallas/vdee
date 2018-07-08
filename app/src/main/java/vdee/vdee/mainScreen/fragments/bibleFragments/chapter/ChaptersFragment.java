@@ -42,6 +42,7 @@ public class ChaptersFragment extends ParentFragment
         implements ChaptersResponseListener.Listener, ChaptersAdapter.ChapterButtonListener {
 
     public static String CHAPTER_ID = "CHAPTER_ID";
+    public static String VERSES_TITLE = "VERSES_TITLE";
 
     private ArrayList<ChapterPayload> payloads;
     private GridView mGridView;
@@ -77,7 +78,6 @@ public class ChaptersFragment extends ParentFragment
         String bookId = getArguments().getString(BOOK_ID);
         bookTitle = getArguments().getString(BOOK_TITLE);
 
-
         retrofit.create(VdeeApi.class).getChaptersByBookId(bookId)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -112,6 +112,7 @@ public class ChaptersFragment extends ParentFragment
         String chapterId = payloads.get(position).getId();
         Bundle bundle = new Bundle();
         bundle.putString(CHAPTER_ID, chapterId);
+        bundle.putString(VERSES_TITLE, bookTitle + " " + String.valueOf(position + 1));
         fragment.setArguments(bundle);
         FragmentManagerUtils.pushFragment(fragment, VERSES_FRAGMENT_TAG);
     }

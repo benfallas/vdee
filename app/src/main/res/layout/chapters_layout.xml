@@ -12,7 +12,8 @@
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
         android:textSize="24sp"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold"
+        android:padding="@dimen/vdee_medium_title"/>
 
     <GridView
         android:id="@+id/chapters_grid"

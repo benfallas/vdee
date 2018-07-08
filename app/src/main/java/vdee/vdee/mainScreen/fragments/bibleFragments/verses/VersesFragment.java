@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ import vdee.vdee.util.PerFragment;
 import vdee.vdee.vdeeApi.VdeeApi;
 
 import static vdee.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment.CHAPTER_ID;
+import static vdee.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment.VERSES_TITLE;
 
 public class VersesFragment extends ParentFragment implements VersesResponseListener.Listener {
 
@@ -35,6 +37,8 @@ public class VersesFragment extends ParentFragment implements VersesResponseList
     private VersesAdapter mAdapter;
     private VersesResponseListener mListener;
     private ArrayList<VersesPayload> mOriginalVerses;
+    private String mVersesTitle;
+    private TextView mVersesTitleView;
 
     @Inject Retrofit mRetrofit;
 
@@ -60,7 +64,10 @@ public class VersesFragment extends ParentFragment implements VersesResponseList
                 .build()
                 .inject(this);
 
+        mVersesTitleView = getActivity().findViewById(R.id.verses_title);
+
         String versesId = getArguments().getString(CHAPTER_ID);
+        mVersesTitle = getArguments().getString(VERSES_TITLE);
 
         mRetrofit.create(VdeeApi.class).getVerses(versesId)
                 .subscribeOn(Schedulers.newThread())
@@ -86,6 +93,7 @@ public class VersesFragment extends ParentFragment implements VersesResponseList
 
     @Override
     public void onNext(VersesResponse versesResponse) {
+        mVersesTitleView.setText(mVersesTitle);
         hideDialog();
         mOriginalVerses = versesResponse.getResponse().getVersesPayload();
         displayVerses(mOriginalVerses);

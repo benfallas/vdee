@@ -4,10 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/verses_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        android:padding="@dimen/vdee_medium_title"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_verses"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/verses_title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 </RelativeLayout>
