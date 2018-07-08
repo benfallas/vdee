@@ -66,6 +66,7 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
     }
 
     private void onAttach() {
+        filteredBooks = new ArrayList<>();
         mListOfBooks = getActivity().findViewById(R.id.recycler_view_books);
         mListener = new BibleResponseListener(this);
 
@@ -96,8 +97,6 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         mSearchBar.setCursorVisible(false);
                         s = s.toString().toLowerCase();
-
-                        filteredBooks = new ArrayList<>();
 
                         for (int i = 0; i < originalBooks.size(); i++) {
                             final String bookSearched = originalBooks.get(i).getName().toLowerCase();
@@ -163,6 +162,7 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
     private void showBooks(BooksResponse booksResponse) {
         if (booksResponse.getResponse().getBooks() != null) {
             originalBooks = booksResponse.getResponse().getBooks();
+            filteredBooks.addAll(originalBooks);
             displayBooks(originalBooks);
         }
     }
