@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class VersesFragment extends ParentFragment implements VersesResponseList
     private ArrayList<VersesPayload> mOriginalVerses;
     private String mVersesTitle;
     private TextView mVersesTitleView;
+    private TextView mVersesCopyright;
 
     @Inject Retrofit mRetrofit;
 
@@ -65,6 +67,7 @@ public class VersesFragment extends ParentFragment implements VersesResponseList
                 .inject(this);
 
         mVersesTitleView = getActivity().findViewById(R.id.verses_title);
+        mVersesCopyright = getActivity().findViewById(R.id.verses_copyright);
 
         String versesId = getArguments().getString(CHAPTER_ID);
         mVersesTitle = getArguments().getString(VERSES_TITLE);
@@ -97,6 +100,7 @@ public class VersesFragment extends ParentFragment implements VersesResponseList
         hideDialog();
         mOriginalVerses = versesResponse.getResponse().getVersesPayload();
         displayVerses(mOriginalVerses);
+        mVersesCopyright.setText(Html.fromHtml(mOriginalVerses.get(0).getCopyright()));
     }
 
     @PerFragment
