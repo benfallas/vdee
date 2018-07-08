@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -25,8 +25,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:text="Correo"/>
+                    android:textSize="@dimen/vdee_medium_title"
+                    android:text="@string/vdee__correo"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingMultiplier="2"
-                        android:text="Ministerios Efraim Valverde Sr. \n PO BOX 10271, Salinas, CA 93912"
+                        android:text="@string/vdee__correo_address"
                         android:padding="10dp"/>
                 </LinearLayout>
             </LinearLayout>
@@ -51,8 +51,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:text="Teléfono"/>
+                    android:textSize="@dimen/vdee_medium_title"
+                    android:text="@string/vdee__phone_title"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingMultiplier="2"
-                        android:text="Llámenos por teléfono al \n (831) 422-0647"
+                        android:text="@string/vdee__phone_description"
                         android:padding="10dp"/>
 
                     <View
@@ -91,8 +91,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Santuario Local"
-                    android:textSize="20dp"
+                    android:text="@string/vdee__santuary_title"
+                    android:textSize="@dimen/vdee_medium_title"
                     android:padding="10dp"/>
 
                 <LinearLayout
@@ -111,7 +111,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Templo Filadelfia"
+                        android:text="@string/vdee__templo_filadelphia"
                         android:textStyle="bold"
                         android:padding="10dp"/>
 
@@ -119,13 +119,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingMultiplier="2"
-                        android:text="160 Pajaro St \n Salinas, CA 93901"
+                        android:text="@string/vdee__templo_address"
                         android:padding="10dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Servicios:"
+                        android:text="@string/vdee__servicios_title"
                         android:textStyle="bold"
                         android:padding="10dp"/>
 
@@ -133,11 +133,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingMultiplier="2"
-                        android:text="Miércoles 7:00pm \nDomingo 12:15pm"
+                        android:text="@string/vdee__servicios_dates"
                         android:padding="10dp"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 </LinearLayout>

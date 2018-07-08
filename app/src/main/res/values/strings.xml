@@ -24,4 +24,14 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <!-- Contact Us Strings-->
+    <string name="vdee__correo">Correo</string>
+    <string name="vdee__correo_address">Ministerios Efraim Valverde Sr. \n PO BOX 10271, Salinas, CA 93912</string>
+    <string name="vdee__phone_title">Teléfono</string>
+    <string name="vdee__phone_description">Llámenos por teléfono al \n (831) 422-0647</string>
+    <string name="vdee__santuary_title">Santuario Local</string>
+    <string name="vdee__templo_filadelphia">Templo Filadelfia</string>
+    <string name="vdee__templo_address">160 Pajaro St \n Salinas, CA 93901</string>
+    <string name="vdee__servicios_title">Servicios:</string>
+    <string name="vdee__servicios_dates">Miércoles 7:00pm \nDomingo 12:15pm</string>
 </resources>
