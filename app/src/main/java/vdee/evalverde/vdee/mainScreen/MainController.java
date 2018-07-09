@@ -157,7 +157,9 @@ class MainController
                 int state = intent.getIntExtra("state", -1);
                 switch (state) {
                     case 0:
-                        mSimplePlayer.releasePlayer();
+                        if (mSimplePlayer != null) {
+                            mSimplePlayer.releasePlayer();
+                        }
                         Log.d(headsetReceiver, headsetUnplugged);
                         break;
                     case 1:

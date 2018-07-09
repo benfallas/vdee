@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
@@ -41,7 +39,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     private long startNow;
 
     private Button mPlayStopButton;
-    private Toolbar mToolbar;
     private TextView mToolbarTitle;
     private SimpleExoPlayerView simpleExoPlayerView;
     private TextView radioStationTitle;
@@ -70,7 +67,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
 
         mAnalytics = Analytics.getAnalytics();
         mPlayStopButton = getActivity().findViewById(R.id.play_stop_button);
-        mToolbar = getActivity().findViewById(R.id.main_toolbar);
         mToolbarTitle = getActivity().findViewById(R.id.id__toolbar_title);
         simpleExoPlayerView = getActivity().findViewById(R.id.video_view);
         radioStationTitle = getActivity().findViewById(R.id.radio_station_title);
