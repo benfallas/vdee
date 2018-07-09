@@ -44,7 +44,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     private Toolbar mToolbar;
     private TextView mToolbarTitle;
     private SimpleExoPlayerView simpleExoPlayerView;
-    private ImageView shareButton;
     private TextView radioStationTitle;
     private Button nextButton;
     private Button previousButton;
@@ -74,7 +73,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
         mToolbar = getActivity().findViewById(R.id.main_toolbar);
         mToolbarTitle = getActivity().findViewById(R.id.id__toolbar_title);
         simpleExoPlayerView = getActivity().findViewById(R.id.video_view);
-        shareButton = getActivity().findViewById(R.id.share_button);
         radioStationTitle = getActivity().findViewById(R.id.radio_station_title);
         nextButton = getActivity().findViewById(R.id.next_button);
         previousButton = getActivity().findViewById(R.id.previous_button);
@@ -84,7 +82,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
         mPlayStopButton.setOnClickListener(this);
         previousButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-        shareButton.setOnClickListener(this);
 
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(getActivity(), this);
         mRadioStationUrls = RadioStationUrls.initRadioStationUrl();
@@ -130,12 +127,7 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     }
 
     private void onShareButtonClicked() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=vdee.evalverde.vdee");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Escucha Predicaciones!");
-        intent.setType("text/plain");
-        getActivity().startActivity(intent);
+
     }
 
     /**

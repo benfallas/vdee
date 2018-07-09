@@ -1,9 +1,11 @@
 package vdee.evalverde.vdee.mainScreen;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import vdee.evalverde.vdee.R;
@@ -17,6 +19,7 @@ public class MainLayout
         implements
             BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private ImageView shareButton;
     private MainActivity mMainActivity;
     private MainLayoutListener mMainLayoutListener;
     private Analytics mAnalytics;
@@ -34,8 +37,21 @@ public class MainLayout
 
         mMainActivity.setContentView(R.layout.activity_main);
         bottomNavigationView = mMainActivity.findViewById(R.id.navigation);
+        shareButton = mMainActivity.findViewById(R.id.share_button);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.homeItem);
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=vdee.evalverde.vdee");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Escucha Predicaciones!");
+                intent.setType("text/plain");
+                mMainActivity.startActivity(intent);
+            }
+        });
     }
 
     @Override
