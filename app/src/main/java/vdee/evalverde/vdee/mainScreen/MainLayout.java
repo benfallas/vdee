@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
 import vdee.evalverde.vdee.R;
 import vdee.evalverde.vdee.analytics.Analytics;
 

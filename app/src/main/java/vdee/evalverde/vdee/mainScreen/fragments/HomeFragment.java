@@ -1,6 +1,7 @@
 package vdee.evalverde.vdee.mainScreen.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,6 +84,7 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
         mPlayStopButton.setOnClickListener(this);
         previousButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
+        shareButton.setOnClickListener(this);
 
         mSimplePlayer = SimplePlayer.initializeSimplePlayer(getActivity(), this);
         mRadioStationUrls = RadioStationUrls.initRadioStationUrl();
@@ -122,7 +124,18 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
             case R.id.play_stop_button:
                 onPlayStopButtonClicked();
                 break;
+            case R.id.share_button:
+                onShareButtonClicked();
         }
+    }
+
+    private void onShareButtonClicked() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=vdee.evalverde.vdee");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Escucha Predicaciones!");
+        intent.setType("text/plain");
+        getActivity().startActivity(intent);
     }
 
     /**
