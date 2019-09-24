@@ -11,8 +11,6 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-
 import javax.inject.Inject;
 
 import dagger.Component;
@@ -58,8 +56,6 @@ class MainController
     private FragmentManager mFragmentManager;
     private FragmentManagerUtils fragmentManagerUtils;
     private Fragment mFragment;
-
-    @Inject FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     @Inject MainLayout mMainLayout;
     private PermissionsManager mPermissionsManager;

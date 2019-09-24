@@ -75,10 +75,6 @@ dependencies {
 
     implementation 'com.android.support:appcompat-v7:27.1.1'
 
-    // Firebase
-    implementation 'com.google.firebase:firebase-core:16.0.0'
-    implementation 'com.google.firebase:firebase-config:16.0.0'
-
     //Importing the design library fixes the build error
     implementation 'com.android.support:design:27.1.1'
 

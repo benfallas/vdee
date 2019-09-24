@@ -2,8 +2,6 @@ package vdee.evalverde.vdee.component;
 
 import android.content.SharedPreferences;
 
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -18,7 +16,6 @@ import vdee.evalverde.vdee.module.ExpModule;
 * Creates remote config database object.
 */
 public interface ExperimentComponent {
-    FirebaseRemoteConfig remoteConfig();
     SharedPreferences sharedPreferences();
     Retrofit retrofit();
 }
