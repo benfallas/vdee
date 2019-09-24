@@ -58,11 +58,6 @@ public class Analytics {
                 .logCustom(mCustomEvents.phoneButtonClicked());
     }
 
-    public void onEmailButtonClicked() {
-        Answers.getInstance()
-                .logCustom(mCustomEvents.emailButtonClicked());
-    }
-
     public void contactPageView() {
         Answers.getInstance().logContentView(
                 new ContentViewEvent()

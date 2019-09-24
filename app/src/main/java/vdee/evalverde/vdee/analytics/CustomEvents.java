@@ -44,14 +44,4 @@ public class CustomEvents {
         return new CustomEvent(mPhoneButtonClicked)
                 .putCustomAttribute(mPhoneButtonClicked, mContactPageView);
     }
-
-    CustomEvent emailButtonClicked() {
-        return new CustomEvent(mEmailButtonClicked)
-                .putCustomAttribute(mEmailButtonClicked, mContactPageView);
-    }
-
-    CustomEvent contactPageView() {
-        return new CustomEvent(mContactPageView)
-                .putCustomAttribute(mContactPageView, mContactPageView);
-    }
 }

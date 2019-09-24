@@ -7,11 +7,9 @@ package vdee.evalverde.vdee.mediaPlayer;
 public class RadioStation {
 
     private final String mRadiourl;
-    private final String mRadioTitle;
 
-    public RadioStation(String radioUrl, String radioTitle) {
+    public RadioStation(String radioUrl) {
         mRadiourl = radioUrl;
-        mRadioTitle = radioTitle;
     }
 
     /**
@@ -21,10 +19,4 @@ public class RadioStation {
         return mRadiourl;
     }
 
-    /**
-     * Returns the current radio station title
-     */
-    public String getRadioTitle() {
-        return mRadioTitle;
-    }
 }
