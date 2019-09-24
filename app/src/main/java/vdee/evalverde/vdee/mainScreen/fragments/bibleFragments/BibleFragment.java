@@ -42,10 +42,8 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
     private RecyclerView mListOfBooks;
     private BooksAdapter mAdapter;
     private BibleResponseListener mListener;
-    private EditText mSearchBar;
 
     private ArrayList<Book> originalBooks;
-    private ArrayList<Book> filteredBooks;
 
     @Inject Retrofit retrofit;
 
@@ -64,7 +62,6 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
 
     private void onAttach() {
         mAnalytics = Analytics.getAnalytics();
-        filteredBooks = new ArrayList<>();
         mListOfBooks = getActivity().findViewById(R.id.recycler_view_books);
         mListener = new BibleResponseListener(this);
 
@@ -73,7 +70,6 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
                 .experimentComponent((((VDEEApp) getActivity().getApplicationContext())).getExpComponent())
                 .build()
                 .inject(this);
-        mSearchBar = getActivity().findViewById(R.id.bible_search);
 
         if (StorageUtils.getStoredBooksResponse() != null
             && StorageUtils.getStoredBooksResponse().getResponse().getBooks() != null) {
@@ -85,42 +81,6 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
                 .subscribe(mListener);
             showDialog();
         }
-
-        mSearchBar.addTextChangedListener(
-                new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        mSearchBar.setCursorVisible(false);
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        mSearchBar.setCursorVisible(false);
-                        s = s.toString().toLowerCase();
-
-                        for (int i = 0; i < originalBooks.size(); i++) {
-                            final String bookSearched = originalBooks.get(i).getName().toLowerCase();
-                            if (bookSearched.contains(s)) {
-                                filteredBooks.add(originalBooks.get(i));
-                            }
-                        }
-
-                        mListOfBooks.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-                        mAdapter = new BooksAdapter(
-                                getActivity().getApplicationContext(),
-                                filteredBooks,
-                                BibleFragment.this);
-
-                        mListOfBooks.setAdapter(mAdapter);
-                        mAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        mSearchBar.setCursorVisible(false);
-                    }
-                }
-        );
     }
 
     private void displayBooks(ArrayList<Book> books) {
@@ -132,8 +92,8 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
     @Override
     public void onBibleBookClicked(int position) {
         Fragment fragment = new ChaptersFragment();
-        String bookTitle = filteredBooks.get(position).getName();
-        String bookId = filteredBooks.get(position).getId();
+        String bookTitle = originalBooks.get(position).getName();
+        String bookId = originalBooks.get(position).getId();
         Bundle bundle = new Bundle();
         bundle.putString(BOOK_TITLE, bookTitle);
         bundle.putString(BOOK_ID, bookId);
@@ -162,7 +122,6 @@ public class BibleFragment extends ParentFragment implements BooksAdapter.ViewHo
     private void showBooks(BooksResponse booksResponse) {
         if (booksResponse.getResponse().getBooks() != null) {
             originalBooks = booksResponse.getResponse().getBooks();
-            filteredBooks.addAll(originalBooks);
             displayBooks(originalBooks);
         }
     }

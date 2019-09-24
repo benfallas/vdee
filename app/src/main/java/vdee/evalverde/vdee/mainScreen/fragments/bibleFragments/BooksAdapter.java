@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,5 +74,11 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
 
     public interface ViewHolderListener {
         void onBibleBookClicked(int position);
+    }
+
+    public void updateList(ArrayList<Book> books) {
+        books.clear();
+        books.addAll(books);
+        notifyDataSetChanged();
     }
 }
