@@ -1,7 +1,9 @@
 package vdee.evalverde.vdee.mainScreen.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +19,16 @@ import vdee.evalverde.vdee.R;
 import vdee.evalverde.vdee.VDEEApp;
 import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
+import vdee.evalverde.vdee.mediaPlayer.ForegroundService;
 import vdee.evalverde.vdee.mediaPlayer.RadioPlayerListener;
 import vdee.evalverde.vdee.mediaPlayer.SimplePlayer;
 import vdee.evalverde.vdee.util.FragmentManagerUtils;
 import vdee.evalverde.vdee.util.ParentFragment;
 import vdee.evalverde.vdee.util.PerFragment;
+
+import static vdee.evalverde.vdee.mediaPlayer.ForegroundService.START_SERVICE_FLAG;
+import static vdee.evalverde.vdee.mediaPlayer.ForegroundService.START_STOP_KEY;
+import static vdee.evalverde.vdee.mediaPlayer.ForegroundService.STOP_SERVICE_FLAG;
 
 public class HomeFragment extends ParentFragment implements View.OnClickListener, RadioPlayerListener {
 
@@ -111,9 +118,11 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
             endNow = android.os.SystemClock.uptimeMillis();
             minute = TimeUnit.MILLISECONDS.toMinutes(endNow - startNow);
             logTime(minute);
+            stopService();
             hideDialog();
         } else {
             showDialog();
+            startService();
             play();
             mSimplePlayer.initPlayer();
             isPaused = false;
@@ -154,6 +163,20 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     public void onReleaseRadio() {
         hideDialog();
         stop();
+    }
+
+    private void startService() {
+        Intent serviceIntent = new Intent(getActivity(), ForegroundService.class);
+        serviceIntent.putExtra(START_STOP_KEY, START_SERVICE_FLAG);
+
+        ContextCompat.startForegroundService(getActivity(), serviceIntent);
+    }
+
+    private void stopService() {
+        Intent serviceIntent = new Intent(getActivity(), ForegroundService.class);
+        serviceIntent.putExtra(START_STOP_KEY, STOP_SERVICE_FLAG);
+
+        ContextCompat.startForegroundService(getActivity(), serviceIntent);
     }
 
     @PerFragment
