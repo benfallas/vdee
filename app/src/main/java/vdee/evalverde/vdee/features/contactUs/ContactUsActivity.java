@@ -5,6 +5,12 @@ import vdee.evalverde.vdee.baseActivity.BaseActivity;
 
 public class ContactUsActivity extends BaseActivity {
 
+    private ContactUsController contactUsController;
+
+    public void onAttached() {
+        contactUsController = new ContactUsController(this);
+    }
+
     @Override
     public int getContentViewId() {
         return R.layout.activity_contact_us;

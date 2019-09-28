@@ -24,8 +24,6 @@ public class MainActivity extends BaseActivity {
     private FragmentManagerUtils fragmentManagerUtils;
 
     public void onAttached() {
-        Log.d("BASEACTIVITTEST", "onAttachedMAINACTIVTY");
-
         Fabric.with(this, new Crashlytics());
         fragmentManagerUtils = FragmentManagerUtils.getFragmentManagerUtils();
         mMainController = new MainController(this);
