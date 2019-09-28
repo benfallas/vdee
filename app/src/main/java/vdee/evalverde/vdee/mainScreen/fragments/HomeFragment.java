@@ -19,6 +19,7 @@ import vdee.evalverde.vdee.R;
 import vdee.evalverde.vdee.VDEEApp;
 import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
+import vdee.evalverde.vdee.mediaPlayer.Constants;
 import vdee.evalverde.vdee.mediaPlayer.ForegroundService;
 import vdee.evalverde.vdee.mediaPlayer.RadioPlayerListener;
 import vdee.evalverde.vdee.mediaPlayer.SimplePlayer;
@@ -167,14 +168,14 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
 
     private void startService() {
         Intent serviceIntent = new Intent(getActivity(), ForegroundService.class);
-        serviceIntent.putExtra(START_STOP_KEY, START_SERVICE_FLAG);
+        serviceIntent.setAction(Constants.ACTION.START_SERVICE);
 
         ContextCompat.startForegroundService(getActivity(), serviceIntent);
     }
 
     private void stopService() {
         Intent serviceIntent = new Intent(getActivity(), ForegroundService.class);
-        serviceIntent.putExtra(START_STOP_KEY, STOP_SERVICE_FLAG);
+        serviceIntent.setAction(Constants.ACTION.STOP_SERVICE);
 
         ContextCompat.startForegroundService(getActivity(), serviceIntent);
     }
