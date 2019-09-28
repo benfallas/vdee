@@ -1,9 +1,7 @@
-package vdee.evalverde.vdee.mainScreen.fragments;
+package vdee.evalverde.vdee.features.mainScreen.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +10,16 @@ import android.widget.TextView;
 
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
-import java.util.concurrent.TimeUnit;
-
 import dagger.Component;
 import vdee.evalverde.vdee.R;
 import vdee.evalverde.vdee.VDEEApp;
 import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
-import vdee.evalverde.vdee.mediaPlayer.Constants;
-import vdee.evalverde.vdee.mediaPlayer.ForegroundService;
 import vdee.evalverde.vdee.mediaPlayer.RadioPlayerListener;
 import vdee.evalverde.vdee.mediaPlayer.SimplePlayer;
 import vdee.evalverde.vdee.util.FragmentManagerUtils;
 import vdee.evalverde.vdee.util.ParentFragment;
 import vdee.evalverde.vdee.util.PerFragment;
-
-import static vdee.evalverde.vdee.mediaPlayer.ForegroundService.START_SERVICE_FLAG;
-import static vdee.evalverde.vdee.mediaPlayer.ForegroundService.START_STOP_KEY;
-import static vdee.evalverde.vdee.mediaPlayer.ForegroundService.STOP_SERVICE_FLAG;
 
 public class HomeFragment extends ParentFragment implements View.OnClickListener, RadioPlayerListener {
 
@@ -109,26 +99,7 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
     }
 
     private void onPlayStopButtonClicked() {
-        if (mSimplePlayer == null) {
-            mSimplePlayer = SimplePlayer.initializeSimplePlayer(getActivity(), this);
-        }
 
-        if (mSimplePlayer.isInitialized()) {
-            mSimplePlayer.releasePlayer();
-            isPaused = true;
-            endNow = android.os.SystemClock.uptimeMillis();
-            minute = TimeUnit.MILLISECONDS.toMinutes(endNow - startNow);
-            logTime(minute);
-            stopService();
-            hideDialog();
-        } else {
-            showDialog();
-            startService();
-            play();
-            mSimplePlayer.initPlayer();
-            isPaused = false;
-            startNow = android.os.SystemClock.uptimeMillis();
-        }
     }
 
     private void stop() {
@@ -136,9 +107,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
         mPlayStopButton.setBackground(getActivity().getResources().getDrawable(R.drawable.play_button));
     }
 
-    private void logTime(long minute) {
-        mAnalytics.onStopButtonTimer(minute);
-    }
 
     @Override
     public void onRadioPlayerReady() {
@@ -166,19 +134,6 @@ public class HomeFragment extends ParentFragment implements View.OnClickListener
         stop();
     }
 
-    private void startService() {
-        Intent serviceIntent = new Intent(getActivity(), ForegroundService.class);
-        serviceIntent.setAction(Constants.ACTION.START_SERVICE);
-
-        ContextCompat.startForegroundService(getActivity(), serviceIntent);
-    }
-
-    private void stopService() {
-        Intent serviceIntent = new Intent(getActivity(), ForegroundService.class);
-        serviceIntent.setAction(Constants.ACTION.STOP_SERVICE);
-
-        ContextCompat.startForegroundService(getActivity(), serviceIntent);
-    }
 
     @PerFragment
     @Component(dependencies = ExperimentComponent.class)

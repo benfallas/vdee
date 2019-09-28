@@ -1,4 +1,4 @@
-package vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.chapter;
+package vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.chapter;
 
 import android.content.Context;
 

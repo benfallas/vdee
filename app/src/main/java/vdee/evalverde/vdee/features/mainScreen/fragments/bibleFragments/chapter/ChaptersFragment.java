@@ -1,4 +1,4 @@
-package vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.chapter;
+package vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.chapter;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -23,14 +23,14 @@ import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
 import vdee.evalverde.vdee.data.module.chaptersResponse.ChapterPayload;
 import vdee.evalverde.vdee.data.module.chaptersResponse.ChaptersResponse;
-import vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.verses.VersesFragment;
+import vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.verses.VersesFragment;
 import vdee.evalverde.vdee.util.FragmentManagerUtils;
 import vdee.evalverde.vdee.util.ParentFragment;
 import vdee.evalverde.vdee.util.PerFragment;
 import vdee.evalverde.vdee.vdeeApi.VdeeApi;
 
-import static vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.BibleFragment.BOOK_ID;
-import static vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.BibleFragment.BOOK_TITLE;
+import static vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.BibleFragment.BOOK_ID;
+import static vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.BibleFragment.BOOK_TITLE;
 import static vdee.evalverde.vdee.util.FragmentManagerUtils.VERSES_FRAGMENT_TAG;
 
 public class ChaptersFragment extends ParentFragment

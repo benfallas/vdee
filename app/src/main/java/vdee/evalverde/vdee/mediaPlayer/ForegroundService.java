@@ -13,7 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import vdee.evalverde.vdee.R;
-import vdee.evalverde.vdee.mainScreen.MainActivity;
+import vdee.evalverde.vdee.features.mainScreen.MainActivity;
 
 public class ForegroundService extends Service {
 

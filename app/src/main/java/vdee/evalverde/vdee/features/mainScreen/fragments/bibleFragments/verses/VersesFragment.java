@@ -1,4 +1,4 @@
-package vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.verses;
+package vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.verses;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,8 +28,8 @@ import vdee.evalverde.vdee.util.ParentFragment;
 import vdee.evalverde.vdee.util.PerFragment;
 import vdee.evalverde.vdee.vdeeApi.VdeeApi;
 
-import static vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment.CHAPTER_ID;
-import static vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment.VERSES_TITLE;
+import static vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment.CHAPTER_ID;
+import static vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment.VERSES_TITLE;
 
 public class VersesFragment extends ParentFragment implements VersesResponseListener.Listener {
 

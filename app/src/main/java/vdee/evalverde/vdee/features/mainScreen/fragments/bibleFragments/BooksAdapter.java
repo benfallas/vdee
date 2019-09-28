@@ -1,4 +1,4 @@
-package vdee.evalverde.vdee.mainScreen.fragments.bibleFragments;
+package vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

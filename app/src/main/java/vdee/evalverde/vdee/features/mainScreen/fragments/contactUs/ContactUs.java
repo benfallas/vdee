@@ -1,4 +1,4 @@
-package vdee.evalverde.vdee.mainScreen.fragments.contactUs;
+package vdee.evalverde.vdee.features.mainScreen.fragments.contactUs;
 
 import android.Manifest;
 import android.app.Fragment;
@@ -32,11 +32,9 @@ import vdee.evalverde.vdee.phoneCallReceiver.CallReceiver;
  * Created by ben on 6/23/18.
  */
 
-public class ContactUs extends Fragment implements CallReceiver.CallReceiverListener {
+public class ContactUs extends Fragment {
 
     private Analytics mAnalytics;
-    private PhoneStateListener mPhoneStateListener;
-    private TelephonyManager mTelephonyManager;
     private Animation mAnimation;
     private MyBounceInterpolator mInterpolator;
     private SimplePlayer mSimplePlayer;
@@ -58,9 +56,6 @@ public class ContactUs extends Fragment implements CallReceiver.CallReceiverList
 
     private void onAttach() {
         mAnalytics = Analytics.getAnalytics();
-        mTelephonyManager = (TelephonyManager) getActivity().getSystemService(getActivity().getApplicationContext().TELEPHONY_SERVICE);
-        mPhoneStateListener = new CallReceiver(this);
-        mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
         mAnalytics.contactPageView();
         mAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.bounce);
         mInterpolator = new MyBounceInterpolator(0.2, 20);
@@ -91,15 +86,6 @@ public class ContactUs extends Fragment implements CallReceiver.CallReceiverList
         });
     }
 
-    @Override
-    public void onIncomingCall() {
-
-    }
-
-    @Override
-    public void onCallEnded() {
-
-    }
 
     private boolean checkPermission(String permission) {
         return ContextCompat.checkSelfPermission(

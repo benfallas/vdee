@@ -1,16 +1,13 @@
-package vdee.evalverde.vdee.mainScreen.fragments.bibleFragments;
+package vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -26,7 +23,7 @@ import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
 import vdee.evalverde.vdee.data.module.booksResponse.Book;
 import vdee.evalverde.vdee.data.module.booksResponse.BooksResponse;
-import vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment;
+import vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment;
 import vdee.evalverde.vdee.util.FragmentManagerUtils;
 import vdee.evalverde.vdee.util.ParentFragment;
 import vdee.evalverde.vdee.util.PerFragment;

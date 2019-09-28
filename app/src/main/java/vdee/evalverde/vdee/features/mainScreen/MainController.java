@@ -1,12 +1,11 @@
-package vdee.evalverde.vdee.mainScreen;
+package vdee.evalverde.vdee.features.mainScreen;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -16,22 +15,16 @@ import javax.inject.Inject;
 import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
-import vdee.evalverde.vdee.R;
 import vdee.evalverde.vdee.VDEEApp;
 import vdee.evalverde.vdee.analytics.Analytics;
-import vdee.evalverde.vdee.mainScreen.fragments.HomeFragment;
 import vdee.evalverde.vdee.component.ExperimentComponent;
-import vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.BibleFragment;
-import vdee.evalverde.vdee.mainScreen.fragments.contactUs.ContactUs;
+import vdee.evalverde.vdee.mediaPlayer.Constants;
+import vdee.evalverde.vdee.mediaPlayer.ForegroundService;
 import vdee.evalverde.vdee.mediaPlayer.SimplePlayer;
 import vdee.evalverde.vdee.permissions.PermissionsManager;
 import vdee.evalverde.vdee.phoneCallReceiver.CallReceiver;
-import vdee.evalverde.vdee.util.FragmentManagerUtils;
 import vdee.evalverde.vdee.util.PerController;
 
-import static vdee.evalverde.vdee.util.FragmentManagerUtils.BIBLE_FRAGMENT_TAG;
-import static vdee.evalverde.vdee.util.FragmentManagerUtils.CONTACT_US_FRAGMENT_TAG;
-import static vdee.evalverde.vdee.util.FragmentManagerUtils.HOME_FRAGMENT_TAG;
 
 /**
  * Main Controller holds the logic for most activity happening on Main Screen.
@@ -40,12 +33,6 @@ class MainController
         implements MainLayout.MainLayoutListener,
         CallReceiver.CallReceiverListener {
 
-    private int cacheExpiration;
-    private static String experiment;
-    private static String mMultipleRadiosupport;
-    private Boolean FBExpName;
-    private static Boolean mMultipleRadioSupport;
-    private Boolean isPaused;
 
     private MainActivity mMainActivity;
     private Analytics mAnalytics;
@@ -53,22 +40,12 @@ class MainController
     private IntentReceiver mIntentReceiver;
     private PhoneStateListener mPhoneStateListener;
     private TelephonyManager mTelephonyManager;
-    private FragmentManager mFragmentManager;
-    private FragmentManagerUtils fragmentManagerUtils;
-    private Fragment mFragment;
-
     @Inject MainLayout mMainLayout;
-    private PermissionsManager mPermissionsManager;
 
-    private long startNow;
-    private long endNow;
-    private long minutes;
 
     MainController(@NonNull MainActivity mainActivity) {
         mMainActivity = mainActivity;
         mAnalytics = Analytics.getAnalytics();
-        mPermissionsManager = PermissionsManager.getPermissionsManager();
-        fragmentManagerUtils = FragmentManagerUtils.getFragmentManagerUtils();
 
         DaggerMainController_MainControllerComponent.builder()
                 .mainControllerModule(new MainControllerModule(mMainActivity, this, mAnalytics))
@@ -78,66 +55,58 @@ class MainController
 
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         mIntentReceiver = new IntentReceiver();
+        mSimplePlayer = SimplePlayer.getSimplePlayer();
 
         mMainActivity.registerReceiver(mIntentReceiver, intentFilter);
 
-        if (mPermissionsManager.PHONE_STATE_PERMISSION_GRANTED) {
-            mTelephonyManager = (TelephonyManager) mMainActivity.getSystemService(mMainActivity.getApplicationContext().TELEPHONY_SERVICE);
+        if (PermissionsManager.PHONE_STATE_PERMISSION_GRANTED) {
+            mMainActivity.getApplicationContext();
+            mTelephonyManager = (TelephonyManager) mMainActivity.getSystemService(Context.TELEPHONY_SERVICE);
             mPhoneStateListener = new CallReceiver(this);
             mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
-        }
-
-        onAttach();
-    }
-
-    private void onAttach() {
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(int itemId) {
-        String id = "";
-        switch (itemId) {
-            case R.id.homeItem:
-                mFragment = new HomeFragment();
-                id = HOME_FRAGMENT_TAG;
-                break;
-            case R.id.bible:
-                mFragment = new BibleFragment();
-                id = BIBLE_FRAGMENT_TAG;
-                break;
-            case R.id.contactItem:
-                mFragment = new ContactUs();
-                id = CONTACT_US_FRAGMENT_TAG;
-                break;
-            default:
-                return false;
-        }
-        fragmentManagerUtils.pushFragment(mFragment, id);
-        return true;
-    }
+        } }
 
     @Override
     public void onIncomingCall() {
-        mSimplePlayer.releasePlayer();
-    }
-
-    @Override
-    public void onCallEnded() {
-        if(FBExpName && isPaused) {
+        if (mSimplePlayer.isInitialized()) {
             mSimplePlayer.releasePlayer();
-        } else
-            mSimplePlayer.initPlayer();
+        }
     }
 
     /**
      * releases receiver.
      */
-    public void onPaused() {
+    void onPaused() {
         try {
             mMainActivity.unregisterReceiver(mIntentReceiver);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) { }
+    }
 
+    @Override
+    public void onPlayStopButtonClicked() {
+        if (mSimplePlayer.isInitialized()) {
+            mAnalytics.onStopButtonClicked();
+            mSimplePlayer.releasePlayer();
+            stopService();
+        } else {
+            mAnalytics.onPlayButtonClicked();
+            startService();
+            mSimplePlayer.initPlayer();
         }
+    }
+
+    private void startService() {
+        Intent serviceIntent = new Intent(mMainActivity, ForegroundService.class);
+        serviceIntent.setAction(Constants.ACTION.START_SERVICE);
+
+        ContextCompat.startForegroundService(mMainActivity, serviceIntent);
+    }
+
+    private void stopService() {
+        Intent serviceIntent = new Intent(mMainActivity, ForegroundService.class);
+        serviceIntent.setAction(Constants.ACTION.STOP_SERVICE);
+
+        ContextCompat.startForegroundService(mMainActivity, serviceIntent);
     }
 
     private class IntentReceiver extends BroadcastReceiver {

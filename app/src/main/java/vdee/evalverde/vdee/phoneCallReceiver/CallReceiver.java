@@ -28,22 +28,8 @@ public class CallReceiver extends PhoneStateListener {
 
     @Override
     public void onCallStateChanged(int state, String incomingNumber) {
-        switch (state) {
-            case TelephonyManager.CALL_STATE_IDLE:
-                if (isIncomingCall) {
-                    Log.d(CALL_RECEIVER_LOG, INCOMING_CALL_ENDED);
-                    mCallReceiverListener.onCallEnded();
-                    isIncomingCall = false;
-                }
-                break;
-            case TelephonyManager.CALL_STATE_OFFHOOK:
-                Log.d(CALL_RECEIVER_LOG, INCOMING_ANSWERED);
-                break;
-            case TelephonyManager.CALL_STATE_RINGING:
-                isIncomingCall = true;
-                Log.d(CALL_RECEIVER_LOG, INCOMING_RECEIVED);
-                mCallReceiverListener.onIncomingCall();
-                break;
+        if (state == TelephonyManager.CALL_STATE_RINGING) {
+            mCallReceiverListener.onIncomingCall();
         }
     }
 
@@ -52,6 +38,5 @@ public class CallReceiver extends PhoneStateListener {
      */
     public interface CallReceiverListener {
         void onIncomingCall();
-        void onCallEnded();
     }
 }

@@ -1,29 +1,31 @@
-package vdee.evalverde.vdee.mainScreen;
+package vdee.evalverde.vdee.features.mainScreen;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.vistrav.ask.Ask;
 import com.vistrav.ask.annotations.AskGranted;
 
 import io.fabric.sdk.android.Fabric;
-import vdee.evalverde.vdee.parent.ParentActivity;
+import vdee.evalverde.vdee.R;
+import vdee.evalverde.vdee.baseActivity.BaseActivity;
 import vdee.evalverde.vdee.permissions.PermissionsManager;
 import vdee.evalverde.vdee.util.FragmentManagerUtils;
 
 /**
  * Main Activity controls the Android lifecycle of main screen.
  */
-public class MainActivity extends ParentActivity {
+public class MainActivity extends BaseActivity {
 
     private MainController mMainController;
     private PermissionsManager mPermissionsManager;
     private FragmentManagerUtils fragmentManagerUtils;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttached() {
+        Log.d("BASEACTIVITTEST", "onAttachedMAINACTIVTY");
+
         Fabric.with(this, new Crashlytics());
         fragmentManagerUtils = FragmentManagerUtils.getFragmentManagerUtils();
         mMainController = new MainController(this);
@@ -53,8 +55,18 @@ public class MainActivity extends ParentActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         mMainController.onPaused();
+    }
+
+    @Override
+    public int getContentViewId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public int getNavigationMenuItemId() {
+        return R.id.homeItem;
     }
 }

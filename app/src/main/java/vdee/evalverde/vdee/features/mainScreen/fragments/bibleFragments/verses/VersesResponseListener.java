@@ -1,4 +1,4 @@
-package vdee.evalverde.vdee.mainScreen.fragments.bibleFragments.verses;
+package vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.verses;
 
 import rx.Subscriber;
 import vdee.evalverde.vdee.data.module.versesResponse.VersesResponse;

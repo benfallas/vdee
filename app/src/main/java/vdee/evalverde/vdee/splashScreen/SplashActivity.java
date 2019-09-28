@@ -10,7 +10,7 @@ import dagger.Component;
 import vdee.evalverde.vdee.R;
 import vdee.evalverde.vdee.VDEEApp;
 import vdee.evalverde.vdee.component.ExperimentComponent;
-import vdee.evalverde.vdee.mainScreen.MainActivity;
+import vdee.evalverde.vdee.features.mainScreen.MainActivity;
 import vdee.evalverde.vdee.parent.ParentActivity;
 import vdee.evalverde.vdee.util.PerFragment;
 import vdee.evalverde.vdee.util.StorageUtils;
