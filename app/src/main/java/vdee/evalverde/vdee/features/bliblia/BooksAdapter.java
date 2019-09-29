@@ -82,11 +82,16 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                selectedBook = position;
-                                chapterPayloads.clear();
-                                notifyDataSetChanged();
+                                if (selectedBook == position) {
+                                    holder.chaptersGrid.setVisibility(View.GONE);
+                                    chapterPayloads.clear();
+                                } else {
+                                    selectedBook = position;
+                                    chapterPayloads.clear();
+                                    notifyDataSetChanged();
+                                    mListener.onBibleBookClicked(position);
+                                }
 
-                                mListener.onBibleBookClicked(position);
                             }
                         }
                 );
