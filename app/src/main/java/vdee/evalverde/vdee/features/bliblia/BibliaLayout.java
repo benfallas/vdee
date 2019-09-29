@@ -96,7 +96,14 @@ public class BibliaLayout
         listener.onBibleBookClicked(originalBooks.get(position).getId());
     }
 
+    @Override
+    public void onChapterButtonClicked(ChapterPayload chapterPayload) {
+        listener.onChapterButtonClicked(chapterPayload);
+    }
+
     interface Listener {
         void onBibleBookClicked(String bookTitle);
+
+        void onChapterButtonClicked(ChapterPayload chapterPayload);
     }
 }

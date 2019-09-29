@@ -1,4 +1,4 @@
-package vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.verses;
+package vdee.evalverde.vdee.features.verses;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -47,6 +47,12 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.VersesView
     @Override
     public int getItemCount() {
         return mVerses.size();
+    }
+
+    public void updateVerses(ArrayList<VersesPayload> versesPayloads) {
+        mVerses.clear();
+        mVerses.addAll(versesPayloads);
+        notifyDataSetChanged();
     }
 
     public static class VersesViewHolder extends RecyclerView.ViewHolder {

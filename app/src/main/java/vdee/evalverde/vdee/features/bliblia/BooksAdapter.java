@@ -104,7 +104,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
 
     @Override
     public void onChapterButtonClicked(int position) {
-
+        mListener.onChapterButtonClicked(chapterPayloads.get(position));
     }
 
     public void updateBooks(ArrayList<Book> books, ArrayList<ChapterPayload> chapterPayloads) {
@@ -136,5 +136,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
 
     public interface ViewHolderListener {
         void onBibleBookClicked(int position);
+
+        void onChapterButtonClicked(ChapterPayload chapterPayload);
+
     }
 }

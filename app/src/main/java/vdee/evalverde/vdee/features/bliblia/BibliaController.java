@@ -1,5 +1,6 @@
 package vdee.evalverde.vdee.features.bliblia;
 
+import android.content.Intent;
 import android.support.annotation.IdRes;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import vdee.evalverde.vdee.VDEEApp;
 import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
 import vdee.evalverde.vdee.data.module.booksResponse.Book;
+import vdee.evalverde.vdee.data.module.chaptersResponse.ChapterPayload;
+import vdee.evalverde.vdee.features.verses.VersesActivity;
 import vdee.evalverde.vdee.util.PerController;
 import vdee.evalverde.vdee.vdeeApi.VdeeApi;
 
@@ -67,6 +70,14 @@ public class BibliaController implements BibliaLayout.Listener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(chaptersResponseListener);
 
+    }
+
+    @Override
+    public void onChapterButtonClicked(ChapterPayload chapterPayload) {
+        String chapterId = chapterPayload.getId();
+        String chapterTitle = chapterPayload.getLabel();
+        Intent intent = VersesActivity.getVersesActivityIntent(bibliaActivity, chapterId, chapterTitle);
+        bibliaActivity.startActivity(intent);
     }
 
 

@@ -1,4 +1,4 @@
-package vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.verses;
+package vdee.evalverde.vdee.features.verses;
 
 import rx.Subscriber;
 import vdee.evalverde.vdee.data.module.versesResponse.VersesResponse;
@@ -30,7 +30,7 @@ public class VersesResponseListener extends Subscriber<VersesResponse> {
         mListener.onNext(versesResponse);
     }
 
-    interface Listener {
+    public interface Listener {
         void onCompleted();
 
         void onError(Throwable e);
