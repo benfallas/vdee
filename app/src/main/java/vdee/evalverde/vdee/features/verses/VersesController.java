@@ -73,7 +73,7 @@ public class VersesController implements VersesLayout.Listener, VersesResponseLi
     @Override
     public void onError(Throwable e) {
         versesActivity.hideDialog();
-        versesActivity.showNetworkError();
+        versesActivity.showNetworkError(e.getMessage());
     }
 
     @Override

@@ -54,7 +54,7 @@ public class BibliaLayout
     @Override
     public void onError() {
         bibliaActivity.hideDialog();
-        bibliaActivity.showNetworkError();
+        bibliaActivity.showNetworkError(bibliaActivity.getString(R.string.network_error));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class BibliaLayout
     @Override
     public void onError(Throwable e) {
         bibliaActivity.hideDialog();
-        bibliaActivity.showNetworkError();
+        bibliaActivity.showNetworkError(e.getMessage());
     }
 
     @Override
@@ -93,7 +93,7 @@ public class BibliaLayout
     @Override
     public void onBibleBookClicked(int position) {
         chapterPayloads = new ArrayList<>();
-        listener.onBibleBookClicked(originalBooks.get(position).getId());
+        listener.onBibleBookClicked(originalBooks.get(position));
     }
 
     @Override
@@ -102,7 +102,7 @@ public class BibliaLayout
     }
 
     interface Listener {
-        void onBibleBookClicked(String bookTitle);
+        void onBibleBookClicked(Book book);
 
         void onChapterButtonClicked(ChapterPayload chapterPayload);
     }

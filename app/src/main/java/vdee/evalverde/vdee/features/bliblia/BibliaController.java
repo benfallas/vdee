@@ -31,6 +31,7 @@ public class BibliaController implements BibliaLayout.Listener {
     private ChaptersResponseListener chaptersResponseListener;
 
     private Analytics analytics;
+    private String bookTitle;
 
 
     private BibliaActivity bibliaActivity;
@@ -60,12 +61,13 @@ public class BibliaController implements BibliaLayout.Listener {
     }
 
     @Override
-    public void onBibleBookClicked(String bookId) {
+    public void onBibleBookClicked(Book book) {
+        this.bookTitle = book.getName();
         chaptersResponseListener = new ChaptersResponseListener(bibliaLayout);
 
         bibliaActivity.showDialog();
         retrofit.create(VdeeApi.class)
-                .getChaptersByBookId(bookId)
+                .getChaptersByBookId(book.getId())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(chaptersResponseListener);
@@ -74,9 +76,10 @@ public class BibliaController implements BibliaLayout.Listener {
 
     @Override
     public void onChapterButtonClicked(ChapterPayload chapterPayload) {
+        String chapter = chapterPayload.getChapter();
         String chapterId = chapterPayload.getId();
-        String chapterTitle = chapterPayload.getLabel();
-        Intent intent = VersesActivity.getVersesActivityIntent(bibliaActivity, chapterId, chapterTitle);
+
+        Intent intent = VersesActivity.getVersesActivityIntent(bibliaActivity, chapterId, bookTitle + " " + chapter);
         bibliaActivity.startActivity(intent);
     }
 

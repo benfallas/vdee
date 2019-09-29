@@ -106,10 +106,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     }
 
 
-    public void showNetworkError() {
+    public void showNetworkError(String detailedError) {
         if (mMessageDialog == null) {
             mMessageDialog = new AlertDialog.Builder(this)
-                    .setMessage(getString(R.string.network_error))
+                    .setMessage(detailedError)
                     .setNeutralButton(getString(R.string.continuar), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

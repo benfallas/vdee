@@ -88,7 +88,7 @@ public class MainLayout
     @Override
     public void onRadioPlayerError() {
         mMainActivity.hideDialog();
-        mMainActivity.showNetworkError();
+        mMainActivity.showNetworkError(mMainActivity.getString(R.string.network_error));
         mPlayStopButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.play_button));
         mAnalytics.onRadioNetworkError();
 
