@@ -2,11 +2,12 @@ package vdee.evalverde.vdee.features.verses;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import vdee.evalverde.vdee.baseActivity.DefaultBaseActivity;
 
-public class VersesActivity extends AppCompatActivity {
+
+public class VersesActivity extends DefaultBaseActivity {
 
     public static String VERSES_ID_KEY = "VERSES_ID_KEY";
     public static String VERSES_TITLE_KEY= "VERSES_TITLE_KEY";

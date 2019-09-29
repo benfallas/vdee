@@ -62,6 +62,7 @@ public class VersesController implements VersesLayout.Listener, VersesResponseLi
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(versesResponseListener);
+        versesActivity.showDialog();
     }
 
     @Override
@@ -71,15 +72,18 @@ public class VersesController implements VersesLayout.Listener, VersesResponseLi
 
     @Override
     public void onError(Throwable e) {
-
+        versesActivity.hideDialog();
+        versesActivity.showNetworkError();
     }
 
     @Override
     public void onNext(VersesResponse versesResponse) {
+
         versesPayloads  = versesResponse.getResponse().getVersesPayload();
         versesLayout.setVersesTitle(versesTitle);
         versesLayout.setCopyWrite(Html.fromHtml(versesPayloads.get(0).getCopyright()));
         displayVerses(versesPayloads);
+        versesActivity.hideDialog();
     }
 
     private void displayVerses(ArrayList<VersesPayload> versesPayloads) {

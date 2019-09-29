@@ -32,9 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
         onAttached();
     }
 
-    public void onAttached() {
-
-    }
+    public void onAttached() { }
 
     @Override
     protected void onStart() {
