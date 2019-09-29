@@ -58,4 +58,10 @@ public class DefaultBaseActivity extends AppCompatActivity {
         super.onPause();
         hideDialog();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        hideDialog();
+    }
 }
