@@ -29,7 +29,7 @@
                 android:verticalSpacing="12dp"
                 android:horizontalSpacing="5dp"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/vdee__book_title"/>
+                app:layout_constraintTop_toBottomOf="@+id/vdee__book_title" />
 
 
 </android.support.constraint.ConstraintLayout>

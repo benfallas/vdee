@@ -46,6 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     @Override
     public void onPause() {
         super.onPause();
+        hideDialog();
         overridePendingTransition(0, 0);
     }
 
