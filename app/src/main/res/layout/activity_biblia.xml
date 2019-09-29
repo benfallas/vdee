@@ -12,8 +12,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_books"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="50dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintTop_toTopOf="parent"/>
 
