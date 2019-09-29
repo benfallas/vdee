@@ -9,6 +9,12 @@ import vdee.evalverde.vdee.baseActivity.BaseActivity;
 public class BibliaActivity extends BaseActivity {
 
 
+    BibliaController bibliaController;
+
+    public void onAttached() {
+        bibliaController = new BibliaController(this);
+    }
+
     @Override
     public int getContentViewId() {
         return R.layout.activity_biblia;

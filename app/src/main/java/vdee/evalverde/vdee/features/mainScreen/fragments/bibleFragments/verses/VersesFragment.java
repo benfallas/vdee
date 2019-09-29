@@ -28,8 +28,6 @@ import vdee.evalverde.vdee.util.ParentFragment;
 import vdee.evalverde.vdee.util.PerFragment;
 import vdee.evalverde.vdee.vdeeApi.VdeeApi;
 
-import static vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment.CHAPTER_ID;
-import static vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.chapter.ChaptersFragment.VERSES_TITLE;
 
 public class VersesFragment extends ParentFragment implements VersesResponseListener.Listener {
 
@@ -69,15 +67,15 @@ public class VersesFragment extends ParentFragment implements VersesResponseList
                 .inject(this);
 
         mVersesTitleView = getActivity().findViewById(R.id.verses_title);
-        mVersesCopyright = getActivity().findViewById(R.id.verses_copyright);
-
-        String versesId = getArguments().getString(CHAPTER_ID);
-        mVersesTitle = getArguments().getString(VERSES_TITLE);
-
-        mRetrofit.create(VdeeApi.class).getVerses(versesId)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mListener);
+//        mVersesCopyright = getActivity().findViewById(R.id.verses_copyright);
+//
+//        String versesId = getArguments().getString(CHAPTER_ID);
+//        mVersesTitle = getArguments().getString(VERSES_TITLE);
+//
+//        mRetrofit.create(VdeeApi.class).getVerses(versesId)
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(mListener);
         showDialog();
     }
 

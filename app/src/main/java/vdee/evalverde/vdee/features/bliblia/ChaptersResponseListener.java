@@ -1,4 +1,4 @@
-package vdee.evalverde.vdee.features.mainScreen.fragments.bibleFragments.chapter;
+package vdee.evalverde.vdee.features.bliblia;
 
 import rx.Subscriber;
 import vdee.evalverde.vdee.data.module.chaptersResponse.ChaptersResponse;
