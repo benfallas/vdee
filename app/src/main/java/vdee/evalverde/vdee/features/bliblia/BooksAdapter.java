@@ -66,7 +66,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Book book = mBooks.get(position);
-        if (chapterPayloads != null && !chapterPayloads.isEmpty() && selectedBook == position) {
+        if (chapterPayloads != null
+                && !chapterPayloads.isEmpty() && selectedBook == position) {
             holder.chaptersGrid.setVisibility(View.VISIBLE);
         } else {
             holder.chaptersGrid.setVisibility(View.GONE);
@@ -82,7 +83,9 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
                             @Override
                             public void onClick(View view) {
                                 selectedBook = position;
+                                chapterPayloads.clear();
                                 notifyDataSetChanged();
+
                                 mListener.onBibleBookClicked(position);
                             }
                         }
