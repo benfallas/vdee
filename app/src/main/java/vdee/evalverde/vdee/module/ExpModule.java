@@ -1,7 +1,10 @@
 package vdee.evalverde.vdee.module;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
@@ -14,6 +17,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -28,11 +32,14 @@ import static vdee.evalverde.vdee.vdeeApi.VdeeApi.API_KEY;
 @Module
 public class ExpModule {
     private String mBaseUrl = "https://bibles.org/v2/";
+    private Application application;
 
     /**
      * ExpModule fetches current remote config values.
      */
-    public ExpModule() { }
+    public ExpModule(Application application) {
+        this.application = application;
+    }
 
     @Provides
     @Singleton
@@ -64,9 +71,24 @@ public class ExpModule {
                 new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request().newBuilder()
-                                .addHeader("Authorization", Credentials.basic(API_KEY, API_KEY))
-                                .build();
+
+                        Request.Builder builder = chain.request().newBuilder();
+
+                        builder
+                                .addHeader("Authorization", Credentials.basic(API_KEY, API_KEY));
+
+                        ConnectivityManager connectivityManager = (ConnectivityManager)application.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+                            builder.header("Cache-Control", "public, max-age=" + 1440).build();
+                        } else {
+                            builder.header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
+                            builder.cacheControl(CacheControl.FORCE_CACHE);
+                        }
+
+
+                        Request request = builder.build();
                         return chain.proceed(request);
                     }
                 }

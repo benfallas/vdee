@@ -24,7 +24,7 @@ public class VDEEApp extends Application {
 
         mExperimentComponent = DaggerExperimentComponent.builder()
                 .appModule(new AppModule(this))
-                .expModule(new ExpModule())
+                .expModule(new ExpModule(this))
                 .build();
     }
 

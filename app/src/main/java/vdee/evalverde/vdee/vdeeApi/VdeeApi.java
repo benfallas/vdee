@@ -10,7 +10,7 @@ public interface VdeeApi{
 
     public static String API_KEY = "u1IDoa19G87bf5l4PmB9LAemRV20tg2LKoAp3k6F";
 
-    @GET("versions/spa-RVR1960/books.js/")
+    @GET("versions/spa-RVR1960/books.js?include_chapters=true")
     rx.Observable<BooksResponse> getBible();
 
     @GET("books/{book_id}/chapters.js")
