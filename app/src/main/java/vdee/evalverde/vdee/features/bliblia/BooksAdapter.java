@@ -118,7 +118,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.vdee__book_title) TextView bookButton;
+        @BindView(R.id.vdee__book_title) Button bookButton;
         @BindView(R.id.chapters_grid) VdeeChaptersGrid chaptersGrid;
         ViewHolderListener mListener;
 

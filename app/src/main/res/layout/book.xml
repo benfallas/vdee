@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-        <TextView
+        <Button
             android:id="@+id/vdee__book_title"
             android:layout_width="match_parent"
             android:layout_height="60dp"
