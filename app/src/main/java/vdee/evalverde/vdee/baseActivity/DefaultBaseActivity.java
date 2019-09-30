@@ -33,6 +33,7 @@ public class DefaultBaseActivity extends AppCompatActivity {
     public void hideDialog() {
         if (progressDialog != null) {
             progressDialog.hide();
+            progressDialog.dismiss();
             progressDialog = null;
         }
     }
