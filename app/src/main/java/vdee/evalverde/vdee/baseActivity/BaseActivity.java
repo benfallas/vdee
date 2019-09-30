@@ -101,6 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     public void hideDialog() {
         if (progressDialog != null) {
             progressDialog.hide();
+            progressDialog.dismiss();
             progressDialog = null;
         }
     }
