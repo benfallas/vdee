@@ -79,30 +79,38 @@ public class MainLayout
 
     @Override
     public void onRadioPlayerReady() {
-        mMainActivity.hideDialog();
-        mPlayStopButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.stop_button));
-        mAnalytics.onRadioNetworkSuccess();
+        if (mMainActivity != null) {
+            mMainActivity.hideDialog();
+            mPlayStopButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.stop_button));
+            mAnalytics.onRadioNetworkSuccess();
+        }
 
     }
 
     @Override
     public void onRadioPlayerError() {
-        mMainActivity.hideDialog();
-        mMainActivity.showNetworkError(mMainActivity.getString(R.string.network_error));
-        mPlayStopButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.play_button));
-        mAnalytics.onRadioNetworkError();
+        if (mMainActivity != null) {
+            mMainActivity.hideDialog();
+            mMainActivity.showNetworkError(mMainActivity.getString(R.string.network_error));
+            mPlayStopButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.play_button));
+            mAnalytics.onRadioNetworkError();
+        }
 
     }
 
     @Override
     public void onRadioPlayerBuffering() {
-        mMainActivity.showDialog();
+        if (mMainActivity != null && !mMainActivity.isFinishing()) {
+            mMainActivity.showDialog();
+        }
     }
 
     @Override
     public void onReleaseRadio() {
-        mMainActivity.hideDialog();
-        mPlayStopButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.play_button));
+        if (mMainActivity != null) {
+            mMainActivity.hideDialog();
+            mPlayStopButton.setBackground(mMainActivity.getResources().getDrawable(R.drawable.play_button));
+        }
     }
 
     private void onShareButtonClicked() {

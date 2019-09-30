@@ -53,13 +53,18 @@ public class BibliaLayout
 
     @Override
     public void onError() {
-        bibliaActivity.hideDialog();
-        bibliaActivity.showNetworkError(bibliaActivity.getString(R.string.network_error));
+        if (bibliaActivity != null) {
+            bibliaActivity.hideDialog();
+            bibliaActivity.showNetworkError(bibliaActivity.getString(R.string.network_error));
+        }
     }
 
     @Override
     public void onNext(ChaptersResponse chaptersResponse) {
-        bibliaActivity.hideDialog();
+        if (bibliaActivity != null) {
+            bibliaActivity.hideDialog();
+        }
+
         if (chaptersResponse.getResponse().getChapterPayloads() != null) {
             chapterPayloads = chaptersResponse.getResponse().getChapterPayloads();
             booksAdapter.updateBooks(originalBooks, chapterPayloads);
@@ -68,13 +73,17 @@ public class BibliaLayout
 
     @Override
     public void onError(Throwable e) {
-        bibliaActivity.hideDialog();
-        bibliaActivity.showNetworkError(e.getMessage());
+        if (bibliaActivity != null) {
+            bibliaActivity.hideDialog();
+            bibliaActivity.showNetworkError(e.getMessage());
+        }
     }
 
     @Override
     public void onNext(BooksResponse booksResponse) {
-        bibliaActivity.hideDialog();
+        if (bibliaActivity != null) {
+            bibliaActivity.hideDialog();
+        }
         showBooks(booksResponse);
 
     }
