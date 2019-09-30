@@ -73,13 +73,16 @@ public class ForegroundService extends Service {
             stopForeground(true);
             stopSelf();
         } else if (action.equals(Constants.ACTION.ACTION_PLAY)) {
-            if (!simplePlayer.isInitialized()) {
+            if (simplePlayer != null && !simplePlayer.isInitialized()) {
                 simplePlayer.initPlayer();
             }
         } else if (action.equals(Constants.ACTION.ACTION_STOP)) {
-            if (simplePlayer.isInitialized()) {
+            if (simplePlayer != null && simplePlayer.isInitialized()) {
                 simplePlayer.releasePlayer();
             }
+
+            stopForeground(true);
+            stopSelf();
 
         } else {
             Log.d("ForegroundSErvice", "empty");
