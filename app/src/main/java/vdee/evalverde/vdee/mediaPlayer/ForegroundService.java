@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
@@ -27,11 +28,40 @@ public class ForegroundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        simplePlayer = SimplePlayer.getSimplePlayer();
+
+        createNotificationChannel();
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0, notificationIntent, 0);
+
+        Intent playIntent = new Intent(this, ForegroundService.class);
+        playIntent.setAction(Constants.ACTION.ACTION_PLAY);
+        PendingIntent pendingPlayIntent = PendingIntent.getService(this, 0,
+                playIntent, 0);
+
+        Intent stopIntent = new Intent(this, ForegroundService.class);
+        stopIntent.setAction(Constants.ACTION.ACTION_STOP);
+        PendingIntent pendingStopIntent = PendingIntent.getService(this, 0,
+                stopIntent, 0);
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Estas Escuchando")
+                .setContentText("Voz del Evangelio Eterno")
+                .setSmallIcon(R.drawable.vdee_logo)
+                .addAction(R.drawable.play_button, "Play", pendingPlayIntent)
+                .addAction(R.drawable.stop_button, "Stop", pendingStopIntent)
+                .setContentIntent(pendingIntent)
+                .setPriority(Notification.PRIORITY_MAX)
+                .build();
+
+            startForeground(1, notification);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        simplePlayer = SimplePlayer.getSimplePlayer();
 
         String action = intent.getAction();
 
@@ -39,37 +69,7 @@ public class ForegroundService extends Service {
             action = "";
         }
 
-        if (action.equals(Constants.ACTION.START_SERVICE)) {
-
-            createNotificationChannel();
-            Intent notificationIntent = new Intent(this, MainActivity.class);
-            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                    0, notificationIntent, 0);
-
-            Intent playIntent = new Intent(this, ForegroundService.class);
-            playIntent.setAction(Constants.ACTION.ACTION_PLAY);
-            PendingIntent pendingPlayIntent = PendingIntent.getService(this, 0,
-                    playIntent, 0);
-
-            Intent stopIntent = new Intent(this, ForegroundService.class);
-            stopIntent.setAction(Constants.ACTION.ACTION_STOP);
-            PendingIntent pendingStopIntent = PendingIntent.getService(this, 0,
-                    stopIntent, 0);
-
-            Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setContentTitle("Estas Escuchando")
-                    .setContentText("Voz del Evangelio Eterno")
-                    .setSmallIcon(R.drawable.vdee_logo)
-                    .addAction(R.drawable.play_button, "Play", pendingPlayIntent)
-                    .addAction(R.drawable.stop_button, "Stop", pendingStopIntent)
-                    .setContentIntent(pendingIntent)
-                    .setPriority(Notification.PRIORITY_MAX)
-                    .build();
-
-            startForeground(1, notification);
-        } else if (action.equals(Constants.ACTION.STOP_SERVICE)){
+        if (action.equals(Constants.ACTION.STOP_SERVICE)){
             stopForeground(true);
             stopSelf();
         } else if (action.equals(Constants.ACTION.ACTION_PLAY)) {

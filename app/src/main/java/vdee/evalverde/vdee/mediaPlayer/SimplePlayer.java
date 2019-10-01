@@ -90,7 +90,6 @@ public class SimplePlayer
             mSimpleExoPlayer.removeListener(this);
             mSimpleExoPlayer.release();
             mSimpleExoPlayer = null;
-            mSimplePlayerInstance = null;
 
             mRadioPlayerListener.onReleaseRadio();
         }
