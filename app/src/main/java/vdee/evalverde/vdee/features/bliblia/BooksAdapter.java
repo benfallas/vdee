@@ -2,6 +2,7 @@ package vdee.evalverde.vdee.features.bliblia;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +23,8 @@ import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vdee.evalverde.vdee.R;
+import vdee.evalverde.vdee.data.models.BookInfo;
+import vdee.evalverde.vdee.data.models.ChapterInfo;
 import vdee.evalverde.vdee.data.module.booksResponse.Book;
 import vdee.evalverde.vdee.data.module.chaptersResponse.Chapter;
 import vdee.evalverde.vdee.data.module.chaptersResponse.ChapterPayload;
@@ -33,8 +38,8 @@ import vdee.evalverde.vdee.views.layout.VdeeChaptersGrid;
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
         implements ChaptersAdapter.ChapterButtonListener {
 
-    private  ArrayList<Book> mBooks;
-    private  ArrayList<ChapterPayload> chapterPayloads;
+    private  Map<String, BookInfo> mBooks;
+    private Map<String, ChapterInfo> chapters;
     private ChaptersAdapter chaptersAdapter;
     private GridView gridView;
     private ViewHolderListener mListener;
@@ -42,13 +47,14 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
 
     public BooksAdapter(
             BibliaActivity bibliaActivity,
-            ArrayList<Book> books,
-            ArrayList<ChapterPayload> chapterPayloads,
+            Map<String, BookInfo> books,
             ViewHolderListener listener) {
         mBooks = books;
-        this.chapterPayloads = chapterPayloads;
         mListener = listener;
-        chaptersAdapter = new ChaptersAdapter(bibliaActivity, chapterPayloads, this);
+        chapters = new HashMap<>();
+        selectedBook = -1;
+
+        chaptersAdapter = new ChaptersAdapter(bibliaActivity, chapters, this);
     }
 
     @Override
@@ -65,55 +71,60 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Book book = mBooks.get(position);
-        if (chapterPayloads != null
-                && !chapterPayloads.isEmpty() && selectedBook == position) {
-            holder.chaptersGrid.setVisibility(View.VISIBLE);
+        if (position == 0) {
+            holder.bookButton.setVisibility(View.GONE);
         } else {
-            holder.chaptersGrid.setVisibility(View.GONE);
-        }
-        gridView = holder.chaptersGrid;
-        gridView.setAdapter(chaptersAdapter);
-        TextView button = holder.bookButton;
-        button.setText(book.getName());
 
-        holder.bookButton
-                .setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (selectedBook == position) {
-                                    holder.chaptersGrid.setVisibility(View.GONE);
-                                    chapterPayloads.clear();
-                                } else {
-                                    selectedBook = position;
-                                    chapterPayloads.clear();
-                                    notifyDataSetChanged();
-                                    mListener.onBibleBookClicked(position);
+
+            final BookInfo bookInfo = mBooks.get(String.valueOf(position));
+            chapters.clear();
+            if (bookInfo != null) {
+                chapters.putAll(bookInfo.getChapterInfoHashMap());
+            }
+
+            if (selectedBook == position) {
+                holder.chaptersGrid.setVisibility(View.VISIBLE);
+            } else {
+                holder.chaptersGrid.setVisibility(View.GONE);
+            }
+
+            gridView = holder.chaptersGrid;
+            gridView.setAdapter(chaptersAdapter);
+            TextView button = holder.bookButton;
+
+            button.setText(bookInfo != null ? bookInfo.getBookName() : "");
+
+
+            holder.bookButton
+                    .setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (selectedBook == position) {
+                                        holder.chaptersGrid.setVisibility(View.GONE);
+                                        selectedBook = -1;
+                                    } else {
+                                        selectedBook = position;
+                                        holder.chaptersGrid.setVisibility(View.VISIBLE);
+                                        chaptersAdapter.updateChapters(chapters);
+                                        notifyDataSetChanged();
+                                        mListener.onBibleBookClicked(position);
+                                    }
+
                                 }
-
                             }
-                        }
-                );
+                    );
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mBooks.size();
+        return mBooks.size() + 1;
     }
 
     @Override
-    public void onChapterButtonClicked(int position) {
-        mListener.onChapterButtonClicked(chapterPayloads.get(position));
-    }
-
-    public void updateBooks(ArrayList<Book> books, ArrayList<ChapterPayload> chapterPayloads) {
-        this.chapterPayloads.clear();
-        this.chapterPayloads.addAll(chapterPayloads);
-        mBooks.clear();
-        mBooks.addAll(books);
-        notifyDataSetChanged();
-        chaptersAdapter.updateChapterPayloads(chapterPayloads);
+    public void onChapterButtonClicked(ChapterInfo chapterInfo) {
+        mListener.onChapterButtonClicked(chapterInfo);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -137,7 +148,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
     public interface ViewHolderListener {
         void onBibleBookClicked(int position);
 
-        void onChapterButtonClicked(ChapterPayload chapterPayload);
+        void onChapterButtonClicked(ChapterInfo chapterInfo);
 
     }
 }

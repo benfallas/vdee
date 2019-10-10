@@ -7,8 +7,10 @@ import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import vdee.evalverde.vdee.R;
+import vdee.evalverde.vdee.data.models.VerseInfo;
 import vdee.evalverde.vdee.data.module.versesResponse.VersesPayload;
 
 public class VersesLayout {
@@ -17,24 +19,22 @@ public class VersesLayout {
     private Listener listener;
     private RecyclerView versesHolder;
     private VersesAdapter versesAdapter;
-    private ArrayList<VersesPayload> versesPayloads;
+    private HashMap<String, VerseInfo> verseInfoHashMap;
 
     private TextView versesTitle;
-    private TextView versesCopywrite;
 
     VersesLayout(VersesActivity versesActivity, Listener listener) {
         this.versesActivity = versesActivity;
         this.listener = listener;
-        versesPayloads = new ArrayList<>();
+        verseInfoHashMap = new HashMap<>();
 
         versesActivity.setContentView(R.layout.verses_layout);
 
         versesTitle = versesActivity.findViewById(R.id.verses_title);
-        versesCopywrite = versesActivity.findViewById(R.id.verses_copyright);
 
         versesHolder = versesActivity.findViewById(R.id.recycler_view_verses);
         versesHolder.setLayoutManager(new LinearLayoutManager(versesActivity.getApplicationContext()));
-        versesAdapter = new VersesAdapter(versesActivity, versesPayloads);
+        versesAdapter = new VersesAdapter(versesActivity, verseInfoHashMap);
         versesHolder.setAdapter(versesAdapter);
 
     }
@@ -43,14 +43,11 @@ public class VersesLayout {
         versesTitle.setText(title);
     }
 
-    public void setCopyWrite(Spanned copyWrite) {
-        versesCopywrite.setText(copyWrite);
-    }
 
-    public void updateVersePayloads(ArrayList<VersesPayload> versesPayloads) {
-        this.versesPayloads.clear();
-        this.versesPayloads.addAll(versesPayloads);
-        versesAdapter.updateVerses(versesPayloads);
+    public void updateVersePayloads(HashMap<String, VerseInfo> verseInfoHashMap) {
+        this.verseInfoHashMap.clear();
+        this.verseInfoHashMap.putAll(verseInfoHashMap);
+        versesAdapter.updateVerses(verseInfoHashMap);
     }
 
     interface Listener { }

@@ -10,30 +10,33 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Map;
 
+import vdee.evalverde.vdee.data.models.ChapterInfo;
+import vdee.evalverde.vdee.data.models.VerseInfo;
 import vdee.evalverde.vdee.data.module.chaptersResponse.ChapterPayload;
 
 public class ChaptersAdapter extends BaseAdapter {
 
-    private ArrayList<ChapterPayload> mPayloads;
+    private Map<String, ChapterInfo> chapterInfoMap;
     private Context mContext;
 
     private ChapterButtonListener mChapterButtonListener;
 
-    public ChaptersAdapter(Context context, ArrayList<ChapterPayload> payloads,
+    public ChaptersAdapter(Context context, Map<String, ChapterInfo> chapterInfoMap,
                            ChapterButtonListener chapterButtonListener) {
         mChapterButtonListener = chapterButtonListener;
         mContext = context;
-        mPayloads = payloads;
+        this.chapterInfoMap = chapterInfoMap;
     }
     @Override
     public int getCount() {
-        return mPayloads.size();
+        return chapterInfoMap.size() + 1;
     }
 
     @Override
     public Object getItem(int i) {
-        return mPayloads.get(i);
+        return chapterInfoMap.get(String.valueOf(i));
     }
 
     @Override
@@ -44,6 +47,7 @@ public class ChaptersAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         Button textView;
 
         if (convertView == null) {
@@ -54,26 +58,38 @@ public class ChaptersAdapter extends BaseAdapter {
         } else {
             textView = (Button) convertView;
         }
-        textView.setText(mPayloads.get(position).getChapter());
+
+        if (position == 0) {
+            textView.setVisibility(View.GONE);
+        }
+
+        final ChapterInfo chapterInfo = chapterInfoMap.get(String.valueOf(position));
+
+
+        if (chapterInfo != null) {
+            textView.setText(String.valueOf(chapterInfo.getChapterNumber()));
+        } else {
+            textView.setText("null");
+        }
 
         textView.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mChapterButtonListener.onChapterButtonClicked(position);
+                        mChapterButtonListener.onChapterButtonClicked(chapterInfo);
                     }
                 }
         );
         return textView;
     }
 
-    public void updateChapterPayloads(ArrayList<ChapterPayload> chapterPayloads) {
-        mPayloads.clear();
-        mPayloads.addAll(chapterPayloads);
+    public void updateChapters(Map<String, ChapterInfo> chapterInfoMap) {
+        this.chapterInfoMap.clear();
+        this.chapterInfoMap.putAll(chapterInfoMap);
         notifyDataSetChanged();
     }
 
     interface ChapterButtonListener {
-        void onChapterButtonClicked(int position);
+        void onChapterButtonClicked(ChapterInfo chapterInfo);
     }
 }

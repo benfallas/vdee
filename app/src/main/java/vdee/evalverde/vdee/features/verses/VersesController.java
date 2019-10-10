@@ -3,6 +3,7 @@ package vdee.evalverde.vdee.features.verses;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -17,15 +18,15 @@ import rx.schedulers.Schedulers;
 import vdee.evalverde.vdee.VDEEApp;
 import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
+import vdee.evalverde.vdee.data.models.ChapterInfo;
+import vdee.evalverde.vdee.data.models.VerseInfo;
 import vdee.evalverde.vdee.data.module.versesResponse.VersesPayload;
 import vdee.evalverde.vdee.data.module.versesResponse.VersesResponse;
 import vdee.evalverde.vdee.util.PerController;
+import vdee.evalverde.vdee.util.StorageUtils;
 import vdee.evalverde.vdee.vdeeApi.VdeeApi;
 
-import static vdee.evalverde.vdee.features.verses.VersesActivity.VERSES_ID_KEY;
-import static vdee.evalverde.vdee.features.verses.VersesActivity.VERSES_TITLE_KEY;
-
-public class VersesController implements VersesLayout.Listener, VersesResponseListener.Listener {
+public class VersesController implements VersesLayout.Listener {
 
 
 
@@ -38,6 +39,7 @@ public class VersesController implements VersesLayout.Listener, VersesResponseLi
     private VersesResponseListener versesResponseListener;
     private ArrayList<VersesPayload> versesPayloads;
     private String versesTitle;
+    private ChapterInfo chapterInfo;
 
     VersesController(VersesActivity versesActivity) {
         this.versesActivity = versesActivity;
@@ -50,44 +52,12 @@ public class VersesController implements VersesLayout.Listener, VersesResponseLi
                 .build()
                 .inject(this);
 
-        versesResponseListener = new VersesResponseListener(this);
-
-        Intent intent = versesActivity.getIntent();
-
-        String versesId = intent != null ? intent.getStringExtra(VERSES_ID_KEY) : "";
-        versesTitle = intent != null ? intent.getStringExtra(VERSES_TITLE_KEY) : "";
-
-        retrofit.create(VdeeApi.class)
-                .getVerses(versesId)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(versesResponseListener);
-        versesActivity.showDialog();
-    }
-
-    @Override
-    public void onCompleted() {
-
-    }
-
-    @Override
-    public void onError(Throwable e) {
-        versesActivity.hideDialog();
-        versesActivity.showNetworkError(e.getMessage());
-    }
-
-    @Override
-    public void onNext(VersesResponse versesResponse) {
-
-        versesPayloads  = versesResponse.getResponse().getVersesPayload();
-        versesLayout.setVersesTitle(versesTitle);
-        versesLayout.setCopyWrite(Html.fromHtml(versesPayloads.get(0).getCopyright()));
-        displayVerses(versesPayloads);
-        versesActivity.hideDialog();
-    }
-
-    private void displayVerses(ArrayList<VersesPayload> versesPayloads) {
-        versesLayout.updateVersePayloads(versesPayloads);
+        chapterInfo = StorageUtils.getChapterInfo();
+        Log.d("BibleFlow: ",  "chpaterNumber: VErse: " + String.valueOf(chapterInfo.getChapterNumber()));
+        VerseInfo verseInfo = chapterInfo.verseInfoHashMap().get("1");
+        Log.d("BibleFlow: ", "verse " + verseInfo.getVerse());
+        versesLayout.setVersesTitle(StorageUtils.getLatestSelectedBookInfo().getBookName() + " " + chapterInfo.getChapterNumber());
+        versesLayout.updateVersePayloads(chapterInfo.verseInfoHashMap());
     }
 
     @PerController

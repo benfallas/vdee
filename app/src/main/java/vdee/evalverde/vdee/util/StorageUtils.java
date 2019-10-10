@@ -4,6 +4,15 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+import vdee.evalverde.vdee.data.models.BiblePayload;
+import vdee.evalverde.vdee.data.models.BookInfo;
+import vdee.evalverde.vdee.data.models.Chapter;
+import vdee.evalverde.vdee.data.models.ChapterInfo;
 import vdee.evalverde.vdee.data.module.booksResponse.BooksResponse;
 
 /**
@@ -14,7 +23,9 @@ import vdee.evalverde.vdee.data.module.booksResponse.BooksResponse;
  */
 public class StorageUtils {
 
-    public static final String BOOKS_RESPONSE = "books_response";
+    private static ArrayList<BiblePayload> biblePayloads;
+    private static BookInfo bookInfo;
+    private static ChapterInfo chapterInfo;
 
     private static SharedPreferences mSharedPreferences;
     private static StorageUtils mStorageUtils;
@@ -25,21 +36,35 @@ public class StorageUtils {
         if (mStorageUtils == null) {
             mStorageUtils = new StorageUtils();
             mSharedPreferences = sharedPreferences;
+            biblePayloads = new ArrayList<>();
+            chapterInfo = null;
+            bookInfo = null;
         }
     }
 
-    public static void storeBooksResponse(BooksResponse booksResponse) {
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(booksResponse);
-        editor.putString(BOOKS_RESPONSE, json);
-        editor.commit();
+    public static void updateBiblePayloads(ArrayList<BiblePayload> biblePayloads) {
+        StorageUtils.biblePayloads.clear();
+        StorageUtils.biblePayloads.addAll(biblePayloads);
     }
 
-    public static BooksResponse getStoredBooksResponse() {
-        Gson gson = new Gson();
-        String json = mSharedPreferences.getString(BOOKS_RESPONSE, "");
-        BooksResponse booksResponse = gson.fromJson(json, BooksResponse.class);
-        return booksResponse;
+    public static Map<String, BookInfo> getListOfBooks() {
+        Map<String, BookInfo> treeMap = new TreeMap<String, BookInfo>(biblePayloads.get(0).getVersion());
+        return treeMap;
+    }
+
+    public static void updateSelectedBook(BookInfo bookInfo) {
+        StorageUtils.bookInfo = bookInfo;
+    }
+
+    public static BookInfo getLatestSelectedBookInfo() {
+        return bookInfo;
+    }
+
+    public static void updateChapterInfo(ChapterInfo chapterInfo) {
+        StorageUtils.chapterInfo = chapterInfo;
+    }
+
+    public static ChapterInfo getChapterInfo() {
+        return chapterInfo;
     }
 }

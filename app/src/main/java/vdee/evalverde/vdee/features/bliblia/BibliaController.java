@@ -2,8 +2,18 @@ package vdee.evalverde.vdee.features.bliblia;
 
 import android.content.Intent;
 import android.support.annotation.IdRes;
+import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,13 +23,19 @@ import retrofit2.Retrofit;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import vdee.evalverde.vdee.R;
 import vdee.evalverde.vdee.VDEEApp;
 import vdee.evalverde.vdee.analytics.Analytics;
 import vdee.evalverde.vdee.component.ExperimentComponent;
+import vdee.evalverde.vdee.data.models.BiblePayload;
+import vdee.evalverde.vdee.data.models.BookInfo;
+import vdee.evalverde.vdee.data.models.ChapterInfo;
+import vdee.evalverde.vdee.data.models.VerseInfo;
 import vdee.evalverde.vdee.data.module.booksResponse.Book;
 import vdee.evalverde.vdee.data.module.chaptersResponse.ChapterPayload;
 import vdee.evalverde.vdee.features.verses.VersesActivity;
 import vdee.evalverde.vdee.util.PerController;
+import vdee.evalverde.vdee.util.StorageUtils;
 import vdee.evalverde.vdee.vdeeApi.VdeeApi;
 
 public class BibliaController implements BibliaLayout.Listener {
@@ -29,6 +45,7 @@ public class BibliaController implements BibliaLayout.Listener {
 
     private BibleResponseListener bibleResponseListener;
     private ChaptersResponseListener chaptersResponseListener;
+    private Map<String, BookInfo> bookInfoMap;
 
     private Analytics analytics;
     private String bookTitle;
@@ -39,8 +56,7 @@ public class BibliaController implements BibliaLayout.Listener {
     BibliaController(BibliaActivity bibliaActivity) {
         this.bibliaActivity = bibliaActivity;
         analytics = Analytics.getAnalytics();
-
-
+        bookInfoMap = StorageUtils.getListOfBooks();
 
         DaggerBibliaController_BibliaControllerComponent.builder()
                 .bibliaControllerModule(new BibliaControllerModule(bibliaActivity, this, retrofit))
@@ -49,37 +65,27 @@ public class BibliaController implements BibliaLayout.Listener {
                 .inject(this);
 
         analytics.biblePageView();
-        bibleResponseListener = new BibleResponseListener(bibliaLayout);
 
-        retrofit.create(VdeeApi.class)
-                .getBible()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(bibleResponseListener);
-        bibliaActivity.showDialog();
+    }
+
+
+
+    @Override
+    public void onBibleBookClicked(BookInfo bookInfo) {
+        this.bookTitle = bookInfo.getBookName();
+        Log.d("BibleFlow", "bibleClicked: " + bookTitle);
+        StorageUtils.updateSelectedBook(bookInfo);
 
     }
 
     @Override
-    public void onBibleBookClicked(Book book) {
-        this.bookTitle = book.getName();
-        chaptersResponseListener = new ChaptersResponseListener(bibliaLayout);
+    public void onChapterButtonClicked(ChapterInfo chapterInfo) {
+        VerseInfo verseInfo = chapterInfo.verseInfoHashMap().get("1");
+        Log.d("BibleFlow: ", "verse in bibleC " + verseInfo.getVerse());
+        Log.d("BibleFlow", "chapterClicked: " + chapterInfo.getChapterNumber());
 
-        bibliaActivity.showDialog();
-        retrofit.create(VdeeApi.class)
-                .getChaptersByBookId(book.getId())
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(chaptersResponseListener);
-
-    }
-
-    @Override
-    public void onChapterButtonClicked(ChapterPayload chapterPayload) {
-        String chapter = chapterPayload.getChapter();
-        String chapterId = chapterPayload.getId();
-
-        Intent intent = VersesActivity.getVersesActivityIntent(bibliaActivity, chapterId, bookTitle + " " + chapter);
+        StorageUtils.updateChapterInfo(chapterInfo);
+        Intent intent = VersesActivity.getVersesActivityIntent(bibliaActivity);
         bibliaActivity.startActivity(intent);
     }
 
